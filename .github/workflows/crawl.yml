@@ -1,0 +1,61 @@
+name: 每日自动抓取 AI 设计资讯
+
+on:
+  # 每天北京时间 0:00（UTC 16:00）自动触发
+  schedule:
+    - cron: '0 16 * * *'  # UTC 16:00 = 北京时间 0:00
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    # 赋予工作流写入权限，允许推送代码
+    permissions:
+      contents: write
+      actions: read
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: scripts/package.json
+
+      - name: 安装依赖
+        working-directory: ./scripts
+        run: |
+          npm ci
+
+      - name: 运行抓取脚本
+        working-directory: ./scripts
+        run: |
+          node crawler.js
+        env:
+          TZ: Asia/Shanghai
+
+      - name: 检查是否有更改
+        id: check-changes
+        run: |
+          git diff --exit-code data/today.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: 提交更改
+        if: steps.check-changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add data/today.json
+          git commit -m "🔄 自动更新: $(date '+%Y-%m-%d') 的 AI 设计资讯" || exit 0
+
+      - name: 推送更改
+        if: steps.check-changes.outputs.changed == 'true'
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin main

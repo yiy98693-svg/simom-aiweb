@@ -1,0 +1,20 @@
+{
+  "name": "AI组件检索器（支持Figma API实时同步）",
+  "id": "1590639946634294869",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "documentAccess": "dynamic-page",
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.figma.com",
+      "https://figma-alpha-api.s3.us-west-2.amazonaws.com"
+    ],
+    "reasoning": "需要访问 Figma API 获取组件库数据，并从 Figma 的图片 CDN（S3）加载组件缩略图。"
+  }
+}

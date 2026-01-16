@@ -1,0 +1,24 @@
+{
+  "name": "ai-design-news-crawler",
+  "version": "1.0.0",
+  "description": "抓取 AI 设计资讯的脚本",
+  "main": "crawler.js",
+  "scripts": {
+    "crawl": "node crawler.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "crawler",
+    "ai",
+    "design",
+    "news"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "1.0.0-rc.12"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
