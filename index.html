@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="每日 AI 设计情报 - 每天 0 点自动从官方设计站点抓取最新 AI 相关内容">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>每日 AI 设计情报</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <h1 class="site-title">每日 AI 设计情报</h1>
+      <div class="update-status" id="updateStatus">
+        <span id="currentDate"></span>
+        <span>·</span>
+        <span>已更新</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content: Site Cards Container -->
+  <main class="main-content">
+    <div class="site-cards-container" id="siteCardsContainer">
+      <!-- 翻译加载动画（初始隐藏） -->
+      <div id="loadingTranslation" class="loading-translation" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">正在翻译标题，请稍候...</p>
+      </div>
+      <!-- 加载骨架屏 -->
+      <div class="loading-skeleton">
+        <div class="skeleton-site-card">
+          <div class="skeleton-header"></div>
+          <div class="skeleton-news-list">
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+          </div>
+        </div>
+        <div class="skeleton-site-card">
+          <div class="skeleton-header"></div>
+          <div class="skeleton-news-list">
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+          </div>
+        </div>
+        <div class="skeleton-site-card">
+          <div class="skeleton-header"></div>
+          <div class="skeleton-news-list">
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+          </div>
+        </div>
+        <div class="skeleton-site-card">
+          <div class="skeleton-header"></div>
+          <div class="skeleton-news-list">
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+            <div class="skeleton-news-item"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部">
+    ↑
+  </button>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-text">
+        数据抓取自公开网页，仅作学习与收藏导航用途，版权归原网站所有。
+      </p>
+      <div class="footer-links">
+        <a href="https://m3.material.io/" target="_blank" rel="noopener noreferrer">Material Design</a>
+        <span>·</span>
+        <a href="https://microsoft.design/" target="_blank" rel="noopener noreferrer">Microsoft Design</a>
+        <span>·</span>
+        <a href="https://design.google/" target="_blank" rel="noopener noreferrer">Google Design</a>
+        <span>·</span>
+        <a href="https://www.figma.com" target="_blank" rel="noopener noreferrer">Figma</a>
+      </div>
+      <p class="footer-note">
+        每天 0 点自动更新 · 仅展示 AI 设计相关内容
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // 确保脚本加载后立即检查
+    window.addEventListener('load', function() {
+      console.log('页面完全加载完成');
+      console.log('CONFIG:', typeof CONFIG !== 'undefined' ? CONFIG : '未定义');
+      console.log('容器元素:', document.getElementById('siteCardsContainer'));
+    });
+    
+    // 处理可能的浏览器扩展错误（如 share-modal.js）
+    // 这个错误通常由浏览器扩展引起，不影响网站功能
+    window.addEventListener('error', function(e) {
+      if (e.filename && (
+        e.filename.includes('share-modal.js') || 
+        e.filename.includes('extension://') ||
+        e.filename.includes('chrome-extension://') ||
+        e.filename.includes('moz-extension://')
+      )) {
+        // 忽略浏览器扩展导致的错误
+        console.warn('浏览器扩展错误已忽略:', e.filename);
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    }, true);
+    
+    // 捕获未处理的 Promise 错误（可能由扩展引起）
+    window.addEventListener('unhandledrejection', function(e) {
+      if (e.reason && (
+        e.reason.toString().includes('share-modal') ||
+        e.reason.toString().includes('extension')
+      )) {
+        console.warn('浏览器扩展 Promise 错误已忽略');
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
