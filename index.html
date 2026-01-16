@@ -96,6 +96,61 @@
     </div>
   </footer>
 
+  <script>
+    // 在加载其他脚本之前，先设置错误处理来捕获浏览器扩展错误
+    (function() {
+      // 捕获所有错误，过滤掉浏览器扩展相关的错误
+      const originalErrorHandler = window.onerror;
+      window.onerror = function(message, source, lineno, colno, error) {
+        // 检查是否是浏览器扩展相关的错误
+        if (source && (
+          source.includes('share-modal.js') ||
+          source.includes('extension://') ||
+          source.includes('chrome-extension://') ||
+          source.includes('moz-extension://') ||
+          source.includes('safari-extension://') ||
+          source.includes('edge-extension://')
+        )) {
+          // 静默忽略扩展错误
+          return true;
+        }
+        
+        // 检查错误消息是否包含扩展相关内容
+        if (message && (
+          message.includes('share-modal') ||
+          message.includes('Cannot read properties of null') ||
+          message.includes('addEventListener')
+        )) {
+          // 可能是扩展错误，静默忽略
+          return true;
+        }
+        
+        // 其他错误正常处理
+        if (originalErrorHandler) {
+          return originalErrorHandler.call(this, message, source, lineno, colno, error);
+        }
+        return false;
+      };
+      
+      // 捕获未处理的 Promise 错误
+      window.addEventListener('unhandledrejection', function(e) {
+        const reason = e.reason;
+        if (reason && (
+          (typeof reason === 'string' && (
+            reason.includes('share-modal') ||
+            reason.includes('extension')
+          )) ||
+          (reason.message && (
+            reason.message.includes('share-modal') ||
+            reason.message.includes('Cannot read properties of null')
+          ))
+        )) {
+          // 静默忽略扩展相关的 Promise 错误
+          e.preventDefault();
+        }
+      });
+    })();
+  </script>
   <script src="app.js"></script>
   <script>
     // 确保脚本加载后立即检查
@@ -103,34 +158,6 @@
       console.log('页面完全加载完成');
       console.log('CONFIG:', typeof CONFIG !== 'undefined' ? CONFIG : '未定义');
       console.log('容器元素:', document.getElementById('siteCardsContainer'));
-    });
-    
-    // 处理可能的浏览器扩展错误（如 share-modal.js）
-    // 这个错误通常由浏览器扩展引起，不影响网站功能
-    window.addEventListener('error', function(e) {
-      if (e.filename && (
-        e.filename.includes('share-modal.js') || 
-        e.filename.includes('extension://') ||
-        e.filename.includes('chrome-extension://') ||
-        e.filename.includes('moz-extension://')
-      )) {
-        // 忽略浏览器扩展导致的错误
-        console.warn('浏览器扩展错误已忽略:', e.filename);
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-    }, true);
-    
-    // 捕获未处理的 Promise 错误（可能由扩展引起）
-    window.addEventListener('unhandledrejection', function(e) {
-      if (e.reason && (
-        e.reason.toString().includes('share-modal') ||
-        e.reason.toString().includes('extension')
-      )) {
-        console.warn('浏览器扩展 Promise 错误已忽略');
-        e.preventDefault();
-      }
     });
   </script>
 </body>
