@@ -1210,6 +1210,356 @@ async function fetchFromMapbox() {
   }
 }
 
+/**
+ * AIBase 抓取器
+ */
+async function fetchFromAIBase() {
+  try {
+    const url = 'https://www.aibase.com/zh/news';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/news/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('[class*="date"], time').first().text().trim() || 
+                      $elem.find('[datetime]').first().attr('datetime');
+      
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.aibase.com${link}` : `https://www.aibase.com/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('AIBase 抓取失败:', error.message);
+    return [];
+  }
+}
+
+/**
+ * 机器之心 抓取器
+ */
+async function fetchFromJiqizhixin() {
+  try {
+    const url = 'https://www.jiqizhixin.com/';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/articles/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('[class*="date"], time').first().text().trim() || 
+                      $elem.find('[datetime]').first().attr('datetime');
+      
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.jiqizhixin.com${link}` : `https://www.jiqizhixin.com/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('机器之心 抓取失败:', error.message);
+    return [];
+  }
+}
+
+/**
+ * 量子位 抓取器
+ */
+async function fetchFromQbitai() {
+  try {
+    const url = 'https://www.qbitai.com/';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/news/"], a[href*="/article/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('[class*="date"], time').first().text().trim() || 
+                      $elem.find('[datetime]').first().attr('datetime');
+      
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.qbitai.com${link}` : `https://www.qbitai.com/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('量子位 抓取失败:', error.message);
+    return [];
+  }
+}
+
+/**
+ * TechCrunch AI 抓取器
+ */
+async function fetchFromTechCrunch() {
+  try {
+    const url = 'https://techcrunch.com/category/artificial-intelligence/';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="story"], a[href*="/202"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="deck"]').first().text().trim();
+      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
+      
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://techcrunch.com${link}` : `https://techcrunch.com/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('TechCrunch 抓取失败:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Google DeepMind 抓取器
+ */
+async function fetchFromGoogleDeepMind() {
+  try {
+    const url = 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="story"], a[href*="/innovation-and-ai/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
+      
+      if (title && link && title.length > 5 && link.includes('/innovation-and-ai/')) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('Google DeepMind 抓取失败:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Google Research 抓取器
+ */
+async function fetchFromGoogleResearch() {
+  try {
+    const url = 'https://research.google/blog/';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="blog"], a[href*="/blog/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
+      
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://research.google${link}` : `https://research.google/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('Google Research 抓取失败:', error.message);
+    return [];
+  }
+}
+
+/**
+ * The Rundown 抓取器
+ */
+async function fetchFromRundown() {
+  try {
+    const url = 'https://www.therundown.ai/';
+    const html = await fetch(url);
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/news/"], a[href*="/posts/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+      
+      const $elem = $(elem);
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
+      
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.therundown.ai${link}` : `https://www.therundown.ai/${link}`;
+        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    return items
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('The Rundown 抓取失败:', error.message);
+    return [];
+  }
+}
+
 // ====================
 // 数据处理
 // ====================
@@ -1294,14 +1644,8 @@ async function main() {
     {
       source: 'openai',
       sourceName: 'OpenAI',
-      sourceUrl: 'https://openai.com/zh-Hans-CN/',
+      sourceUrl: 'https://openai.com/zh-Hans-CN/news/',
       fetcher: fetchFromOpenAI
-    },
-    {
-      source: 'metaai',
-      sourceName: 'Meta AI',
-      sourceUrl: 'https://ai.meta.com/',
-      fetcher: fetchFromMetaAI
     },
     {
       source: 'googleai',
@@ -1310,28 +1654,52 @@ async function main() {
       fetcher: fetchFromGoogleAI
     },
     {
-      source: 'github',
-      sourceName: 'GitHub',
-      sourceUrl: 'https://github.com/',
-      fetcher: fetchFromGitHub
-    },
-    {
       source: 'aws',
       sourceName: 'AWS',
       sourceUrl: 'https://aws.amazon.com/cn/machine-learning/',
       fetcher: fetchFromAWS
     },
     {
-      source: 'adobe',
-      sourceName: 'Adobe',
-      sourceUrl: 'https://www.adobe.com',
-      fetcher: fetchFromAdobe
+      source: 'aibase',
+      sourceName: 'AIBase',
+      sourceUrl: 'https://www.aibase.com/zh/news',
+      fetcher: fetchFromAIBase
     },
     {
-      source: 'mapbox',
-      sourceName: 'Mapbox Maps',
-      sourceUrl: 'https://www.mapbox.com/maps',
-      fetcher: fetchFromMapbox
+      source: 'jiqizhixin',
+      sourceName: '机器之心',
+      sourceUrl: 'https://www.jiqizhixin.com/',
+      fetcher: fetchFromJiqizhixin
+    },
+    {
+      source: 'qbitai',
+      sourceName: '量子位',
+      sourceUrl: 'https://www.qbitai.com/',
+      fetcher: fetchFromQbitai
+    },
+    {
+      source: 'techcrunch',
+      sourceName: 'TechCrunch AI',
+      sourceUrl: 'https://techcrunch.com/category/artificial-intelligence/',
+      fetcher: fetchFromTechCrunch
+    },
+    {
+      source: 'googledeepmind',
+      sourceName: 'Google DeepMind',
+      sourceUrl: 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/',
+      fetcher: fetchFromGoogleDeepMind
+    },
+    {
+      source: 'googleresearch',
+      sourceName: 'Google Research',
+      sourceUrl: 'https://research.google/blog/',
+      fetcher: fetchFromGoogleResearch
+    },
+    {
+      source: 'rundown',
+      sourceName: 'The Rundown',
+      sourceUrl: 'https://www.therundown.ai/',
+      fetcher: fetchFromRundown
     }
   ];
 
@@ -1397,11 +1765,14 @@ module.exports = {
   fetchFromFigma,
   fetchFromAnthropic,
   fetchFromOpenAI,
-  fetchFromMetaAI,
   fetchFromGoogleAI,
-  fetchFromGitHub,
   fetchFromAWS,
-  fetchFromAdobe,
-  fetchFromMapbox,
+  fetchFromAIBase,
+  fetchFromJiqizhixin,
+  fetchFromQbitai,
+  fetchFromTechCrunch,
+  fetchFromGoogleDeepMind,
+  fetchFromGoogleResearch,
+  fetchFromRundown,
   main
 };
