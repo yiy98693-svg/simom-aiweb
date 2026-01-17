@@ -5,7 +5,7 @@
       "source": "material",
       "sourceName": "Material Design",
       "sourceUrl": "https://m3.material.io/",
-      "updatedAt": "2026-01-17T04:39:19.759Z",
+      "updatedAt": "2026-01-17T04:44:23.782Z",
       "updatedAtRelative": "刚刚",
       "items": []
     },
@@ -13,7 +13,7 @@
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-01-17T04:39:22.266Z",
+      "updatedAt": "2026-01-17T04:44:26.325Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -149,7 +149,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-01-17T04:39:24.584Z",
+      "updatedAt": "2026-01-17T04:44:28.712Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -288,7 +288,7 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-01-17T04:39:27.125Z",
+      "updatedAt": "2026-01-17T04:44:31.622Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -426,7 +426,7 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-01-17T04:39:29.406Z",
+      "updatedAt": "2026-01-17T04:44:33.801Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -558,7 +558,7 @@
       "source": "openai",
       "sourceName": "OpenAI",
       "sourceUrl": "https://openai.com/zh-Hans-CN/",
-      "updatedAt": "2026-01-17T04:39:31.441Z",
+      "updatedAt": "2026-01-17T04:44:35.842Z",
       "updatedAtRelative": "刚刚",
       "items": []
     },
@@ -566,15 +566,80 @@
       "source": "metaai",
       "sourceName": "Meta AI",
       "sourceUrl": "https://ai.meta.com/",
-      "updatedAt": "2026-01-17T04:39:35.565Z",
+      "updatedAt": "2026-01-17T04:44:40.314Z",
       "updatedAtRelative": "刚刚",
-      "items": []
+      "items": [
+        {
+          "id": "metaai-001",
+          "title": "Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation",
+          "url": "https://ai.meta.com/blog/sam-audio/",
+          "thumbnail": "",
+          "summary": "Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "metaai-002",
+          "title": "How DINO and SAM are Helping Modernize Essential Medical Triage Practices",
+          "url": "https://ai.meta.com/blog/upenn-dino-sam-helping-medical-triage/",
+          "thumbnail": "",
+          "summary": "How DINO and SAM are Helping Modernize Essential Medical Triage Practices",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "metaai-003",
+          "title": "The Universities Space Research Association Applies Segment Anything Model for Responding to Flood Emergencies",
+          "url": "https://ai.meta.com/blog/usra-sam-flood-emergencies/",
+          "thumbnail": "",
+          "summary": "The Universities Space Research Association Applies Segment Anything Model for Responding to Flood Emergencies",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "metaai-004",
+          "title": "How Conservation X Labs Is Using Segment Anything Model 3 for Endangered Wildlife Monitoring",
+          "url": "https://ai.meta.com/blog/segment-anything-conservation-x-wildlife-monitoring/",
+          "thumbnail": "",
+          "summary": "How Conservation X Labs Is Using Segment Anything Model 3 for Endangered Wildlife Monitoring",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "metaai-005",
+          "title": "ExecuTorch Adoption in Reality Labs: Powering On-Device AI Across Meta Devices",
+          "url": "https://ai.meta.com/blog/executorch-reality-labs-on-device-ai/",
+          "thumbnail": "",
+          "summary": "ExecuTorch Adoption in Reality Labs: Powering On-Device AI Across Meta Devices",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        }
+      ]
     },
     {
       "source": "googleai",
       "sourceName": "Google AI",
       "sourceUrl": "https://ai.google/products/",
-      "updatedAt": "2026-01-17T04:39:38.228Z",
+      "updatedAt": "2026-01-17T04:44:42.833Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -709,15 +774,66 @@
       "source": "stability",
       "sourceName": "Stability AI",
       "sourceUrl": "https://stability.ai/",
-      "updatedAt": "2026-01-17T04:39:40.668Z",
+      "updatedAt": "2026-01-17T04:44:45.230Z",
       "updatedAtRelative": "刚刚",
-      "items": []
+      "items": [
+        {
+          "id": "stability-001",
+          "title": "Models\n      \n      \n      \n        \n          \n            \n              \n                \n                  Image\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Video\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Audio\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  3D\n                \n              \n            \n          \n          \n        \n      \n    \n  \n  \n\n\n  \n    \n      \n      \n        Solutions\n      \n      \n      \n        \n          \n            \n              \n                \n                  Enterprise Solutions\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Brand Style\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Product Photography \n                \n              \n            \n          \n          \n        \n      \n    \n  \n  \n\n\n  \n    \n      \n      \n        Applications\n      \n      \n      \n        \n          \n            \n              \n                \n                  Dream Studio\n                \n              \n            \n          \n          \n        \n          \n          \n            \n              Stable Audio\n            \n          \n        \n      \n    \n  \n  \n\n\n  \n    \n      \n      \n        Deployment\n      \n      \n      \n        \n          \n            \n              \n                \n                  Self-Hosted License\n                \n              \n            \n          \n          \n        \n          \n          \n            \n              Platform API\n            \n          \n        \n          \n          \n            \n              Cloud Platforms\n            \n          \n        \n      \n    \n  \n  \n\n\n  \n    \n      \n      \n        Resources\n      \n      \n      \n        \n          \n            \n              \n                \n                  Learning Hub\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Customer Stories\n                \n              \n            \n          \n          \n        \n      \n    \n  \n  \n\n\n  \n    \n      \n      \n        Company\n      \n      \n      \n        \n          \n            \n              \n                \n                  News\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Careers\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Partners\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Research\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Safety\n                \n              \n            \n          \n          \n        \n          \n            \n              \n                \n                  Board of Directors",
+          "url": "https://variety.com/2025/gaming/news/electronic-arts-stability-developer-deal-1236559755/",
+          "thumbnail": "",
+          "summary": "No creative challenge too big, no timeline too tight. Get to production with Stability AI, your enterprise-ready creative partner.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2025-11-19T00:00:00.000Z",
+          "publishedAtRelative": "1个月前"
+        },
+        {
+          "id": "stability-002",
+          "title": "Warner Music Group and Stability AI Join Forces To Build The Next Generation Of Responsible AI Tools For Music Creation",
+          "url": "https://stability.ai/news/warner-music-group-and-stability-ai-join-forces-to-build-next-gen-tools",
+          "thumbnail": "",
+          "summary": "Warner Music Group and Stability AI Join Forces To Build The Next Generation Of Responsible AI Tools For Music Creation",
+          "tags": [
+            "AI",
+            "工具"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "stability-003",
+          "title": "Universal Music Group and Stability AI Announce Strategic Alliance to Co-Develop Professional AI Music Creation Tools",
+          "url": "https://stability.ai/news/universal-music-group-and-stability-ai-announce-strategic-alliance",
+          "thumbnail": "",
+          "summary": "Universal Music Group and Stability AI Announce Strategic Alliance to Co-Develop Professional AI Music Creation Tools",
+          "tags": [
+            "AI",
+            "工具"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "stability-004",
+          "title": "Stability AI and EA Partner to Empower Artists, Designers, and Developers to Reimagine Game Development",
+          "url": "https://stability.ai/news/stability-ai-and-ea-partner-to-reimagine-game-development",
+          "thumbnail": "",
+          "summary": "Stability AI and EA Partner to Empower Artists, Designers, and Developers to Reimagine Game Development",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        }
+      ]
     },
     {
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-01-17T04:39:43.070Z",
+      "updatedAt": "2026-01-17T04:44:47.525Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -768,7 +884,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-16T15:41:55.000Z",
-          "publishedAtRelative": "12小时前"
+          "publishedAtRelative": "13小时前"
         },
         {
           "id": "aws-005",
@@ -850,7 +966,7 @@
       "source": "adobe",
       "sourceName": "Adobe",
       "sourceUrl": "https://www.adobe.com",
-      "updatedAt": "2026-01-17T04:39:45.284Z",
+      "updatedAt": "2026-01-17T04:44:49.699Z",
       "updatedAtRelative": "刚刚",
       "items": []
     },
@@ -858,7 +974,7 @@
       "source": "mapbox",
       "sourceName": "Mapbox Maps",
       "sourceUrl": "https://www.mapbox.com/maps",
-      "updatedAt": "2026-01-17T04:39:47.521Z",
+      "updatedAt": "2026-01-17T04:44:51.985Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
