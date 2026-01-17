@@ -389,13 +389,22 @@ function renderSiteCards(data) {
   }
 
   console.log(`找到 ${data.sites.length} 个站点，开始渲染...`);
+  console.log('数据中的网站列表:', data.sites.map(s => s.source).join(', '));
+  console.log('配置中的网站顺序:', CONFIG.SITE_ORDER.join(', '));
 
   // 按固定顺序排序站点
   const sortedSites = CONFIG.SITE_ORDER
-    .map(source => data.sites.find(site => site.source === source))
+    .map(source => {
+      const site = data.sites.find(site => site.source === source);
+      if (!site) {
+        console.warn(`警告: 配置中的网站 "${source}" 在数据中未找到`);
+      }
+      return site;
+    })
     .filter(Boolean);
 
   console.log(`排序后 ${sortedSites.length} 个站点`);
+  console.log('即将显示的网站:', sortedSites.map(s => s.source).join(', '));
 
   const cardsHtml = sortedSites.map(site => renderSiteCard(site)).join('');
   container.innerHTML = cardsHtml;
