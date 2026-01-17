@@ -529,16 +529,6 @@ async function loadData() {
       console.warn('翻译过程出错，但页面已显示:', error);
       // 翻译失败不影响页面显示
     });
-      // 清除定时器
-      if (loadingTimer) {
-        clearTimeout(loadingTimer);
-        loadingTimer = null;
-      }
-      // 隐藏加载动画
-      hideLoadingAnimation();
-      // 即使翻译失败，也渲染原始数据
-      renderSiteCards(data);
-    }
   } catch (error) {
     console.error('加载数据失败:', error);
     console.error('错误堆栈:', error.stack);
