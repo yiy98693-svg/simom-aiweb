@@ -199,6 +199,18 @@ function formatDate(date = new Date()) {
   return `${year}-${month}-${day}`;
 }
 
+// 规范化 URL（移除查询参数和 hash）
+function normalizeUrl(url) {
+  if (!url) return '';
+  try {
+    const urlObj = new URL(url);
+    // 移除查询参数和hash，只保留路径
+    return urlObj.origin + urlObj.pathname;
+  } catch (e) {
+    return url;
+  }
+}
+
 // 提取标签（从文本中提取关键词）
 function extractTags(title, summary) {
   const text = `${title} ${summary}`.toLowerCase();
@@ -827,6 +839,29 @@ async function fetchFromOpenAI() {
     
     if (!html || html.length < 100) {
       console.error('  警告: 响应内容过短，可能请求失败');
+      // 如果响应过短，可能是 403 页面，尝试使用备用 URL
+      console.log('  尝试备用 URL...');
+      try {
+        const fallbackUrl = 'https://openai.com/';
+        const fallbackHtml = await fetch(fallbackUrl, {
+          headers: {
+            'Referer': 'https://www.google.com/',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'no-cache'
+          }
+        });
+        
+        if (fallbackHtml && fallbackHtml.length > 100) {
+          const $fallback = cheerio.load(fallbackHtml);
+          // 从首页查找新闻链接
+          $fallback('a[href*="/news/"], a[href*="/index/"]').each((i, elem) => {
+            // 处理新闻链接
+          });
+        }
+      } catch (fallbackError) {
+        console.error('  备用 URL 也失败:', fallbackError.message);
+      }
       return [];
     }
     
@@ -834,7 +869,8 @@ async function fetchFromOpenAI() {
     const items = [];
     
     // OpenAI 新闻页面的结构 - 尝试多种选择器
-    $('article, a[href*="/news/"], a[href*="/index/"], [class*="news"], [class*="post"], [data-testid*="news"]').each((i, elem) => {
+    // 首先尝试查找文章卡片
+    $('article, [class*="news"], [class*="post"], [data-testid*="news"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
       
       const $elem = $(elem);
@@ -920,7 +956,42 @@ async function fetchFromOpenAI() {
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
         return dateB - dateA;
       })
-      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+        .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+    
+    // 如果使用文章选择器没找到，尝试直接查找链接
+    if (items.length === 0) {
+      console.log(`  尝试直接查找链接...`);
+      $('a[href*="/news/"], a[href*="/index/"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+        
+        const $elem = $(elem);
+        const href = $elem.attr('href');
+        
+        if (!href || href.includes('#') || href === '/' || href.includes('/careers') || href.includes('/research')) {
+          return;
+        }
+        
+        let title = $elem.text().trim();
+        if (title.length < 5 || title.toLowerCase().includes('read more') || title.toLowerCase().includes('learn more')) {
+          // 尝试从父元素获取标题
+          const $parent = $elem.closest('div, article, section');
+          title = $parent.find('h1, h2, h3, h4').first().text().trim() || title;
+        }
+        
+        if (title && title.length > 5 && (href.includes('/news/') || href.includes('/index/'))) {
+          let fullUrl = href.startsWith('http') ? href : `https://openai.com${href.startsWith('/') ? href : '/' + href}`;
+          
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(title),
+            publishedAt: null,
+            tags: extractTags(title, '')
+          });
+        }
+      });
+      console.log(`  直接查找链接后找到 ${items.length} 个文章项`);
+    }
       
   } catch (error) {
     console.error('OpenAI 抓取失败:', error.message);
