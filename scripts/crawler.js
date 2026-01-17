@@ -801,50 +801,118 @@ async function fetchFromAnthropic() {
  */
 async function fetchFromOpenAI() {
   try {
-    // 使用中文新闻页面
-    const url = 'https://openai.com/zh-Hans-CN/news/';
-    const html = await fetch(url);
+    // 尝试使用英文新闻页面，通常更稳定且内容更全
+    const url = 'https://openai.com/news';
+    console.log(`  开始请求: ${url}`);
+    
+    // 添加完整的浏览器 headers 来避免 403 错误
+    const html = await fetch(url, {
+      headers: {
+        'Referer': 'https://openai.com/',
+        'Origin': 'https://openai.com',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        // 不设置 Accept-Encoding，因为我们没有解压逻辑，让服务器返回未压缩的内容
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-User': '?1',
+        'Upgrade-Insecure-Requests': '1'
+      }
+    });
+    
+    console.log(`  响应长度: ${html.length} 字符`);
+    
+    if (!html || html.length < 100) {
+      console.error('  警告: 响应内容过短，可能请求失败');
+      return [];
+    }
+    
     const $ = cheerio.load(html);
     const items = [];
     
-    // 解析新闻卡片
-    $('article, a[href*="/index/"], a[href*="/zh-Hans-CN/index/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+    // OpenAI 新闻页面的结构 - 尝试多种选择器
+    $('article, a[href*="/news/"], a[href*="/index/"], [class*="news"], [class*="post"], [data-testid*="news"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
       
       const $elem = $(elem);
-      // 标题可能在链接文本中，或者在内部元素中
-      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title) {
-        title = $elem.text().trim().split('\n')[0]; // 取第一行文本
+      
+      // 跳过导航和无关链接
+      const href = $elem.attr('href');
+      if (href && (
+        href.includes('#') ||
+        href.includes('javascript:') ||
+        href === '/' ||
+        href.includes('/careers') ||
+        href.includes('/research') ||
+        href.includes('/about')
+      )) {
+        return;
       }
       
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="description"]').first().text().trim();
+      // 标题查找 - 优先从标题元素获取
+      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('article, [class*="card"], [class*="post"]');
+        title = $parent.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+      }
+      if (!title || title.length < 5) {
+        // 从链接文本中提取
+        const linkText = $elem.text().trim();
+        if (linkText.length > 10 && 
+            !linkText.toLowerCase().includes('read more') && 
+            !linkText.toLowerCase().includes('learn more') &&
+            !linkText.toLowerCase().includes('skip to')) {
+          title = linkText.split('\n')[0].trim();
+        }
+      }
       
-      // 提取日期
-      let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
-                    $elem.find('time').first().text().trim() ||
+      // 链接查找
+      let link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      
+      // 摘要
+      const $parent = $elem.closest('article, [class*="card"], [class*="post"]');
+      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      if (!summary) {
+        summary = $elem.find('p, [class*="summary"]').first().text().trim();
+      }
+      
+      // 日期
+      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                    $elem.find('time[datetime]').first().attr('datetime') ||
+                    $parent.find('time').first().text().trim() ||
                     $elem.find('[class*="date"]').first().text().trim();
       
-      if (title && link && title.length > 5) {
+      if (title && link && title.length > 5 && (link.includes('/news/') || link.includes('/index/'))) {
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://openai.com${link}` : `https://openai.com/${link}`;
         }
+        
+        // 确保是完整的 URL
+        if (!fullUrl.includes('openai.com')) {
+          fullUrl = `https://openai.com${fullUrl}`;
+        }
+        
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
-          summary: translateToChinese(summary || title),
+          summary: translateToChinese(summary || title.substring(0, 150)),
           publishedAt: parseDate(dateStr),
           tags: extractTags(title, summary)
         });
       }
     });
     
+    console.log(`  找到 ${items.length} 个文章项`);
+    
     return items
       .filter((item, index, self) => {
         // 去重：基于URL
-        const indexInSelf = self.findIndex(i => i.url === item.url);
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
         return indexInSelf === index && item.title.length > 5;
       })
       .sort((a, b) => {
@@ -856,6 +924,7 @@ async function fetchFromOpenAI() {
       
   } catch (error) {
     console.error('OpenAI 抓取失败:', error.message);
+    console.error('错误堆栈:', error.stack);
     return [];
   }
 }
@@ -865,64 +934,120 @@ async function fetchFromOpenAI() {
  */
 async function fetchFromMetaAI() {
   try {
-    // 使用正确的URL（不带尾部斜杠可能更好）
-    const url = 'https://ai.meta.com/blog/';
-    const html = await fetch(url);
-    const $ = cheerio.load(html);
-    const items = [];
+    // 尝试使用不带尾部斜杠的 URL，或者使用根路径
+    const url = 'https://ai.meta.com/blog';
+    console.log(`  开始请求: ${url}`);
     
-    // 解析博客文章链接 - 根据实际HTML结构
-    $('a[href*="/blog/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
-      
-      const $elem = $(elem);
-      const $parent = $elem.closest('article, [class*="card"], [class*="post"]');
-      
-      // 标题可能在链接内，或者在父元素中
-      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title) {
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      }
-      if (!title || title.length < 5) {
-        // 如果还是找不到，尝试从链接文本中提取
-        const linkText = $elem.text().trim();
-        if (linkText.length > 10 && !linkText.toLowerCase().includes('read')) {
-          title = linkText;
-        }
-      }
-      
-      const link = $elem.attr('href');
-      
-      // 摘要可能在父元素或兄弟元素中
-      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-      if (!summary && $parent.length === 0) {
-        summary = $elem.siblings('p').first().text().trim();
-      }
-      
-      // 日期可能在父元素或链接附近
-      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                    $parent.find('time').first().text().trim() ||
-                    $elem.parent().find('time, [class*="date"]').first().text().trim();
-      
-      if (title && link && title.length > 5 && link.includes('/blog/')) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://ai.meta.com${link}` : `https://ai.meta.com/${link}`;
-        }
-        items.push({
-          title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title),
-          publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
-        });
+    // 添加完整的浏览器 headers 来避免 400 错误
+    const html = await fetch(url, {
+      headers: {
+        'Referer': 'https://ai.meta.com/',
+        'Origin': 'https://ai.meta.com',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        // 不设置 Accept-Encoding，因为我们没有解压逻辑，让服务器返回未压缩的内容
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-User': '?1',
+        'Upgrade-Insecure-Requests': '1'
       }
     });
     
+    console.log(`  响应长度: ${html.length} 字符`);
+    
+    if (!html || html.length < 100) {
+      console.error('  警告: 响应内容过短，可能请求失败');
+      return [];
+    }
+    
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    // Meta AI 的博客页面结构 - 尝试多种选择器
+    $('article, a[href*="/blog/"], [class*="blog"], [class*="post"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+      
+      const $elem = $(elem);
+      
+      // 跳过导航和无关链接
+      const href = $elem.attr('href');
+      if (href && (
+        href.includes('#') ||
+        href.includes('javascript:') ||
+        href === '/' ||
+        href.includes('/careers') ||
+        href.includes('/about')
+      )) {
+        return;
+      }
+      
+      // 标题查找
+      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('article, [class*="card"], [class*="post"], div');
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      }
+      if (!title || title.length < 5) {
+        // 从链接文本中提取
+        const linkText = $elem.text().trim();
+        if (linkText.length > 10 && 
+            !linkText.toLowerCase().includes('read more') && 
+            !linkText.toLowerCase().includes('learn more') &&
+            !linkText.toLowerCase().includes('skip to')) {
+          title = linkText.split('\n')[0].trim();
+        }
+      }
+      
+      // 链接查找
+      let link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      
+      // 摘要
+      const $parent = $elem.closest('article, [class*="card"], [class*="post"], div');
+      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      if (!summary) {
+        summary = $elem.find('p, [class*="summary"]').first().text().trim();
+      }
+      
+      // 日期
+      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                    $elem.find('time[datetime]').first().attr('datetime') ||
+                    $parent.find('time').first().text().trim() ||
+                    $elem.find('[class*="date"]').first().text().trim();
+      
+      if (title && link && title.length > 5) {
+        // 确保链接包含 /blog/ 或者是一个有效的文章链接
+        if (link.includes('/blog/') || (link.startsWith('/') && link.length > 1 && !link.includes('#'))) {
+          let fullUrl = link;
+          if (!link.startsWith('http')) {
+            fullUrl = link.startsWith('/') ? `https://ai.meta.com${link}` : `https://ai.meta.com/${link}`;
+          }
+          
+          // 确保是完整的 URL
+          if (!fullUrl.includes('ai.meta.com')) {
+            fullUrl = `https://ai.meta.com${fullUrl}`;
+          }
+          
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      }
+    });
+    
+    console.log(`  找到 ${items.length} 个文章项`);
+    
     return items
       .filter((item, index, self) => {
-        // 去重：基于URL和标题
-        const indexInSelf = self.findIndex(i => i.url === item.url || (i.title === item.title && i.title.length > 10));
+        // 去重：基于URL
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
         return indexInSelf === index && item.title.length > 5;
       })
       .sort((a, b) => {
@@ -934,6 +1059,7 @@ async function fetchFromMetaAI() {
       
   } catch (error) {
     console.error('Meta AI 抓取失败:', error.message);
+    console.error('错误堆栈:', error.stack);
     return [];
   }
 }
