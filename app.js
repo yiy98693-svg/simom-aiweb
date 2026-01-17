@@ -263,7 +263,17 @@ function hideLoadingAnimation() {
 
 // 渲染新闻项（参考 momoyu.cc 的简洁风格）
 function renderNewsItem(item, index) {
-  const publishedTime = item.publishedAtRelative || getRelativeTime(item.publishedAt);
+  // 只显示实际发布时间，如果 publishedAt 不存在或无效则不显示
+  let publishedTime = '';
+  if (item.publishedAt) {
+    // 验证日期是否有效
+    const publishDate = new Date(item.publishedAt);
+    if (!isNaN(publishDate.getTime())) {
+      // 日期有效，计算相对时间
+      publishedTime = item.publishedAtRelative || getRelativeTime(item.publishedAt);
+    }
+  }
+  
   const tags = item.tags && Array.isArray(item.tags) ? item.tags : [];
   const tagsHtml = tags.length > 0 
     ? `<div class="news-tags">${tags.map(tag => `<span class="news-tag">${escapeHtml(tag)}</span>`).join('')}</div>`
@@ -307,13 +317,10 @@ function renderSiteCard(site) {
     `;
   }
 
-  const updatedTime = site.updatedAtRelative || getRelativeTime(site.updatedAt);
-
   return `
     <div class="site-card">
       <div class="site-card-header">
         <h2 class="site-card-title">${escapeHtml(site.sourceName)}</h2>
-        ${updatedTime ? `<span class="site-updated-time">${updatedTime}</span>` : ''}
       </div>
       ${contentHtml}
     </div>

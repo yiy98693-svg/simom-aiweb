@@ -1292,6 +1292,10 @@ async function fetchFromMapbox() {
  * 将抓取的新闻项转换为标准格式
  */
 function normalizeNewsItem(item, source, sourceName, index) {
+  // 如果 publishedAt 不存在，不设置默认值（保持为 null）
+  // 这样前端就不会显示抓取时间，而是只显示实际发布时间
+  const publishedAt = item.publishedAt || null;
+  
   return {
     id: `${source}-${String(index + 1).padStart(3, '0')}`,
     title: item.title || '',
@@ -1299,8 +1303,8 @@ function normalizeNewsItem(item, source, sourceName, index) {
     thumbnail: item.thumbnail || '',
     summary: item.summary || '',
     tags: item.tags || [],
-    publishedAt: item.publishedAt || new Date().toISOString(),
-    publishedAtRelative: getRelativeTime(item.publishedAt)
+    publishedAt: publishedAt,
+    publishedAtRelative: publishedAt ? getRelativeTime(publishedAt) : ''
   };
 }
 
