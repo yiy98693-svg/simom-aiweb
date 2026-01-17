@@ -1038,8 +1038,9 @@ async function fetchFromMetaAI() {
     const items = [];
     
     // Meta AI 的博客页面结构 - 尝试多种选择器
-    $('article, a[href*="/blog/"], [class*="blog"], [class*="post"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+    // 首先尝试查找所有包含 /blog/ 的链接
+    $('a[href*="/blog/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false; // 收集更多以便筛选
       
       const $elem = $(elem);
       
@@ -1088,18 +1089,66 @@ async function fetchFromMetaAI() {
                     $parent.find('time').first().text().trim() ||
                     $elem.find('[class*="date"]').first().text().trim();
       
-      if (title && link && title.length > 5) {
-        // 确保链接包含 /blog/ 或者是一个有效的文章链接
-        if (link.includes('/blog/') || (link.startsWith('/') && link.length > 1 && !link.includes('#'))) {
-          let fullUrl = link;
-          if (!link.startsWith('http')) {
-            fullUrl = link.startsWith('/') ? `https://ai.meta.com${link}` : `https://ai.meta.com/${link}`;
+      if (title && link && title.length > 5 && link.includes('/blog/')) {
+        // 排除导航和无关链接
+        if (link.includes('#') || link.includes('javascript:') || link === '/' || link.includes('/careers') || link.includes('/about')) {
+          return;
+        }
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://ai.meta.com${link}` : `https://ai.meta.com/${link}`;
+        }
+        
+        // 确保是完整的 URL
+        if (!fullUrl.includes('ai.meta.com')) {
+          fullUrl = `https://ai.meta.com${fullUrl}`;
+        }
+        
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    // 如果使用链接选择器没找到足够的内容，尝试查找文章元素
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      console.log(`  链接选择器找到 ${items.length} 条，尝试查找文章元素...`);
+      $('article, [class*="blog"], [class*="post"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
+        
+        const $elem = $(elem);
+        const $link = $elem.find('a[href*="/blog/"]').first();
+        
+        if ($link.length === 0) return;
+        
+        const href = $link.attr('href');
+        if (!href || href.includes('#') || href.includes('javascript:') || href === '/' || href.includes('/careers') || href.includes('/about')) {
+          return;
+        }
+        
+        let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+        if (!title || title.length < 5) {
+          title = $link.text().trim();
+        }
+        
+        if (title && title.length > 5 && href.includes('/blog/')) {
+          let fullUrl = href.startsWith('http') ? href : `https://ai.meta.com${href.startsWith('/') ? href : '/' + href}`;
+          
+          // 检查是否已存在
+          const normalizedUrl = normalizeUrl(fullUrl);
+          if (items.some(item => normalizeUrl(item.url) === normalizedUrl)) {
+            return; // 已存在，跳过
           }
           
-          // 确保是完整的 URL
-          if (!fullUrl.includes('ai.meta.com')) {
-            fullUrl = `https://ai.meta.com${fullUrl}`;
-          }
+          const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+          const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                          $elem.find('time').first().text().trim() ||
+                          $elem.find('[class*="date"]').first().text().trim();
           
           items.push({
             title: translateToChinese(title),
@@ -1109,10 +1158,10 @@ async function fetchFromMetaAI() {
             tags: extractTags(title, summary)
           });
         }
-      }
-    });
+      });
+    }
     
-    console.log(`  找到 ${items.length} 个文章项`);
+    console.log(`  找到 ${items.length} 个文章项（去重前）`);
     
     return items
       .filter((item, index, self) => {
@@ -1448,21 +1497,20 @@ async function fetchFromMapbox() {
       const dateStr = $elem.find('[class*="date"], time, [datetime]').first().attr('datetime') || 
                       $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && title.length > 5) {
+      if (title && link && title.length > 5 && link.includes('/blog/')) {
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://www.mapbox.com${link}` : `https://www.mapbox.com/${link}`;
         }
-        // 如果包含 AI 关键词，或者允许所有内容
-        if (isAIRelated(title + ' ' + summary) || items.length < 5) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
+        
+        // 收集所有博客文章，不限制 AI 相关内容
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
       }
     });
     
