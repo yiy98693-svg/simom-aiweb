@@ -1486,15 +1486,28 @@ async function fetchFromMapbox() {
     const $ = cheerio.load(html);
     const items = [];
     
-    // 尝试多种选择器
-    $('article, [class*="post"], [class*="article"], [class*="blog"], a[href*="/blog/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+    // 尝试多种选择器，优先查找链接
+    $('a[href*="/blog/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false; // 收集更多以便筛选
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time, [datetime]').first().attr('datetime') || 
+      const $parent = $elem.closest('article, [class*="post"], [class*="article"], [class*="blog"], div');
+      
+      // 标题可能在链接内，或者在父元素中
+      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      if (!title || title.length < 5) {
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      }
+      if (!title || title.length < 5) {
+        title = $elem.text().trim();
+      }
+      
+      const link = $elem.attr('href');
+      const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim() || 
+                      $elem.find('p, [class*="summary"]').first().text().trim();
+      const dateStr = $parent.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+                      $parent.find('[class*="date"], time').first().text().trim() ||
+                      $elem.find('[class*="date"], time[datetime]').first().attr('datetime') || 
                       $elem.find('[class*="date"], time').first().text().trim();
       
       if (title && link && title.length > 5 && link.includes('/blog/')) {
@@ -1514,8 +1527,59 @@ async function fetchFromMapbox() {
       }
     });
     
+    // 如果使用链接选择器没找到足够的内容，尝试查找文章元素
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      console.log(`  链接选择器找到 ${items.length} 条，尝试查找文章元素...`);
+      $('article, [class*="post"], [class*="article"], [class*="blog"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
+        
+        const $elem = $(elem);
+        const $link = $elem.find('a[href*="/blog/"]').first();
+        
+        if ($link.length === 0) return;
+        
+        const href = $link.attr('href');
+        if (!href || href.includes('#') || href.includes('javascript:')) {
+          return;
+        }
+        
+        let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+        if (!title || title.length < 5) {
+          title = $link.text().trim();
+        }
+        
+        if (title && title.length > 5 && href.includes('/blog/')) {
+          let fullUrl = href.startsWith('http') ? href : `https://www.mapbox.com${href.startsWith('/') ? href : '/' + href}`;
+          
+          // 检查是否已存在
+          if (items.some(item => normalizeUrl(item.url) === normalizeUrl(fullUrl))) {
+            return; // 已存在，跳过
+          }
+          
+          const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+          const dateStr = $elem.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+                          $elem.find('[class*="date"], time').first().text().trim();
+          
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
+    
+    console.log(`  找到 ${items.length} 个文章项（去重前）`);
+    
     return items
-      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index) // 去重
+      .filter((item, index, self) => {
+        // 去重：基于URL
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
+        return indexInSelf === index && item.title.length > 5;
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
