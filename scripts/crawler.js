@@ -199,62 +199,6 @@ function formatDate(date = new Date()) {
   return `${year}-${month}-${day}`;
 }
 
-// 规范化 URL（移除查询参数和 hash）
-function normalizeUrl(url) {
-  if (!url) return '';
-  try {
-    const urlObj = new URL(url);
-    // 移除查询参数和hash，只保留路径
-    return urlObj.origin + urlObj.pathname;
-  } catch (e) {
-    return url;
-  }
-}
-
-// 检查链接是否是具体的文章链接（而非分类、标签、导航链接）
-function isArticleLink(url, title) {
-  if (!url || !title) return false;
-  
-  const urlLower = url.toLowerCase();
-  const titleLower = title.toLowerCase();
-  
-  // 排除分类和标签链接
-  const excludePatterns = [
-    '/category/', '/categories/', '/tag/', '/tags/',
-    '/archive/', '/archives/', '/author/', '/authors/',
-    '/page/', '/pages/', '/search', '/sitemap',
-    '/about', '/contact', '/privacy', '/terms',
-    '/careers', '/jobs', '/team', '/newsletter',
-    '#', 'javascript:', 'mailto:', 'tel:'
-  ];
-  
-  for (const pattern of excludePatterns) {
-    if (urlLower.includes(pattern)) return false;
-  }
-  
-  // 排除明显的导航文本
-  const excludeTitles = [
-    'read more', 'read more →', 'learn more', 'learn more →',
-    'view all', 'see all', 'more', 'skip to',
-    'next', 'previous', 'previous page', 'next page',
-    'home', 'menu', 'navigation', 'nav',
-    'search', 'subscribe', 'follow', 'share'
-  ];
-  
-  const titleTrimmed = titleLower.trim();
-  if (excludeTitles.some(pattern => titleTrimmed === pattern || titleTrimmed.startsWith(pattern))) {
-    return false;
-  }
-  
-  // 排除太短的标题（可能是导航按钮）
-  if (title.trim().length < 10) return false;
-  
-  // 排除只有日期或只有分类名称的标题
-  if (/^\d{4}[-/]\d{1,2}[-/]\d{1,2}$/.test(titleTrimmed)) return false;
-  
-  return true;
-}
-
 // 提取标签（从文本中提取关键词）
 function extractTags(title, summary) {
   const text = `${title} ${summary}`.toLowerCase();
@@ -403,7 +347,7 @@ async function fetchFromMaterial() {
                   $parent.find('time').first().text().trim();
       }
       
-      if (title && link && title.length > 5 && !title.includes('Skip') && !title.includes('Blog') && isArticleLink(link, title)) {
+      if (title && link && title.length > 5 && !title.includes('Skip') && !title.includes('Blog')) {
         items.push({
           title: translateToChinese(title),
           url: link,
@@ -440,15 +384,13 @@ async function fetchFromMaterial() {
               title = titleMatch[2].trim();
             }
             if (title && title.length > 5) {
-              if (isArticleLink(link, title)) {
-                items.push({
-                  title: translateToChinese(title),
-                  url: link,
-                  summary: translateToChinese(title),
-                  publishedAt: parseDate(titleMatch ? titleMatch[1] : null),
-                  tags: extractTags(title, '')
-                });
-              }
+              items.push({
+                title: translateToChinese(title),
+                url: link,
+                summary: translateToChinese(title),
+                publishedAt: parseDate(titleMatch ? titleMatch[1] : null),
+                tags: extractTags(title, '')
+              });
             }
           }
         }
@@ -469,9 +411,7 @@ async function fetchFromMaterial() {
     
     const uniqueItems = items.filter((item, index, self) => {
       const normalizedUrl = normalizeUrl(item.url);
-      const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-      // 使用 isArticleLink 确保只返回真正的文章链接
-      return indexInSelf === index && isArticleLink(item.url, item.title);
+      return self.findIndex(i => normalizeUrl(i.url) === normalizedUrl) === index;
     });
     
     console.log(`  去重后剩余 ${uniqueItems.length} 条（原始 ${items.length} 条）`);
@@ -531,7 +471,7 @@ async function fetchFromMicrosoftDesign() {
       const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
       const dateStr = $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && isArticleLink(link, title)) {
+      if (title && link) {
         const fullUrl = link.startsWith('http') ? link : `https://microsoft.design${link}`;
         items.push({
           title: translateToChinese(title),
@@ -664,16 +604,13 @@ async function fetchFromGoogleDesign() {
         return;
       }
       
-      // 使用 isArticleLink 验证是否是真正的文章链接
-      if (isArticleLink(link, title)) {
-        items.push({
-          title: translateToChinese(title),
-          url: link,
-          summary: translateToChinese(summary || title.substring(0, 150)),
-          publishedAt: null,
-          tags: extractTags(title, summary + ' ' + category)
-        });
-      }
+      items.push({
+        title: translateToChinese(title),
+        url: link,
+        summary: translateToChinese(summary || title.substring(0, 150)),
+        publishedAt: null,
+        tags: extractTags(title, summary + ' ' + category)
+      });
     });
     
     console.log(`  解析后得到 ${items.length} 个文章项`);
@@ -696,7 +633,7 @@ async function fetchFromGoogleDesign() {
         }
         
         let title = $elem.text().trim();
-        if (title && title.length > 5 && !title.includes('Skip') && !title.includes('View') && isArticleLink(link, title)) {
+        if (title && title.length > 5 && !title.includes('Skip') && !title.includes('View')) {
           items.push({
             title: translateToChinese(title),
             url: link,
@@ -722,9 +659,7 @@ async function fetchFromGoogleDesign() {
     
     const uniqueItems = items.filter((item, index, self) => {
       const normalizedUrl = normalizeUrl(item.url);
-      const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-      // 使用 isArticleLink 确保只返回真正的文章链接
-      return indexInSelf === index && isArticleLink(item.url, item.title);
+      return self.findIndex(i => normalizeUrl(i.url) === normalizedUrl) === index;
     });
     
     console.log(`  去重后剩余 ${uniqueItems.length} 条（原始 ${items.length} 条）`);
@@ -777,7 +712,7 @@ async function fetchFromFigma() {
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
       const dateStr = $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && title.length > 10 && isArticleLink(link, title)) {
+      if (title && link && title.length > 10) {
         const fullUrl = link.startsWith('http') ? link : `https://www.figma.com${link}`;
         items.push({
           title: translateToChinese(title),
@@ -835,7 +770,7 @@ async function fetchFromAnthropic() {
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
       const dateStr = $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && isArticleLink(link, title)) {
+      if (title && link) {
         const fullUrl = link.startsWith('http') ? link : `https://www.anthropic.com${link}`;
         items.push({
           title: translateToChinese(title),
@@ -848,12 +783,6 @@ async function fetchFromAnthropic() {
     });
     
     return items
-      .filter((item, index, self) => {
-        // 去重并使用 isArticleLink 验证
-        const normalizedUrl = normalizeUrl(item.url);
-        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && isArticleLink(item.url, item.title);
-      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
@@ -872,192 +801,61 @@ async function fetchFromAnthropic() {
  */
 async function fetchFromOpenAI() {
   try {
-    // 尝试使用英文新闻页面，通常更稳定且内容更全
-    const url = 'https://openai.com/news';
-    console.log(`  开始请求: ${url}`);
-    
-    // 添加完整的浏览器 headers 来避免 403 错误
-    const html = await fetch(url, {
-      headers: {
-        'Referer': 'https://openai.com/',
-        'Origin': 'https://openai.com',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
-        // 不设置 Accept-Encoding，因为我们没有解压逻辑，让服务器返回未压缩的内容
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-User': '?1',
-        'Upgrade-Insecure-Requests': '1'
-      }
-    });
-    
-    console.log(`  响应长度: ${html.length} 字符`);
-    
-    if (!html || html.length < 100) {
-      console.error('  警告: 响应内容过短，可能请求失败');
-      // 如果响应过短，可能是 403 页面，尝试使用备用 URL
-      console.log('  尝试备用 URL...');
-      try {
-        const fallbackUrl = 'https://openai.com/';
-        const fallbackHtml = await fetch(fallbackUrl, {
-          headers: {
-            'Referer': 'https://www.google.com/',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Cache-Control': 'no-cache'
-          }
-        });
-        
-        if (fallbackHtml && fallbackHtml.length > 100) {
-          const $fallback = cheerio.load(fallbackHtml);
-          // 从首页查找新闻链接
-          $fallback('a[href*="/news/"], a[href*="/index/"]').each((i, elem) => {
-            // 处理新闻链接
-          });
-        }
-      } catch (fallbackError) {
-        console.error('  备用 URL 也失败:', fallbackError.message);
-      }
-      return [];
-    }
-    
+    // 使用中文新闻页面
+    const url = 'https://openai.com/zh-Hans-CN/news/';
+    const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
     
-    // OpenAI 新闻页面的结构 - 尝试多种选择器
-    // 首先尝试查找文章卡片
-    $('article, [class*="news"], [class*="post"], [data-testid*="news"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+    // 解析新闻卡片
+    $('article, a[href*="/index/"], a[href*="/zh-Hans-CN/index/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      
-      // 跳过导航和无关链接
-      const href = $elem.attr('href');
-      if (href && (
-        href.includes('#') ||
-        href.includes('javascript:') ||
-        href === '/' ||
-        href.includes('/careers') ||
-        href.includes('/research') ||
-        href.includes('/about')
-      )) {
-        return;
-      }
-      
-      // 标题查找 - 优先从标题元素获取
+      // 标题可能在链接文本中，或者在内部元素中
       let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title || title.length < 5) {
-        const $parent = $elem.closest('article, [class*="card"], [class*="post"]');
-        title = $parent.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-      }
-      if (!title || title.length < 5) {
-        // 从链接文本中提取
-        const linkText = $elem.text().trim();
-        if (linkText.length > 10 && 
-            !linkText.toLowerCase().includes('read more') && 
-            !linkText.toLowerCase().includes('learn more') &&
-            !linkText.toLowerCase().includes('skip to')) {
-          title = linkText.split('\n')[0].trim();
-        }
+      if (!title) {
+        title = $elem.text().trim().split('\n')[0]; // 取第一行文本
       }
       
-      // 链接查找
-      let link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="description"]').first().text().trim();
       
-      // 摘要
-      const $parent = $elem.closest('article, [class*="card"], [class*="post"]');
-      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-      if (!summary) {
-        summary = $elem.find('p, [class*="summary"]').first().text().trim();
-      }
-      
-      // 日期
-      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                    $elem.find('time[datetime]').first().attr('datetime') ||
-                    $parent.find('time').first().text().trim() ||
+      // 提取日期
+      let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                    $elem.find('time').first().text().trim() ||
                     $elem.find('[class*="date"]').first().text().trim();
       
-      if (title && link && title.length > 5 && (link.includes('/news/') || link.includes('/index/'))) {
+      if (title && link && title.length > 5) {
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://openai.com${link}` : `https://openai.com/${link}`;
         }
-        
-        // 确保是完整的 URL
-        if (!fullUrl.includes('openai.com')) {
-          fullUrl = `https://openai.com${fullUrl}`;
-        }
-        
-        // 使用 isArticleLink 验证是否是真正的文章链接
-        if (isArticleLink(fullUrl, title)) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
       }
     });
     
-    console.log(`  找到 ${items.length} 个文章项`);
-    
     return items
       .filter((item, index, self) => {
-        // 去重：基于URL，并使用 isArticleLink 再次验证
-        const normalizedUrl = normalizeUrl(item.url);
-        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && item.title.length > 5 && isArticleLink(item.url, item.title);
+        // 去重：基于URL
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index && item.title.length > 5;
       })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
         return dateB - dateA;
       })
-        .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
-    
-    // 如果使用文章选择器没找到，尝试直接查找链接
-    if (items.length === 0) {
-      console.log(`  尝试直接查找链接...`);
-      $('a[href*="/news/"], a[href*="/index/"]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
-        
-        const $elem = $(elem);
-        const href = $elem.attr('href');
-        
-        if (!href || href.includes('#') || href === '/' || href.includes('/careers') || href.includes('/research')) {
-          return;
-        }
-        
-        let title = $elem.text().trim();
-        if (title.length < 5 || title.toLowerCase().includes('read more') || title.toLowerCase().includes('learn more')) {
-          // 尝试从父元素获取标题
-          const $parent = $elem.closest('div, article, section');
-          title = $parent.find('h1, h2, h3, h4').first().text().trim() || title;
-        }
-        
-        if (title && title.length > 5 && (href.includes('/news/') || href.includes('/index/')) && isArticleLink(href, title)) {
-          let fullUrl = href.startsWith('http') ? href : `https://openai.com${href.startsWith('/') ? href : '/' + href}`;
-          
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(title),
-            publishedAt: null,
-            tags: extractTags(title, '')
-          });
-        }
-      });
-      console.log(`  直接查找链接后找到 ${items.length} 个文章项`);
-    }
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
   } catch (error) {
     console.error('OpenAI 抓取失败:', error.message);
-    console.error('错误堆栈:', error.stack);
     return [];
   }
 }
@@ -1067,176 +865,65 @@ async function fetchFromOpenAI() {
  */
 async function fetchFromMetaAI() {
   try {
-    // 尝试使用不带尾部斜杠的 URL，或者使用根路径
-    const url = 'https://ai.meta.com/blog';
-    console.log(`  开始请求: ${url}`);
-    
-    // 添加完整的浏览器 headers 来避免 400 错误
-    const html = await fetch(url, {
-      headers: {
-        'Referer': 'https://ai.meta.com/',
-        'Origin': 'https://ai.meta.com',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
-        // 不设置 Accept-Encoding，因为我们没有解压逻辑，让服务器返回未压缩的内容
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-User': '?1',
-        'Upgrade-Insecure-Requests': '1'
-      }
-    });
-    
-    console.log(`  响应长度: ${html.length} 字符`);
-    
-    if (!html || html.length < 100) {
-      console.error('  警告: 响应内容过短，可能请求失败');
-      return [];
-    }
-    
+    // 使用正确的URL（不带尾部斜杠可能更好）
+    const url = 'https://ai.meta.com/blog/';
+    const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
     
-    // Meta AI 的博客页面结构 - 尝试多种选择器
-    // 首先尝试查找所有包含 /blog/ 的链接
+    // 解析博客文章链接 - 根据实际HTML结构
     $('a[href*="/blog/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false; // 收集更多以便筛选
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
+      const $parent = $elem.closest('article, [class*="card"], [class*="post"]');
       
-      // 跳过导航和无关链接
-      const href = $elem.attr('href');
-      if (href && (
-        href.includes('#') ||
-        href.includes('javascript:') ||
-        href === '/' ||
-        href.includes('/careers') ||
-        href.includes('/about')
-      )) {
-        return;
-      }
-      
-      // 标题查找
+      // 标题可能在链接内，或者在父元素中
       let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title || title.length < 5) {
-        const $parent = $elem.closest('article, [class*="card"], [class*="post"], div');
+      if (!title) {
         title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
       }
       if (!title || title.length < 5) {
-        // 从链接文本中提取
+        // 如果还是找不到，尝试从链接文本中提取
         const linkText = $elem.text().trim();
-        if (linkText.length > 10 && 
-            !linkText.toLowerCase().includes('read more') && 
-            !linkText.toLowerCase().includes('learn more') &&
-            !linkText.toLowerCase().includes('skip to')) {
-          title = linkText.split('\n')[0].trim();
+        if (linkText.length > 10 && !linkText.toLowerCase().includes('read')) {
+          title = linkText;
         }
       }
       
-      // 链接查找
-      let link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const link = $elem.attr('href');
       
-      // 摘要
-      const $parent = $elem.closest('article, [class*="card"], [class*="post"], div');
+      // 摘要可能在父元素或兄弟元素中
       let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-      if (!summary) {
-        summary = $elem.find('p, [class*="summary"]').first().text().trim();
+      if (!summary && $parent.length === 0) {
+        summary = $elem.siblings('p').first().text().trim();
       }
       
-      // 日期
+      // 日期可能在父元素或链接附近
       let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                    $elem.find('time[datetime]').first().attr('datetime') ||
                     $parent.find('time').first().text().trim() ||
-                    $elem.find('[class*="date"]').first().text().trim();
+                    $elem.parent().find('time, [class*="date"]').first().text().trim();
       
       if (title && link && title.length > 5 && link.includes('/blog/')) {
-        // 排除导航和无关链接
-        if (link.includes('#') || link.includes('javascript:') || link === '/' || link.includes('/careers') || link.includes('/about')) {
-          return;
-        }
-        
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://ai.meta.com${link}` : `https://ai.meta.com/${link}`;
         }
-        
-        // 确保是完整的 URL
-        if (!fullUrl.includes('ai.meta.com')) {
-          fullUrl = `https://ai.meta.com${fullUrl}`;
-        }
-        
-        // 使用 isArticleLink 验证是否是真正的文章链接
-        if (isArticleLink(fullUrl, title)) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
       }
     });
     
-    // 如果使用链接选择器没找到足够的内容，尝试查找文章元素
-    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      console.log(`  链接选择器找到 ${items.length} 条，尝试查找文章元素...`);
-      $('article, [class*="blog"], [class*="post"]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
-        
-        const $elem = $(elem);
-        const $link = $elem.find('a[href*="/blog/"]').first();
-        
-        if ($link.length === 0) return;
-        
-        const href = $link.attr('href');
-        if (!href || href.includes('#') || href.includes('javascript:') || href === '/' || href.includes('/careers') || href.includes('/about')) {
-          return;
-        }
-        
-        let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-        if (!title || title.length < 5) {
-          title = $link.text().trim();
-        }
-        
-        if (title && title.length > 5 && href.includes('/blog/')) {
-          let fullUrl = href.startsWith('http') ? href : `https://ai.meta.com${href.startsWith('/') ? href : '/' + href}`;
-          
-          // 检查是否已存在
-          const normalizedUrl = normalizeUrl(fullUrl);
-          if (items.some(item => normalizeUrl(item.url) === normalizedUrl)) {
-            return; // 已存在，跳过
-          }
-          
-          const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-          const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
-                          $elem.find('time').first().text().trim() ||
-                          $elem.find('[class*="date"]').first().text().trim();
-          
-          // 使用 isArticleLink 验证是否是真正的文章链接
-          if (isArticleLink(fullUrl, title)) {
-            items.push({
-              title: translateToChinese(title),
-              url: fullUrl,
-              summary: translateToChinese(summary || title.substring(0, 150)),
-              publishedAt: parseDate(dateStr),
-              tags: extractTags(title, summary)
-            });
-          }
-        }
-      });
-    }
-    
-    console.log(`  找到 ${items.length} 个文章项（去重前）`);
-    
     return items
       .filter((item, index, self) => {
-        // 去重：基于URL，并使用 isArticleLink 再次验证
-        const normalizedUrl = normalizeUrl(item.url);
-        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && item.title.length > 5 && isArticleLink(item.url, item.title);
+        // 去重：基于URL和标题
+        const indexInSelf = self.findIndex(i => i.url === item.url || (i.title === item.title && i.title.length > 10));
+        return indexInSelf === index && item.title.length > 5;
       })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
@@ -1247,7 +934,6 @@ async function fetchFromMetaAI() {
       
   } catch (error) {
     console.error('Meta AI 抓取失败:', error.message);
-    console.error('错误堆栈:', error.stack);
     return [];
   }
 }
@@ -1270,7 +956,7 @@ async function fetchFromGoogleAI() {
       const link = $elem.attr('href') || $elem.find('a').first().attr('href');
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
       
-      if (title && link && isArticleLink(link, title)) {
+      if (title && link) {
         const fullUrl = link.startsWith('http') ? link : `https://ai.google.com${link}`;
         items.push({
           title: translateToChinese(title),
@@ -1282,19 +968,7 @@ async function fetchFromGoogleAI() {
       }
     });
     
-    return items
-      .filter((item, index, self) => {
-        // 去重并使用 isArticleLink 验证
-        const normalizedUrl = normalizeUrl(item.url);
-        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && isArticleLink(item.url, item.title);
-      })
-      .sort((a, b) => {
-        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
-        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
-        return dateB - dateA;
-      })
-      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+    return items.slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
   } catch (error) {
     console.error('Google AI 抓取失败:', error.message);
@@ -1367,7 +1041,7 @@ async function fetchFromStabilityAI() {
         }
       }
       
-      if (title && title.length > 5 && link && isArticleLink(link, title)) {
+      if (title && title.length > 5 && link) {
         items.push({
           title: translateToChinese(title),
           url: link,
@@ -1411,7 +1085,7 @@ async function fetchFromStabilityAI() {
           const $elem = $link;
           let title = $elem.text().trim() || $elem.find('h1, h2, h3, h4').first().text().trim();
           
-          if (title && title.length > 5 && isArticleLink(link, title)) {
+          if (title && title.length > 5) {
             const $parent = $elem.closest('article, div, section');
             let summary = $parent.find('p').first().text().trim();
             let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
@@ -1472,7 +1146,7 @@ async function fetchFromAWS() {
       const dateStr = $elem.find('[class*="date"], time, [datetime]').first().attr('datetime') || 
                       $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && title.length > 5 && isArticleLink(link, title)) {
+      if (title && link && title.length > 5) {
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
@@ -1566,98 +1240,71 @@ async function fetchFromGoogleDeepMind() {
     const html = await fetch(url);
     console.log(`  响应长度: ${html.length} 字符`);
     
-    if (!html || html.length < 100) {
-      console.error('  警告: 响应内容过短，可能请求失败');
-      return [];
-    }
-    
     const $ = cheerio.load(html);
     const items = [];
     
-    // Google DeepMind 页面结构 - 查找具体的文章链接
-    // 排除分类页面，只抓取具体文章（URL 应该有更深的路径）
+    // 查找文章链接
     $('article, a[href*="/innovation-and-ai/models-and-research/google-deepmind/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
       let link = $elem.attr('href') || $elem.find('a').first().attr('href');
       
-      if (!link) {
-        // 如果是 article 元素，查找内部的链接
-        link = $elem.find('a[href*="/google-deepmind/"]').first().attr('href');
-      }
-      
       if (!link) return;
       
-      // 转换为绝对 URL
+      // 转换为绝对路径
       if (!link.startsWith('http')) {
         link = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
       }
       
-      // 确保是完整的 URL
-      if (!link.includes('blog.google')) {
+      // 只抓取具体的文章，排除分类页面
+      if (!link.includes('/innovation-and-ai/models-and-research/google-deepmind/')) {
         return;
       }
       
-      // 只抓取具体文章，排除分类页面
-      // 具体文章的 URL 应该包含文章标题片段（通常有多个斜杠或日期）
-      // 排除：
-      // - 分类页面：/innovation-and-ai/models-and-research/google-deepmind/
-      // - 只有分类路径的链接
-      const normalizedLink = link.replace(/\/$/, ''); // 移除尾部斜杠
-      const pathParts = new URL(normalizedLink).pathname.split('/').filter(p => p);
-      
-      // 如果是分类页面（路径太短），跳过
-      if (pathParts.length <= 5 || normalizedLink.endsWith('/google-deepmind')) {
+      // 排除分类页面本身
+      if (link.endsWith('/google-deepmind/') || link.endsWith('/google-deepmind')) {
         return;
       }
       
-      const $parent = $elem.closest('article, [class*="post"], [class*="article"], [class*="card"], div');
-      
-      // 标题查找 - 优先从标题元素获取
+      // 获取标题
       let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
       if (!title || title.length < 10) {
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      }
-      if (!title || title.length < 10) {
-        title = $elem.text().trim().split('\n')[0].trim();
+        const $parent = $elem.closest('article, [class*="post"], [class*="card"], div');
+        title = $parent.find('h1, h2, h3, h4').first().text().trim() || $elem.text().trim();
       }
       
-      // 使用 isArticleLink 验证是否是真正的文章链接
-      if (!isArticleLink(link, title)) {
-        return;
-      }
-      
-      // 摘要查找
-      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      // 获取摘要
+      const $parent = $elem.closest('article, [class*="post"], [class*="card"], div');
+      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
       if (!summary) {
-        summary = $elem.find('p, [class*="summary"]').first().text().trim();
+        summary = $elem.siblings('p').first().text().trim();
       }
       
-      // 日期查找
+      // 获取日期
       let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                    $parent.find('time').first().text().trim() ||
                     $elem.find('time[datetime]').first().attr('datetime') ||
+                    $parent.find('time').first().text().trim() ||
                     $elem.find('[class*="date"]').first().text().trim();
       
-      items.push({
-        title: translateToChinese(title),
-        url: link,
-        summary: translateToChinese(summary || title.substring(0, 150)),
-        publishedAt: parseDate(dateStr),
-        tags: extractTags(title, summary)
-      });
+      if (title && title.length > 10 && link) {
+        items.push({
+          title: translateToChinese(title),
+          url: link,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
     });
     
-    console.log(`  找到 ${items.length} 个文章项（去重前）`);
+    console.log(`  找到 ${items.length} 个文章项`);
     
-    // 去重和排序
-    const uniqueItems = items
+    return items
       .filter((item, index, self) => {
         // 去重：基于URL
-        const normalizedUrl = normalizeUrl(item.url);
-        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && isArticleLink(item.url, item.title);
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index && item.title.length > 10;
       })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
@@ -1665,10 +1312,6 @@ async function fetchFromGoogleDeepMind() {
         return dateB - dateA;
       })
       .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
-    
-    console.log(`  去重后剩余 ${uniqueItems.length} 条（原始 ${items.length} 条）`);
-    
-    return uniqueItems;
       
   } catch (error) {
     console.error('Google DeepMind 抓取失败:', error.message);
@@ -1687,80 +1330,24 @@ async function fetchFromMapbox() {
     const $ = cheerio.load(html);
     const items = [];
     
-    // 尝试多种选择器，优先查找链接
-    $('a[href*="/blog/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false; // 收集更多以便筛选
+    // 尝试多种选择器
+    $('article, [class*="post"], [class*="article"], [class*="blog"], a[href*="/blog/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const $parent = $elem.closest('article, [class*="post"], [class*="article"], [class*="blog"], div');
-      
-      // 标题可能在链接内，或者在父元素中
-      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title || title.length < 5) {
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      }
-      if (!title || title.length < 5) {
-        title = $elem.text().trim();
-      }
-      
-      const link = $elem.attr('href');
-      const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim() || 
-                      $elem.find('p, [class*="summary"]').first().text().trim();
-      const dateStr = $parent.find('[class*="date"], time[datetime]').first().attr('datetime') || 
-                      $parent.find('[class*="date"], time').first().text().trim() ||
-                      $elem.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+      const dateStr = $elem.find('[class*="date"], time, [datetime]').first().attr('datetime') || 
                       $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && title.length > 5 && link.includes('/blog/')) {
+      if (title && link && title.length > 5) {
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://www.mapbox.com${link}` : `https://www.mapbox.com/${link}`;
         }
-        
-        // 收集所有博客文章，不限制 AI 相关内容
-        items.push({
-          title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title),
-          publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
-        });
-      }
-    });
-    
-    // 如果使用链接选择器没找到足够的内容，尝试查找文章元素
-    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      console.log(`  链接选择器找到 ${items.length} 条，尝试查找文章元素...`);
-      $('article, [class*="post"], [class*="article"], [class*="blog"]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
-        
-        const $elem = $(elem);
-        const $link = $elem.find('a[href*="/blog/"]').first();
-        
-        if ($link.length === 0) return;
-        
-        const href = $link.attr('href');
-        if (!href || href.includes('#') || href.includes('javascript:')) {
-          return;
-        }
-        
-        let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-        if (!title || title.length < 5) {
-          title = $link.text().trim();
-        }
-        
-        if (title && title.length > 5 && href.includes('/blog/')) {
-          let fullUrl = href.startsWith('http') ? href : `https://www.mapbox.com${href.startsWith('/') ? href : '/' + href}`;
-          
-          // 检查是否已存在
-          if (items.some(item => normalizeUrl(item.url) === normalizeUrl(fullUrl))) {
-            return; // 已存在，跳过
-          }
-          
-          const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-          const dateStr = $elem.find('[class*="date"], time[datetime]').first().attr('datetime') || 
-                          $elem.find('[class*="date"], time').first().text().trim();
-          
+        // 如果包含 AI 关键词，或者允许所有内容
+        if (isAIRelated(title + ' ' + summary) || items.length < 5) {
           items.push({
             title: translateToChinese(title),
             url: fullUrl,
@@ -1769,18 +1356,11 @@ async function fetchFromMapbox() {
             tags: extractTags(title, summary)
           });
         }
-      });
-    }
-    
-    console.log(`  找到 ${items.length} 个文章项（去重前）`);
+      }
+    });
     
     return items
-      .filter((item, index, self) => {
-        // 去重：基于URL
-        const normalizedUrl = normalizeUrl(item.url);
-        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && item.title.length > 5;
-      })
+      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index) // 去重
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
