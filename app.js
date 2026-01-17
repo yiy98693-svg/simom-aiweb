@@ -3,7 +3,7 @@
 // ====================
 const CONFIG = {
   DATA_URL: './data/today.json', // 数据文件路径
-  SITE_ORDER: ['microsoft', 'google', 'figma', 'anthropic', 'metaai', 'googleai', 'stability', 'aws', 'googledeepmind'], // 站点显示顺序
+  SITE_ORDER: ['microsoft', 'google', 'figma', 'anthropic', 'metaai', 'googleai', 'stability', 'aws', 'googledeepmind', 'aibase', 'jiqizhixin', 'qbitai', 'openaicn', 'techcrunch', 'googleresearch', 'rundownai'], // 站点显示顺序
 };
 
 // ====================
