@@ -114,19 +114,42 @@ function setCachedTranslation(text, translation) {
   }
 }
 
+// 清理标题文本：移除多余的空白字符和换行符
+function cleanTitle(text) {
+  if (!text) return '';
+  // 移除所有换行符、制表符，将多个空格合并为一个
+  let cleaned = text
+    .replace(/[\r\n\t]+/g, ' ')  // 替换所有换行符和制表符为空格
+    .replace(/\s+/g, ' ')         // 将多个连续空格合并为一个
+    .trim();                       // 移除首尾空格
+  
+  // 限制最大长度为100字符，避免URL过长导致API错误
+  if (cleaned.length > 100) {
+    cleaned = cleaned.substring(0, 100).trim();
+  }
+  
+  return cleaned;
+}
+
 // 单个标题翻译
 async function translateTitle(text) {
   if (!text || text.trim().length === 0) {
     return text;
   }
   
-  // 如果已经是中文，直接返回
-  if (isChinese(text)) {
-    return text;
+  // 清理标题文本
+  const cleanedText = cleanTitle(text);
+  if (!cleanedText || cleanedText.length === 0) {
+    return text.trim(); // 如果清理后为空，返回原始文本的trim版本
   }
   
-  // 检查缓存
-  const cached = getCachedTranslation(text);
+  // 如果已经是中文，直接返回清理后的文本
+  if (isChinese(cleanedText)) {
+    return cleanedText;
+  }
+  
+  // 检查缓存（使用清理后的文本作为key）
+  const cached = getCachedTranslation(cleanedText);
   if (cached) {
     return cached;
   }
@@ -139,7 +162,7 @@ async function translateTitle(text) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        q: text,
+        q: cleanedText,
         source: 'auto',
         target: 'zh',
         format: 'text'
@@ -154,34 +177,39 @@ async function translateTitle(text) {
     if (data.translatedText) {
       const translated = data.translatedText;
       // 缓存结果
-      setCachedTranslation(text, translated);
+      setCachedTranslation(cleanedText, translated);
       return translated;
     }
   } catch (error) {
     console.warn('LibreTranslate 翻译失败，尝试备用方案:', error);
     
-    // 备用方案：使用 MyMemory Translation API
-    try {
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|zh`
-      );
-      
-      if (response.ok) {
-        const data = await response.json();
-        if (data.responseData && data.responseData.translatedText) {
-          const translated = data.responseData.translatedText;
-          setCachedTranslation(text, translated);
-          return translated;
+    // 备用方案：使用 MyMemory Translation API（仅当文本长度合理时）
+    if (cleanedText.length <= 100) {
+      try {
+        const response = await fetch(
+          `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanedText)}&langpair=en|zh`,
+          {
+            signal: AbortSignal.timeout(5000) // 5秒超时
+          }
+        );
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.responseData && data.responseData.translatedText) {
+            const translated = data.responseData.translatedText;
+            setCachedTranslation(cleanedText, translated);
+            return translated;
+          }
         }
+      } catch (error2) {
+        // 静默失败，不输出错误日志，避免控制台噪音
+        // console.warn('备用翻译 API 也失败:', error2);
       }
-    } catch (error2) {
-      console.warn('备用翻译 API 也失败:', error2);
     }
   }
   
-  // 所有翻译都失败，返回原文
-  console.warn('翻译失败，使用原文:', text);
-  return text;
+  // 所有翻译都失败，返回清理后的原文（静默失败，不输出警告）
+  return cleanedText;
 }
 
 // 批量翻译所有标题
@@ -189,18 +217,27 @@ async function translateAllTitles(data) {
   const startTime = Date.now();
   const translatedData = JSON.parse(JSON.stringify(data)); // 深拷贝
   
-  // 收集所有需要翻译的标题
+  // 收集所有需要翻译的标题（先清理标题）
   const titlesToTranslate = [];
   for (let siteIndex = 0; siteIndex < translatedData.sites.length; siteIndex++) {
     const site = translatedData.sites[siteIndex];
     for (let itemIndex = 0; itemIndex < site.items.length; itemIndex++) {
       const item = site.items[itemIndex];
-      if (item.title && !isChinese(item.title)) {
-        titlesToTranslate.push({
-          siteIndex,
-          itemIndex,
-          title: item.title
-        });
+      if (item.title) {
+        // 先清理标题，移除多余的空白字符
+        const cleanedTitle = cleanTitle(item.title);
+        if (cleanedTitle) {
+          if (!isChinese(cleanedTitle)) {
+            titlesToTranslate.push({
+              siteIndex,
+              itemIndex,
+              title: cleanedTitle
+            });
+          } else {
+            // 如果清理后是中文，直接使用清理后的标题
+            translatedData.sites[siteIndex].items[itemIndex].title = cleanedTitle;
+          }
+        }
       }
     }
   }
@@ -211,27 +248,27 @@ async function translateAllTitles(data) {
     return translatedData;
   }
   
-  // 分批翻译
-  const batchSize = 5;
-  for (let i = 0; i < titlesToTranslate.length; i += batchSize) {
-    const batch = titlesToTranslate.slice(i, i + batchSize);
-    
-    // 并行翻译批次
-    await Promise.all(batch.map(async ({ siteIndex, itemIndex, title }) => {
-      try {
-        const translated = await translateTitle(title);
-        translatedData.sites[siteIndex].items[itemIndex].title = translated;
-      } catch (error) {
-        console.warn(`翻译标题失败: ${title}`, error);
-        // 翻译失败时保持原文
+    // 分批翻译（减少批次大小，避免API压力）
+    const batchSize = 3;
+    for (let i = 0; i < titlesToTranslate.length; i += batchSize) {
+      const batch = titlesToTranslate.slice(i, i + batchSize);
+      
+      // 并行翻译批次，使用 Promise.allSettled 确保所有请求都完成
+      await Promise.allSettled(batch.map(async ({ siteIndex, itemIndex, title }) => {
+        try {
+          const translated = await translateTitle(title);
+          translatedData.sites[siteIndex].items[itemIndex].title = translated;
+        } catch (error) {
+          // 静默失败，使用清理后的标题
+          translatedData.sites[siteIndex].items[itemIndex].title = title;
+        }
+      }));
+      
+      // 批次间延迟，避免触发 API 频率限制
+      if (i + batchSize < titlesToTranslate.length) {
+        await delay(500); // 增加延迟，减少API调用频率
       }
-    }));
-    
-    // 批次间延迟，避免触发 API 频率限制
-    if (i + batchSize < titlesToTranslate.length) {
-      await delay(200);
     }
-  }
   
   console.log(`翻译完成，耗时 ${Date.now() - startTime}ms`);
   return translatedData;
@@ -263,6 +300,9 @@ function hideLoadingAnimation() {
 
 // 渲染新闻项（参考 momoyu.cc 的简洁风格）
 function renderNewsItem(item, index) {
+  // 清理标题，移除多余的空白字符
+  const displayTitle = cleanTitle(item.title || '');
+  
   // 只显示实际发布时间，如果 publishedAt 不存在或无效则不显示
   let publishedTime = '';
   if (item.publishedAt) {
@@ -281,11 +321,11 @@ function renderNewsItem(item, index) {
 
   const url = escapeHtml(item.url);
   return `
-    <article class="news-item" data-url="${url}" role="button" tabindex="0" aria-label="查看 ${escapeHtml(item.title)}">
+    <article class="news-item" data-url="${url}" role="button" tabindex="0" aria-label="查看 ${escapeHtml(displayTitle)}">
       <div class="news-content">
         <div class="news-header">
           <span class="news-number">${index + 1}.</span>
-          <h3 class="news-title">${escapeHtml(item.title)}</h3>
+          <h3 class="news-title">${escapeHtml(displayTitle)}</h3>
           ${publishedTime ? `<span class="news-published-time">${publishedTime}</span>` : ''}
         </div>
         ${tagsHtml}
@@ -466,25 +506,29 @@ async function loadData() {
       }
     }, 5000);
     
-    // 后台翻译
+    // 先立即渲染，不等待翻译（确保页面快速显示）
+    console.log('立即渲染内容（不等待翻译）...');
+    renderSiteCards(data);
+    
+    // 清除定时器
+    if (loadingTimer) {
+      clearTimeout(loadingTimer);
+      loadingTimer = null;
+    }
+    
+    // 隐藏加载动画
+    hideLoadingAnimation();
+    
+    // 后台异步翻译所有标题，翻译完成后更新显示
     console.log('开始后台翻译标题...');
-    try {
-      const translatedData = await translateAllTitles(data);
-      
-      // 清除定时器
-      if (loadingTimer) {
-        clearTimeout(loadingTimer);
-        loadingTimer = null;
-      }
-      
-      // 隐藏加载动画（如果显示了）
-      hideLoadingAnimation();
-      
-      // 渲染翻译后的内容
-      console.log('翻译完成，开始渲染内容...');
+    translateAllTitles(data).then(translatedData => {
+      // 翻译完成后，重新渲染（只更新标题）
+      console.log('翻译完成，更新显示...');
       renderSiteCards(translatedData);
-    } catch (error) {
-      console.error('翻译过程出错:', error);
+    }).catch(error => {
+      console.warn('翻译过程出错，但页面已显示:', error);
+      // 翻译失败不影响页面显示
+    });
       // 清除定时器
       if (loadingTimer) {
         clearTimeout(loadingTimer);
