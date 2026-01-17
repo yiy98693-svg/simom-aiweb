@@ -2,18 +2,10 @@
   "date": "2026-01-17",
   "sites": [
     {
-      "source": "material",
-      "sourceName": "Material Design",
-      "sourceUrl": "https://m3.material.io/",
-      "updatedAt": "2026-01-17T07:11:03.307Z",
-      "updatedAtRelative": "刚刚",
-      "items": []
-    },
-    {
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-01-17T07:11:05.827Z",
+      "updatedAt": "2026-01-17T07:35:27.395Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -149,7 +141,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-01-17T07:11:08.149Z",
+      "updatedAt": "2026-01-17T07:35:29.833Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -288,7 +280,7 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-01-17T07:11:10.749Z",
+      "updatedAt": "2026-01-17T07:35:32.298Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -426,7 +418,7 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-01-17T07:11:13.105Z",
+      "updatedAt": "2026-01-17T07:35:34.539Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -555,18 +547,10 @@
       ]
     },
     {
-      "source": "openai",
-      "sourceName": "OpenAI",
-      "sourceUrl": "https://openai.com/zh-Hans-CN/",
-      "updatedAt": "2026-01-17T07:11:15.160Z",
-      "updatedAtRelative": "刚刚",
-      "items": []
-    },
-    {
       "source": "metaai",
       "sourceName": "Meta AI",
       "sourceUrl": "https://ai.meta.com/",
-      "updatedAt": "2026-01-17T07:11:18.520Z",
+      "updatedAt": "2026-01-17T07:35:38.664Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -639,7 +623,7 @@
       "source": "googleai",
       "sourceName": "Google AI",
       "sourceUrl": "https://ai.google/products/",
-      "updatedAt": "2026-01-17T07:11:21.200Z",
+      "updatedAt": "2026-01-17T07:35:41.528Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -774,7 +758,7 @@
       "source": "stability",
       "sourceName": "Stability AI",
       "sourceUrl": "https://stability.ai/",
-      "updatedAt": "2026-01-17T07:11:23.616Z",
+      "updatedAt": "2026-01-17T07:35:43.911Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -833,7 +817,7 @@
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-01-17T07:11:25.972Z",
+      "updatedAt": "2026-01-17T07:35:46.286Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -963,26 +947,18 @@
       ]
     },
     {
-      "source": "adobe",
-      "sourceName": "Adobe",
-      "sourceUrl": "https://www.adobe.com",
-      "updatedAt": "2026-01-17T07:11:28.268Z",
-      "updatedAtRelative": "刚刚",
-      "items": []
-    },
-    {
-      "source": "mapbox",
-      "sourceName": "Mapbox Maps",
-      "sourceUrl": "https://www.mapbox.com/maps",
-      "updatedAt": "2026-01-17T07:11:30.614Z",
+      "source": "googledeepmind",
+      "sourceName": "Google DeepMind",
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
+      "updatedAt": "2026-01-17T07:35:48.540Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
-          "id": "mapbox-001",
-          "title": "Over 100 global cities with 3D landmarks in Mapbox Standard",
-          "url": "https://www.mapbox.com/blog/global-cities-3d-landmarks",
+          "id": "googledeepmind-001",
+          "title": "Facebook",
+          "url": "https://www.facebook.com/sharer/sharer.php?caption=Google%20DeepMind&u=https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
           "thumbnail": "",
-          "summary": "Over 100 global cities with 3D landmarks in Mapbox Standard",
+          "summary": "Facebook",
           "tags": [
             "设计",
             "AI"
@@ -991,11 +967,11 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "mapbox-002",
-          "title": "Mapbox Feedback Agent: Capture better real-time feedback from users",
-          "url": "https://www.mapbox.com/blog/mapbox-feedback-agent-capture-better-real-time-feedback-from-users",
+          "id": "googledeepmind-002",
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/shareArticle?mini=true&url=https://blog.google/innovation-and-ai/models-and-research/google-deepmind/&title=Google%20DeepMind",
           "thumbnail": "",
-          "summary": "Mapbox Feedback Agent: Capture better real-time feedback from users",
+          "summary": "LinkedIn",
           "tags": [
             "设计",
             "AI"
@@ -1004,11 +980,23 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "mapbox-003",
-          "title": "Search anywhere, go anywhere: Empowering users with the Mapbox Search SDKs",
-          "url": "https://www.mapbox.com/blog/search-anywhere-go-anywhere-empowering-users-with-the-mapbox-search-sdks",
+          "id": "googledeepmind-003",
+          "title": "Innovation & AI",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
           "thumbnail": "",
-          "summary": "Search anywhere, go anywhere: Empowering users with the Mapbox Search SDKs",
+          "summary": "Innovation & AI",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googledeepmind-004",
+          "title": "Follow Us",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/",
+          "thumbnail": "",
+          "summary": "Follow Us",
           "tags": [
             "设计",
             "AI"
@@ -1017,11 +1005,11 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "mapbox-004",
-          "title": "How the Mapbox DevKit MCP Server enhances AI coding workflows",
-          "url": "https://www.mapbox.com/blog/how-the-mapbox-devkit-mcp-server-enhances-ai-coding-workflows",
+          "id": "googledeepmind-005",
+          "title": "WeatherNext 2: Our most advanced weather forecasting model",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/weathernext-2/",
           "thumbnail": "",
-          "summary": "How the Mapbox DevKit MCP Server enhances AI coding workflows",
+          "summary": "The new AI model delivers more efficient, more accurate and higher-resolution global weather predictions.",
           "tags": [
             "AI"
           ],
@@ -1029,76 +1017,11 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "mapbox-005",
-          "title": "Enhanced data coverage with Mapbox Movement V4",
-          "url": "https://www.mapbox.com/blog/enhanced-data-coverage-with-mapbox-movement-v4",
+          "id": "googledeepmind-006",
+          "title": "Google DeepMind",
+          "url": "https://twitter.com/intent/tweet?text=Google%20DeepMind%20%40google&url=https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
           "thumbnail": "",
-          "summary": "Enhanced data coverage with Mapbox Movement V4",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "mapbox-006",
-          "title": "Read more→",
-          "url": "https://www.mapbox.com/blog/never-miss-a-turn-again-with-mapbox-3d-lanes",
-          "thumbnail": "",
-          "summary": "Read more→",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "mapbox-007",
-          "title": "Read more→",
-          "url": "https://www.mapbox.com/blog/mapbox-adds-10-million-sq-km-of-new-30-cm-satellite-imagery",
-          "thumbnail": "",
-          "summary": "Read more→",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "mapbox-008",
-          "title": "Read more→",
-          "url": "https://www.mapbox.com/blog/mapbox-2025-a-year-of-growth-community-and-new-ideas",
-          "thumbnail": "",
-          "summary": "Read more→",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "mapbox-009",
-          "title": "Read more→",
-          "url": "https://www.mapbox.com/blog/real-world-insights-from-build-with-mapbox-2025",
-          "thumbnail": "",
-          "summary": "Read more→",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "mapbox-010",
-          "title": "Read more→",
-          "url": "https://www.mapbox.com/blog/detailed-architecture-and-new-design-flexibility-enhance-the-latest-release-of-mapbox-standard",
-          "thumbnail": "",
-          "summary": "Read more→",
+          "summary": "Google DeepMind",
           "tags": [
             "设计",
             "AI"
