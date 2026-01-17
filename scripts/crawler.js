@@ -1477,6 +1477,149 @@ async function fetchFromAdobe() {
 }
 
 /**
+ * Google DeepMind 抓取器
+ */
+async function fetchFromGoogleDeepMind() {
+  try {
+    const url = 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/';
+    console.log(`  开始请求: ${url}`);
+    const html = await fetch(url);
+    console.log(`  响应长度: ${html.length} 字符`);
+    
+    if (!html || html.length < 100) {
+      console.error('  警告: 响应内容过短，可能请求失败');
+      return [];
+    }
+    
+    const $ = cheerio.load(html);
+    const items = [];
+    
+    // Google DeepMind 页面结构 - 尝试多种选择器
+    // 优先查找文章链接
+    $('a[href*="/innovation-and-ai/models-and-research/google-deepmind/"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
+      
+      const $elem = $(elem);
+      const $parent = $elem.closest('article, [class*="post"], [class*="article"], [class*="card"], div');
+      
+      // 标题可能在链接内，或者在父元素中
+      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      if (!title || title.length < 5) {
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      }
+      if (!title || title.length < 5) {
+        title = $elem.text().trim();
+      }
+      
+      const link = $elem.attr('href');
+      
+      // 跳过导航和无关链接
+      if (!link || link.includes('#') || link.includes('javascript:') || link === '/' || title.length < 5) {
+        return;
+      }
+      
+      // 摘要可能在父元素中
+      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      if (!summary) {
+        summary = $elem.find('p, [class*="summary"]').first().text().trim();
+      }
+      
+      // 日期可能在父元素或链接附近
+      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                    $parent.find('time').first().text().trim() ||
+                    $elem.find('time[datetime]').first().attr('datetime') ||
+                    $elem.find('[class*="date"]').first().text().trim();
+      
+      if (title && link && title.length > 5 && link.includes('/google-deepmind/')) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
+        }
+        
+        // 确保是完整的 URL
+        if (!fullUrl.includes('blog.google')) {
+          fullUrl = `https://blog.google${fullUrl}`;
+        }
+        
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    // 如果使用链接选择器没找到足够的内容，尝试查找文章元素
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      console.log(`  链接选择器找到 ${items.length} 条，尝试查找文章元素...`);
+      $('article, [class*="post"], [class*="article"], [class*="card"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
+        
+        const $elem = $(elem);
+        const $link = $elem.find('a[href*="/google-deepmind/"]').first();
+        
+        if ($link.length === 0) return;
+        
+        const href = $link.attr('href');
+        if (!href || href.includes('#') || href.includes('javascript:')) {
+          return;
+        }
+        
+        let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+        if (!title || title.length < 5) {
+          title = $link.text().trim();
+        }
+        
+        if (title && title.length > 5 && href.includes('/google-deepmind/')) {
+          let fullUrl = href.startsWith('http') ? href : `https://blog.google${href.startsWith('/') ? href : '/' + href}`;
+          
+          // 检查是否已存在
+          if (items.some(item => normalizeUrl(item.url) === normalizeUrl(fullUrl))) {
+            return; // 已存在，跳过
+          }
+          
+          const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+          const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                          $elem.find('time').first().text().trim() ||
+                          $elem.find('[class*="date"]').first().text().trim();
+          
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
+    
+    console.log(`  找到 ${items.length} 个文章项（去重前）`);
+    
+    return items
+      .filter((item, index, self) => {
+        // 去重：基于URL
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
+        return indexInSelf === index && item.title.length > 5;
+      })
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('Google DeepMind 抓取失败:', error.message);
+    console.error('错误堆栈:', error.stack);
+    return [];
+  }
+}
+
+/**
  * Mapbox 抓取器
  */
 async function fetchFromMapbox() {
@@ -1649,12 +1792,6 @@ async function main() {
   // 抓取各个站点
   const siteConfigs = [
     {
-      source: 'material',
-      sourceName: 'Material Design',
-      sourceUrl: 'https://m3.material.io/',
-      fetcher: fetchFromMaterial
-    },
-    {
       source: 'microsoft',
       sourceName: 'Microsoft Design',
       sourceUrl: 'https://microsoft.design/',
@@ -1677,12 +1814,6 @@ async function main() {
       sourceName: 'Anthropic',
       sourceUrl: 'https://www.anthropic.com',
       fetcher: fetchFromAnthropic
-    },
-    {
-      source: 'openai',
-      sourceName: 'OpenAI',
-      sourceUrl: 'https://openai.com/zh-Hans-CN/',
-      fetcher: fetchFromOpenAI
     },
     {
       source: 'metaai',
@@ -1709,16 +1840,10 @@ async function main() {
       fetcher: fetchFromAWS
     },
     {
-      source: 'adobe',
-      sourceName: 'Adobe',
-      sourceUrl: 'https://www.adobe.com',
-      fetcher: fetchFromAdobe
-    },
-    {
-      source: 'mapbox',
-      sourceName: 'Mapbox Maps',
-      sourceUrl: 'https://www.mapbox.com/maps',
-      fetcher: fetchFromMapbox
+      source: 'googledeepmind',
+      sourceName: 'Google DeepMind',
+      sourceUrl: 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/',
+      fetcher: fetchFromGoogleDeepMind
     }
   ];
 
@@ -1778,17 +1903,14 @@ if (require.main === module) {
 }
 
 module.exports = {
-  fetchFromMaterial,
   fetchFromMicrosoftDesign,
   fetchFromGoogleDesign,
   fetchFromFigma,
   fetchFromAnthropic,
-  fetchFromOpenAI,
   fetchFromMetaAI,
   fetchFromGoogleAI,
   fetchFromStabilityAI,
   fetchFromAWS,
-  fetchFromAdobe,
-  fetchFromMapbox,
+  fetchFromGoogleDeepMind,
   main
 };
