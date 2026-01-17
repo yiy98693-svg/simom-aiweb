@@ -211,6 +211,50 @@ function normalizeUrl(url) {
   }
 }
 
+// 检查链接是否是具体的文章链接（而非分类、标签、导航链接）
+function isArticleLink(url, title) {
+  if (!url || !title) return false;
+  
+  const urlLower = url.toLowerCase();
+  const titleLower = title.toLowerCase();
+  
+  // 排除分类和标签链接
+  const excludePatterns = [
+    '/category/', '/categories/', '/tag/', '/tags/',
+    '/archive/', '/archives/', '/author/', '/authors/',
+    '/page/', '/pages/', '/search', '/sitemap',
+    '/about', '/contact', '/privacy', '/terms',
+    '/careers', '/jobs', '/team', '/newsletter',
+    '#', 'javascript:', 'mailto:', 'tel:'
+  ];
+  
+  for (const pattern of excludePatterns) {
+    if (urlLower.includes(pattern)) return false;
+  }
+  
+  // 排除明显的导航文本
+  const excludeTitles = [
+    'read more', 'read more →', 'learn more', 'learn more →',
+    'view all', 'see all', 'more', 'skip to',
+    'next', 'previous', 'previous page', 'next page',
+    'home', 'menu', 'navigation', 'nav',
+    'search', 'subscribe', 'follow', 'share'
+  ];
+  
+  const titleTrimmed = titleLower.trim();
+  if (excludeTitles.some(pattern => titleTrimmed === pattern || titleTrimmed.startsWith(pattern))) {
+    return false;
+  }
+  
+  // 排除太短的标题（可能是导航按钮）
+  if (title.trim().length < 10) return false;
+  
+  // 排除只有日期或只有分类名称的标题
+  if (/^\d{4}[-/]\d{1,2}[-/]\d{1,2}$/.test(titleTrimmed)) return false;
+  
+  return true;
+}
+
 // 提取标签（从文本中提取关键词）
 function extractTags(title, summary) {
   const text = `${title} ${summary}`.toLowerCase();
@@ -359,7 +403,7 @@ async function fetchFromMaterial() {
                   $parent.find('time').first().text().trim();
       }
       
-      if (title && link && title.length > 5 && !title.includes('Skip') && !title.includes('Blog')) {
+      if (title && link && title.length > 5 && !title.includes('Skip') && !title.includes('Blog') && isArticleLink(link, title)) {
         items.push({
           title: translateToChinese(title),
           url: link,
@@ -396,13 +440,15 @@ async function fetchFromMaterial() {
               title = titleMatch[2].trim();
             }
             if (title && title.length > 5) {
-              items.push({
-                title: translateToChinese(title),
-                url: link,
-                summary: translateToChinese(title),
-                publishedAt: parseDate(titleMatch ? titleMatch[1] : null),
-                tags: extractTags(title, '')
-              });
+              if (isArticleLink(link, title)) {
+                items.push({
+                  title: translateToChinese(title),
+                  url: link,
+                  summary: translateToChinese(title),
+                  publishedAt: parseDate(titleMatch ? titleMatch[1] : null),
+                  tags: extractTags(title, '')
+                });
+              }
             }
           }
         }
@@ -423,7 +469,9 @@ async function fetchFromMaterial() {
     
     const uniqueItems = items.filter((item, index, self) => {
       const normalizedUrl = normalizeUrl(item.url);
-      return self.findIndex(i => normalizeUrl(i.url) === normalizedUrl) === index;
+      const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
+      // 使用 isArticleLink 确保只返回真正的文章链接
+      return indexInSelf === index && isArticleLink(item.url, item.title);
     });
     
     console.log(`  去重后剩余 ${uniqueItems.length} 条（原始 ${items.length} 条）`);
@@ -483,7 +531,7 @@ async function fetchFromMicrosoftDesign() {
       const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
       const dateStr = $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link) {
+      if (title && link && isArticleLink(link, title)) {
         const fullUrl = link.startsWith('http') ? link : `https://microsoft.design${link}`;
         items.push({
           title: translateToChinese(title),
@@ -616,13 +664,16 @@ async function fetchFromGoogleDesign() {
         return;
       }
       
-      items.push({
-        title: translateToChinese(title),
-        url: link,
-        summary: translateToChinese(summary || title.substring(0, 150)),
-        publishedAt: null,
-        tags: extractTags(title, summary + ' ' + category)
-      });
+      // 使用 isArticleLink 验证是否是真正的文章链接
+      if (isArticleLink(link, title)) {
+        items.push({
+          title: translateToChinese(title),
+          url: link,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: null,
+          tags: extractTags(title, summary + ' ' + category)
+        });
+      }
     });
     
     console.log(`  解析后得到 ${items.length} 个文章项`);
@@ -645,7 +696,7 @@ async function fetchFromGoogleDesign() {
         }
         
         let title = $elem.text().trim();
-        if (title && title.length > 5 && !title.includes('Skip') && !title.includes('View')) {
+        if (title && title.length > 5 && !title.includes('Skip') && !title.includes('View') && isArticleLink(link, title)) {
           items.push({
             title: translateToChinese(title),
             url: link,
@@ -671,7 +722,9 @@ async function fetchFromGoogleDesign() {
     
     const uniqueItems = items.filter((item, index, self) => {
       const normalizedUrl = normalizeUrl(item.url);
-      return self.findIndex(i => normalizeUrl(i.url) === normalizedUrl) === index;
+      const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
+      // 使用 isArticleLink 确保只返回真正的文章链接
+      return indexInSelf === index && isArticleLink(item.url, item.title);
     });
     
     console.log(`  去重后剩余 ${uniqueItems.length} 条（原始 ${items.length} 条）`);
@@ -724,7 +777,7 @@ async function fetchFromFigma() {
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
       const dateStr = $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && title.length > 10) {
+      if (title && link && title.length > 10 && isArticleLink(link, title)) {
         const fullUrl = link.startsWith('http') ? link : `https://www.figma.com${link}`;
         items.push({
           title: translateToChinese(title),
@@ -782,7 +835,7 @@ async function fetchFromAnthropic() {
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
       const dateStr = $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link) {
+      if (title && link && isArticleLink(link, title)) {
         const fullUrl = link.startsWith('http') ? link : `https://www.anthropic.com${link}`;
         items.push({
           title: translateToChinese(title),
@@ -795,6 +848,12 @@ async function fetchFromAnthropic() {
     });
     
     return items
+      .filter((item, index, self) => {
+        // 去重并使用 isArticleLink 验证
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
+        return indexInSelf === index && isArticleLink(item.url, item.title);
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
@@ -932,13 +991,16 @@ async function fetchFromOpenAI() {
           fullUrl = `https://openai.com${fullUrl}`;
         }
         
-        items.push({
-          title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title.substring(0, 150)),
-          publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
-        });
+        // 使用 isArticleLink 验证是否是真正的文章链接
+        if (isArticleLink(fullUrl, title)) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
       }
     });
     
@@ -946,10 +1008,10 @@ async function fetchFromOpenAI() {
     
     return items
       .filter((item, index, self) => {
-        // 去重：基于URL
+        // 去重：基于URL，并使用 isArticleLink 再次验证
         const normalizedUrl = normalizeUrl(item.url);
         const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && item.title.length > 5;
+        return indexInSelf === index && item.title.length > 5 && isArticleLink(item.url, item.title);
       })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
@@ -978,7 +1040,7 @@ async function fetchFromOpenAI() {
           title = $parent.find('h1, h2, h3, h4').first().text().trim() || title;
         }
         
-        if (title && title.length > 5 && (href.includes('/news/') || href.includes('/index/'))) {
+        if (title && title.length > 5 && (href.includes('/news/') || href.includes('/index/')) && isArticleLink(href, title)) {
           let fullUrl = href.startsWith('http') ? href : `https://openai.com${href.startsWith('/') ? href : '/' + href}`;
           
           items.push({
@@ -1105,13 +1167,16 @@ async function fetchFromMetaAI() {
           fullUrl = `https://ai.meta.com${fullUrl}`;
         }
         
-        items.push({
-          title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title.substring(0, 150)),
-          publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
-        });
+        // 使用 isArticleLink 验证是否是真正的文章链接
+        if (isArticleLink(fullUrl, title)) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
       }
     });
     
@@ -1150,13 +1215,16 @@ async function fetchFromMetaAI() {
                           $elem.find('time').first().text().trim() ||
                           $elem.find('[class*="date"]').first().text().trim();
           
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
+          // 使用 isArticleLink 验证是否是真正的文章链接
+          if (isArticleLink(fullUrl, title)) {
+            items.push({
+              title: translateToChinese(title),
+              url: fullUrl,
+              summary: translateToChinese(summary || title.substring(0, 150)),
+              publishedAt: parseDate(dateStr),
+              tags: extractTags(title, summary)
+            });
+          }
         }
       });
     }
@@ -1165,10 +1233,10 @@ async function fetchFromMetaAI() {
     
     return items
       .filter((item, index, self) => {
-        // 去重：基于URL
+        // 去重：基于URL，并使用 isArticleLink 再次验证
         const normalizedUrl = normalizeUrl(item.url);
         const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && item.title.length > 5;
+        return indexInSelf === index && item.title.length > 5 && isArticleLink(item.url, item.title);
       })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
@@ -1202,7 +1270,7 @@ async function fetchFromGoogleAI() {
       const link = $elem.attr('href') || $elem.find('a').first().attr('href');
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
       
-      if (title && link) {
+      if (title && link && isArticleLink(link, title)) {
         const fullUrl = link.startsWith('http') ? link : `https://ai.google.com${link}`;
         items.push({
           title: translateToChinese(title),
@@ -1214,7 +1282,19 @@ async function fetchFromGoogleAI() {
       }
     });
     
-    return items.slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+    return items
+      .filter((item, index, self) => {
+        // 去重并使用 isArticleLink 验证
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
+        return indexInSelf === index && isArticleLink(item.url, item.title);
+      })
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
   } catch (error) {
     console.error('Google AI 抓取失败:', error.message);
@@ -1287,7 +1367,7 @@ async function fetchFromStabilityAI() {
         }
       }
       
-      if (title && title.length > 5 && link) {
+      if (title && title.length > 5 && link && isArticleLink(link, title)) {
         items.push({
           title: translateToChinese(title),
           url: link,
@@ -1331,7 +1411,7 @@ async function fetchFromStabilityAI() {
           const $elem = $link;
           let title = $elem.text().trim() || $elem.find('h1, h2, h3, h4').first().text().trim();
           
-          if (title && title.length > 5) {
+          if (title && title.length > 5 && isArticleLink(link, title)) {
             const $parent = $elem.closest('article, div, section');
             let summary = $parent.find('p').first().text().trim();
             let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
@@ -1392,7 +1472,7 @@ async function fetchFromAWS() {
       const dateStr = $elem.find('[class*="date"], time, [datetime]').first().attr('datetime') || 
                       $elem.find('[class*="date"], time').first().text().trim();
       
-      if (title && link && title.length > 5) {
+      if (title && link && title.length > 5 && isArticleLink(link, title)) {
         let fullUrl = link;
         if (!link.startsWith('http')) {
           fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
@@ -1494,116 +1574,90 @@ async function fetchFromGoogleDeepMind() {
     const $ = cheerio.load(html);
     const items = [];
     
-    // Google DeepMind 页面结构 - 尝试多种选择器
-    // 优先查找文章链接
-    $('a[href*="/innovation-and-ai/models-and-research/google-deepmind/"]').each((i, elem) => {
+    // Google DeepMind 页面结构 - 查找具体的文章链接
+    // 排除分类页面，只抓取具体文章（URL 应该有更深的路径）
+    $('article, a[href*="/innovation-and-ai/models-and-research/google-deepmind/"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
       
       const $elem = $(elem);
-      const $parent = $elem.closest('article, [class*="post"], [class*="article"], [class*="card"], div');
+      let link = $elem.attr('href') || $elem.find('a').first().attr('href');
       
-      // 标题可能在链接内，或者在父元素中
-      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title || title.length < 5) {
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      }
-      if (!title || title.length < 5) {
-        title = $elem.text().trim();
+      if (!link) {
+        // 如果是 article 元素，查找内部的链接
+        link = $elem.find('a[href*="/google-deepmind/"]').first().attr('href');
       }
       
-      const link = $elem.attr('href');
+      if (!link) return;
       
-      // 跳过导航和无关链接
-      if (!link || link.includes('#') || link.includes('javascript:') || link === '/' || title.length < 5) {
+      // 转换为绝对 URL
+      if (!link.startsWith('http')) {
+        link = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
+      }
+      
+      // 确保是完整的 URL
+      if (!link.includes('blog.google')) {
         return;
       }
       
-      // 摘要可能在父元素中
+      // 只抓取具体文章，排除分类页面
+      // 具体文章的 URL 应该包含文章标题片段（通常有多个斜杠或日期）
+      // 排除：
+      // - 分类页面：/innovation-and-ai/models-and-research/google-deepmind/
+      // - 只有分类路径的链接
+      const normalizedLink = link.replace(/\/$/, ''); // 移除尾部斜杠
+      const pathParts = new URL(normalizedLink).pathname.split('/').filter(p => p);
+      
+      // 如果是分类页面（路径太短），跳过
+      if (pathParts.length <= 5 || normalizedLink.endsWith('/google-deepmind')) {
+        return;
+      }
+      
+      const $parent = $elem.closest('article, [class*="post"], [class*="article"], [class*="card"], div');
+      
+      // 标题查找 - 优先从标题元素获取
+      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      if (!title || title.length < 10) {
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      }
+      if (!title || title.length < 10) {
+        title = $elem.text().trim().split('\n')[0].trim();
+      }
+      
+      // 使用 isArticleLink 验证是否是真正的文章链接
+      if (!isArticleLink(link, title)) {
+        return;
+      }
+      
+      // 摘要查找
       let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
       if (!summary) {
         summary = $elem.find('p, [class*="summary"]').first().text().trim();
       }
       
-      // 日期可能在父元素或链接附近
+      // 日期查找
       let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
                     $parent.find('time').first().text().trim() ||
                     $elem.find('time[datetime]').first().attr('datetime') ||
                     $elem.find('[class*="date"]').first().text().trim();
       
-      if (title && link && title.length > 5 && link.includes('/google-deepmind/')) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
-        }
-        
-        // 确保是完整的 URL
-        if (!fullUrl.includes('blog.google')) {
-          fullUrl = `https://blog.google${fullUrl}`;
-        }
-        
-        items.push({
-          title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title.substring(0, 150)),
-          publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
-        });
-      }
-    });
-    
-    // 如果使用链接选择器没找到足够的内容，尝试查找文章元素
-    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      console.log(`  链接选择器找到 ${items.length} 条，尝试查找文章元素...`);
-      $('article, [class*="post"], [class*="article"], [class*="card"]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 5) return false;
-        
-        const $elem = $(elem);
-        const $link = $elem.find('a[href*="/google-deepmind/"]').first();
-        
-        if ($link.length === 0) return;
-        
-        const href = $link.attr('href');
-        if (!href || href.includes('#') || href.includes('javascript:')) {
-          return;
-        }
-        
-        let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-        if (!title || title.length < 5) {
-          title = $link.text().trim();
-        }
-        
-        if (title && title.length > 5 && href.includes('/google-deepmind/')) {
-          let fullUrl = href.startsWith('http') ? href : `https://blog.google${href.startsWith('/') ? href : '/' + href}`;
-          
-          // 检查是否已存在
-          if (items.some(item => normalizeUrl(item.url) === normalizeUrl(fullUrl))) {
-            return; // 已存在，跳过
-          }
-          
-          const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-          const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
-                          $elem.find('time').first().text().trim() ||
-                          $elem.find('[class*="date"]').first().text().trim();
-          
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
+      items.push({
+        title: translateToChinese(title),
+        url: link,
+        summary: translateToChinese(summary || title.substring(0, 150)),
+        publishedAt: parseDate(dateStr),
+        tags: extractTags(title, summary)
       });
-    }
+    });
     
     console.log(`  找到 ${items.length} 个文章项（去重前）`);
     
-    return items
+    // 去重和排序
+    const uniqueItems = items
       .filter((item, index, self) => {
         // 去重：基于URL
         const normalizedUrl = normalizeUrl(item.url);
         const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
-        return indexInSelf === index && item.title.length > 5;
+        return indexInSelf === index && isArticleLink(item.url, item.title);
       })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
@@ -1611,6 +1665,10 @@ async function fetchFromGoogleDeepMind() {
         return dateB - dateA;
       })
       .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+    
+    console.log(`  去重后剩余 ${uniqueItems.length} 条（原始 ${items.length} 条）`);
+    
+    return uniqueItems;
       
   } catch (error) {
     console.error('Google DeepMind 抓取失败:', error.message);
