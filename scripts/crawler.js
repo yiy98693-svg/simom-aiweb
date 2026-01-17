@@ -977,64 +977,137 @@ async function fetchFromGoogleAI() {
 }
 
 /**
- * GitHub 抓取器
+ * Stability AI 抓取器
  */
-async function fetchFromGitHub() {
+async function fetchFromStabilityAI() {
   try {
-    // 使用主页，然后过滤 AI 相关内容
-    const url = 'https://github.blog/';
-    const html = await fetch(url); // fetch 函数现在会自动处理重定向
+    const url = 'https://stability.ai/';
+    console.log(`  开始请求: ${url}`);
+    const html = await fetch(url);
+    console.log(`  响应长度: ${html.length} 字符`);
+    
     const $ = cheerio.load(html);
     const items = [];
     
-    // 解析文章 - 根据实际HTML结构
-    $('article, a[href*="/blog/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false; // 收集更多以便筛选
+    // 方法1：查找 News 部分的文章链接
+    // 从搜索结果看，有 News 部分，包含日期和标题
+    $('a[href*="/news/"], article, [class*="news"], [class*="post"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
       
       const $elem = $(elem);
-      const $article = $elem.is('article') ? $elem : $elem.closest('article');
+      let link = $elem.attr('href');
       
-      // 标题可能在 h2 或链接中
-      let title = $article.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      if (!title) {
-        title = $elem.find('h1, h2, h3, h4').first().text().trim();
+      if (!link) {
+        // 如果元素本身不是链接，查找内部的链接
+        link = $elem.find('a[href*="/news/"], a[href*="/blog/"]').first().attr('href');
       }
       
-      // 链接可能在文章内的链接或元素本身的href
-      let link = $article.find('a[href*="/blog/"]').first().attr('href') || 
-                 $elem.attr('href') || 
-                 $elem.find('a[href*="/blog/"]').first().attr('href');
+      if (!link || (!link.includes('/news/') && !link.includes('/blog/'))) {
+        return;
+      }
       
-      // 摘要
-      const summary = $article.find('p').first().text().trim();
+      // 转换为绝对路径
+      if (!link.startsWith('http')) {
+        link = link.startsWith('/') ? `https://stability.ai${link}` : `https://stability.ai/${link}`;
+      }
       
-      // 日期
-      let dateStr = $article.find('time[datetime]').first().attr('datetime') || 
-                    $article.find('time').first().text().trim();
+      // 获取标题
+      let title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('article, [class*="card"], div, section');
+        title = $parent.find('h1, h2, h3, h4').first().text().trim() ||
+                $elem.siblings('h1, h2, h3, h4').first().text().trim() ||
+                $elem.text().trim();
+      }
       
-      if (title && link && title.length > 5 && link.includes('/blog/')) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://github.blog${link}` : `https://github.blog/${link}`;
+      // 获取摘要
+      const $parent = $elem.closest('article, [class*="card"], div, section');
+      let summary = $parent.find('p').first().text().trim();
+      if (!summary) {
+        summary = $elem.siblings('p').first().text().trim();
+      }
+      
+      // 获取日期
+      let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                    $elem.find('time').first().text().trim() ||
+                    $parent.find('time[datetime]').first().attr('datetime') ||
+                    $parent.find('time').first().text().trim();
+      
+      // 如果找不到日期，尝试从文本中提取（例如 "Nov 19, 2025"）
+      if (!dateStr) {
+        const dateMatch = $elem.text().match(/([A-Z][a-z]{2}\s+\d{1,2},\s+\d{4})/);
+        if (dateMatch) {
+          dateStr = dateMatch[1];
         }
-        
-        // 只保留 AI 相关的内容
-        if (isAIRelated(title + ' ' + summary) || link.includes('copilot') || link.includes('ai-and-ml')) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
+      }
+      
+      if (title && title.length > 5 && link) {
+        items.push({
+          title: translateToChinese(title),
+          url: link,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
       }
     });
+    
+    console.log(`  找到 ${items.length} 个文章项`);
+    
+    // 如果没找到，尝试更宽松的选择器
+    if (items.length === 0) {
+      console.log(`  尝试更宽松的选择器...`);
+      // 尝试从 HTML 中直接提取链接
+      const linkRegex = /href=["']([^"']*(?:news|blog)[^"']*)["']/gi;
+      const foundLinks = new Set();
+      let match;
+      
+      while ((match = linkRegex.exec(html)) !== null && foundLinks.size < 30) {
+        let link = match[1];
+        if (link.includes('/news/') || link.includes('/blog/')) {
+          if (!link.startsWith('http')) {
+            link = link.startsWith('/') ? `https://stability.ai${link}` : `https://stability.ai/${link}`;
+          }
+          foundLinks.add(link);
+        }
+      }
+      
+      console.log(`  从HTML中提取到 ${foundLinks.size} 个链接`);
+      
+      // 为每个链接查找标题
+      Array.from(foundLinks).forEach(link => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return;
+        
+        const relPath = link.replace('https://stability.ai', '');
+        const $link = $(`a[href="${relPath}"], a[href="${link}"]`).first();
+        
+        if ($link.length > 0) {
+          const $elem = $link;
+          let title = $elem.text().trim() || $elem.find('h1, h2, h3, h4').first().text().trim();
+          
+          if (title && title.length > 5) {
+            const $parent = $elem.closest('article, div, section');
+            let summary = $parent.find('p').first().text().trim();
+            let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                          $parent.find('time[datetime]').first().attr('datetime');
+            
+            items.push({
+              title: translateToChinese(title),
+              url: link,
+              summary: translateToChinese(summary || title.substring(0, 150)),
+              publishedAt: parseDate(dateStr),
+              tags: extractTags(title, summary)
+            });
+          }
+        }
+      });
+    }
     
     return items
       .filter((item, index, self) => {
         // 去重：基于URL
-        const indexInSelf = self.findIndex(i => i.url === item.url);
+        const normalizedUrl = normalizeUrl(item.url);
+        const indexInSelf = self.findIndex(i => normalizeUrl(i.url) === normalizedUrl);
         return indexInSelf === index && item.title.length > 5;
       })
       .sort((a, b) => {
@@ -1045,7 +1118,8 @@ async function fetchFromGitHub() {
       .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
   } catch (error) {
-    console.error('GitHub 抓取失败:', error.message);
+    console.error('Stability AI 抓取失败:', error.message);
+    console.error('错误堆栈:', error.stack);
     return [];
   }
 }
@@ -1310,10 +1384,10 @@ async function main() {
       fetcher: fetchFromGoogleAI
     },
     {
-      source: 'github',
-      sourceName: 'GitHub',
-      sourceUrl: 'https://github.com/',
-      fetcher: fetchFromGitHub
+      source: 'stability',
+      sourceName: 'Stability AI',
+      sourceUrl: 'https://stability.ai/',
+      fetcher: fetchFromStabilityAI
     },
     {
       source: 'aws',
@@ -1399,7 +1473,7 @@ module.exports = {
   fetchFromOpenAI,
   fetchFromMetaAI,
   fetchFromGoogleAI,
-  fetchFromGitHub,
+  fetchFromStabilityAI,
   fetchFromAWS,
   fetchFromAdobe,
   fetchFromMapbox,
