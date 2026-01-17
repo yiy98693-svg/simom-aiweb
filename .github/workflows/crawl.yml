@@ -54,8 +54,14 @@ jobs:
           git add data/today.json
           git commit -m "🔄 自动更新: $(date '+%Y-%m-%d') 的 AI 设计资讯" || exit 0
 
-      - name: 推送更改
-        if: steps.check-changes.outputs.changed == 'true'
+      - name: 推送更改到 main（正式环境）
+        if: steps.check-changes.outputs.changed == 'true' && github.ref == 'refs/heads/main'
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin main
+      
+      - name: 推送更改到 develop（测试环境）
+        if: steps.check-changes.outputs.changed == 'true' && github.ref == 'refs/heads/develop'
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin develop
