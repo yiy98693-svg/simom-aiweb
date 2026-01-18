@@ -1271,16 +1271,41 @@ async function fetchFromJiqizhixin() {
     const items = [];
     const seenUrls = new Set();
     
-    // 方法1：使用 cheerio 查找所有链接（优先查找有文本内容的链接）
-    $('a[href]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+    // 方法1：优先识别首页文章标题 - 查找标题元素，然后找附近的链接
+    $('h1, h2, h3, h4, [class*="title"], [class*="headline"]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      let link = $elem.attr('href');
-      if (!link) return;
+      const title = $elem.text().trim();
       
-      // 获取链接文本
-      let title = $elem.text().trim();
+      if (!title || title.length < 10) return;
+      
+      // 跳过明显的非文章标题
+      if (title.includes('机器之心') || 
+          title.includes('PRO') && title.includes('会员') ||
+          title.includes('AI Shortlist') ||
+          title.includes('SOTA！模型')) {
+        return;
+      }
+      
+      // 查找标题附近的链接
+      let link = null;
+      let summary = '';
+      
+      // 方法1.1：标题本身是链接
+      const $titleLink = $elem.find('a[href]').first();
+      if ($titleLink.length > 0) {
+        link = $titleLink.attr('href');
+      } else {
+        // 方法1.2：在父元素中查找链接
+        const $parent = $elem.closest('div, article, section, li, a');
+        const $link = $parent.is('a') ? $parent : $parent.find('a[href]').first();
+        if ($link.length > 0) {
+          link = $link.attr('href');
+        }
+      }
+      
+      if (!link) return;
       
       // 跳过明显的非文章链接
       if (link.includes('#') || 
@@ -1294,15 +1319,6 @@ async function fetchFromJiqizhixin() {
         return;
       }
       
-      // 查找包含文章路径的链接（包括 pro.jiqizhixin.com/reference/）
-      const isArticleLink = link.includes('/reference/') || 
-                           link.includes('/articles/') || 
-                           link.includes('/news/') ||
-                           link.match(/\/\d{4}\/\d{2}\/\d{2}\//) ||
-                           (link.includes('jiqizhixin.com') && !link.includes('/inbox') && !link.includes('/m/'));
-      
-      if (!isArticleLink) return;
-      
       // 构建完整 URL
       let fullUrl = link;
       if (!link.startsWith('http')) {
@@ -1315,7 +1331,7 @@ async function fetchFromJiqizhixin() {
         }
       }
       
-      // 规范化 URL（移除查询参数和 hash）
+      // 规范化 URL
       try {
         const urlObj = new URL(fullUrl);
         const normalizedUrl = urlObj.origin + urlObj.pathname;
@@ -1327,46 +1343,19 @@ async function fetchFromJiqizhixin() {
         seenUrls.add(fullUrl);
       }
       
-      // 如果链接文本太短，尝试从父元素或兄弟元素获取标题
-      if (!title || title.length < 5) {
-        const $parent = $elem.closest('div, article, section, li');
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim() ||
-                $elem.siblings('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-      }
-      
-      // 如果还是找不到，尝试从附近的文本节点获取
-      if (!title || title.length < 5) {
-        const $parent = $elem.parent();
-        title = $parent.text().trim().split('\n')[0].substring(0, 100);
-      }
-      
-      // 如果仍然找不到，从 URL 生成标题
-      if (!title || title.length < 5) {
-        const urlParts = fullUrl.split('/').filter(p => p && !p.includes('.'));
-        const lastPart = urlParts[urlParts.length - 1] || '';
-        // 如果是 UUID，跳过（因为这些通常是 PRO 会员内容）
-        if (lastPart.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
-          return; // 跳过 UUID 链接（通常是 PRO 内容）
-        }
-        title = lastPart.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      }
-      
       // 获取摘要
-      const $parent = $elem.closest('div, article, section');
-      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      const $parent = $elem.closest('div, article, section, li');
+      summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
       if (!summary) {
-        summary = $parent.text().trim().substring(title.length, title.length + 150);
+        // 从父元素文本中提取摘要（排除标题）
+        const parentText = $parent.text().trim();
+        const titleIndex = parentText.indexOf(title);
+        if (titleIndex >= 0) {
+          summary = parentText.substring(titleIndex + title.length, titleIndex + title.length + 150).trim();
+        }
       }
       
-      // 过滤掉明显的非文章内容（但允许PRO链接，因为首页主要是这些）
-      if (title && 
-          title.length > 5 && 
-          !title.includes('Skip') &&
-          !title.includes('AI Shortlist') &&
-          !title.includes('SOTA！模型') &&
-          !title.includes('通讯会员') &&
-          !title.includes('PRO通讯会员') &&
-          title !== '机器之心文章') {
+      if (title && title.length > 10) {
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
@@ -1374,6 +1363,114 @@ async function fetchFromJiqizhixin() {
           publishedAt: null,
           tags: extractTags(title, summary)
         });
+      }
+    });
+    
+    // 方法2：如果还不够，使用 cheerio 查找所有链接（作为补充）
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('a[href]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+        
+        const $elem = $(elem);
+        let link = $elem.attr('href');
+        if (!link) return;
+        
+        // 获取链接文本
+        let title = $elem.text().trim();
+        
+        // 跳过明显的非文章链接
+        if (link.includes('#') || 
+            link.includes('javascript:') || 
+            link === '/' ||
+            link.includes('/inbox') ||
+            link.includes('/m/') ||
+            link.includes('/ai_shortlist') ||
+            link.includes('aihaohaoyong.com') ||
+            link.includes('/short_urls')) {
+          return;
+        }
+        
+        // 查找包含文章路径的链接（包括 pro.jiqizhixin.com/reference/）
+        const isArticleLink = link.includes('/reference/') || 
+                             link.includes('/articles/') || 
+                             link.includes('/news/') ||
+                             link.match(/\/\d{4}\/\d{2}\/\d{2}\//) ||
+                             (link.includes('jiqizhixin.com') && !link.includes('/inbox') && !link.includes('/m/'));
+        
+        if (!isArticleLink) return;
+        
+        // 构建完整 URL
+        let fullUrl = link;
+      if (!link.startsWith('http')) {
+        if (link.startsWith('//')) {
+          fullUrl = 'https:' + link;
+        } else if (link.startsWith('/')) {
+          fullUrl = `https://www.jiqizhixin.com${link}`;
+        } else {
+          fullUrl = `https://www.jiqizhixin.com/${link}`;
+        }
+      }
+      
+        // 规范化 URL（移除查询参数和 hash）
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        // 如果链接文本太短，尝试从父元素或兄弟元素获取标题
+        if (!title || title.length < 5) {
+          const $parent = $elem.closest('div, article, section, li');
+          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim() ||
+                  $elem.siblings('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+        }
+        
+        // 如果还是找不到，尝试从附近的文本节点获取
+        if (!title || title.length < 5) {
+          const $parent = $elem.parent();
+          title = $parent.text().trim().split('\n')[0].substring(0, 100);
+        }
+        
+        // 如果仍然找不到，从 URL 生成标题
+        if (!title || title.length < 5) {
+          const urlParts = fullUrl.split('/').filter(p => p && !p.includes('.'));
+          const lastPart = urlParts[urlParts.length - 1] || '';
+          // 如果是 UUID，跳过（因为这些通常是 PRO 会员内容）
+          if (lastPart.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return; // 跳过 UUID 链接（通常是 PRO 内容）
+          }
+          title = lastPart.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
+        // 获取摘要
+        const $parent = $elem.closest('div, article, section');
+        let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+        if (!summary) {
+          summary = $parent.text().trim().substring(title.length, title.length + 150);
+        }
+        
+        // 过滤掉明显的非文章内容（但允许PRO链接，因为首页主要是这些）
+        if (title && 
+            title.length > 5 && 
+            !title.includes('Skip') &&
+            !title.includes('AI Shortlist') &&
+            !title.includes('SOTA！模型') &&
+            !title.includes('通讯会员') &&
+            !title.includes('PRO通讯会员') &&
+            title !== '机器之心文章') {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: null,
+            tags: extractTags(title, summary)
+          });
+        }
       }
     });
     
@@ -1547,31 +1644,122 @@ async function fetchFromQbitai() {
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
     
-    $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/news/"], a[href*="/article/"]').each((i, elem) => {
+    // 方法1：优先识别首页文章标题 - 查找标题元素，然后找附近的链接
+    $('h1, h2, h3, h4, [class*="title"], [class*="headline"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time').first().text().trim() || 
-                      $elem.find('[datetime]').first().attr('datetime');
+      const title = $elem.text().trim();
       
-      if (title && link && title.length > 5) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://www.qbitai.com${link}` : `https://www.qbitai.com/${link}`;
+      if (!title || title.length < 10) return;
+      
+      // 查找标题附近的链接
+      let link = null;
+      let summary = '';
+      
+      // 方法1.1：标题本身是链接
+      const $titleLink = $elem.find('a[href]').first();
+      if ($titleLink.length > 0) {
+        link = $titleLink.attr('href');
+      } else {
+        // 方法1.2：在父元素中查找链接
+        const $parent = $elem.closest('div, article, section, li, a');
+        const $link = $parent.is('a') ? $parent : $parent.find('a[href]').first();
+        if ($link.length > 0) {
+          link = $link.attr('href');
         }
+      }
+      
+      if (!link) return;
+      
+      // 构建完整 URL
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://www.qbitai.com${link}` : `https://www.qbitai.com/${link}`;
+      }
+      
+      // 规范化 URL
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) return;
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl)) return;
+        seenUrls.add(fullUrl);
+      }
+      
+      // 获取摘要
+      const $parent = $elem.closest('div, article, section, li');
+      summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      if (!summary) {
+        // 从父元素文本中提取摘要（排除标题）
+        const parentText = $parent.text().trim();
+        const titleIndex = parentText.indexOf(title);
+        if (titleIndex >= 0) {
+          summary = parentText.substring(titleIndex + title.length, titleIndex + title.length + 150).trim();
+        }
+      }
+      
+      // 获取日期
+      const dateStr = $parent.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+                      $parent.find('[class*="date"], time').first().text().trim();
+      
+      if (title && title.length > 10 && !title.includes('量子位') && !title.includes('QbitAI')) {
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
-          summary: translateToChinese(summary || title),
+          summary: translateToChinese(summary || title.substring(0, 150)),
           publishedAt: parseDate(dateStr),
           tags: extractTags(title, summary)
         });
       }
     });
+    
+    // 方法2：如果还不够，使用传统方法查找文章链接
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/202"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+        if (!link || !link.includes('/202')) return;
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.qbitai.com${link}` : `https://www.qbitai.com/${link}`;
+        }
+        
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+        const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+        const dateStr = $elem.find('[class*="date"], time').first().text().trim() || 
+                        $elem.find('[datetime]').first().attr('datetime');
+        
+        if (title && title.length > 10) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
     
     return items
       .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
@@ -1923,12 +2111,6 @@ async function main() {
   // 抓取各个站点
   const siteConfigs = [
     {
-      source: 'material',
-      sourceName: 'Material Design',
-      sourceUrl: 'https://m3.material.io/',
-      fetcher: fetchFromMaterial
-    },
-    {
       source: 'microsoft',
       sourceName: 'Microsoft Design',
       sourceUrl: 'https://microsoft.design/',
@@ -1999,18 +2181,6 @@ async function main() {
       sourceName: 'Google DeepMind',
       sourceUrl: 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/',
       fetcher: fetchFromGoogleDeepMind
-    },
-    {
-      source: 'googleresearch',
-      sourceName: 'Google Research',
-      sourceUrl: 'https://research.google/blog/',
-      fetcher: fetchFromGoogleResearch
-    },
-    {
-      source: 'rundown',
-      sourceName: 'The Rundown',
-      sourceUrl: 'https://www.therundown.ai/',
-      fetcher: fetchFromRundown
     }
   ];
 
@@ -2070,7 +2240,6 @@ if (require.main === module) {
 }
 
 module.exports = {
-  fetchFromMaterial,
   fetchFromMicrosoftDesign,
   fetchFromGoogleDesign,
   fetchFromFigma,
@@ -2083,7 +2252,5 @@ module.exports = {
   fetchFromQbitai,
   fetchFromTechCrunch,
   fetchFromGoogleDeepMind,
-  fetchFromGoogleResearch,
-  fetchFromRundown,
   main
 };
