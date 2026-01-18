@@ -1523,36 +1523,57 @@ async function fetchFromMetaAI() {
  */
 async function fetchFromGoogleAI() {
   try {
-    const url = 'https://ai.google/products/';
+    // 使用 Google Blog 的 AI 页面，因为 ai.google 经常超时
+    const url = 'https://blog.google/innovation-and-ai/technology/ai/';
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
     
-    $('article, [class*="post"], [class*="article"], a[href*="/products/"], a[href*="/blog/"]').each((i, elem) => {
+    // 方法1：从 article 元素中提取
+    $('article').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"]').first().text().trim();
-      // 优先从 meta 标签提取日期
-      const dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
-                      $elem.find('meta[property="og:published_time"]').first().attr('content') ||
-                      $elem.find('time[datetime]').first().attr('datetime') || 
-                      $elem.find('[datetime]').first().attr('datetime') ||
-                      $elem.find('[class*="date"]').first().attr('datetime') ||
-                      $elem.find('[data-date]').first().attr('data-date') ||
-                      $elem.find('[class*="date"], time').first().text().trim();
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const linkElem = $elem.find('a[href*="/innovation-and-ai/"]').first();
+      let link = linkElem.attr('href');
       
-      if (title && link) {
-        const fullUrl = link.startsWith('http') ? link : `https://ai.google.com${link}`;
-        
-        // 优先从 HTML 元素中提取日期，如果找不到则从 URL 中提取
+      if (!link || link.includes('#') || link.includes('mailto:')) {
+        return;
+      }
+      
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
+      }
+      
+      // 规范化 URL 并去重
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) return;
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl)) return;
+        seenUrls.add(fullUrl);
+      }
+      
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      
+      // 优先从 HTML 元素中提取日期
+      let dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
+                    $elem.find('meta[property="og:published_time"]').first().attr('content') ||
+                    $elem.find('time[datetime]').first().attr('datetime') || 
+                    $elem.find('[datetime]').first().attr('datetime') ||
+                    $elem.find('[class*="date"]').first().attr('datetime');
+      
+      if (title && title.length > 5 && !title.includes('Skip') && !title.includes('Menu')) {
         let publishedAt = parseDate(dateStr);
         if (!publishedAt) {
           publishedAt = extractDateFromUrl(fullUrl);
         }
-        // 如果还是没有日期，设置为 null，稍后访问详情页获取
         
         items.push({
           title: translateToChinese(title),
@@ -1563,6 +1584,67 @@ async function fetchFromGoogleAI() {
         });
       }
     });
+    
+    // 方法2：如果还不够，从链接中提取
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('a[href*="/innovation-and-ai/"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        let link = $elem.attr('href');
+        
+        if (!link || link.includes('#') || link.includes('mailto:') || link.includes('/category/')) {
+          return;
+        }
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
+        }
+        
+        // 规范化 URL 并去重
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        // 获取标题
+        let title = $elem.text().trim();
+        if (!title || title.length < 10) {
+          const $parent = $elem.closest('article, div, section');
+          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+        }
+        
+        const $parent = $elem.closest('article, div, section');
+        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+        
+        // 提取日期
+        let dateStr = $parent.find('meta[property="article:published_time"]').first().attr('content') ||
+                      $parent.find('time[datetime]').first().attr('datetime') ||
+                      $parent.find('[class*="date"]').first().attr('datetime');
+        
+        if (title && title.length > 10 && !title.includes('Skip') && !title.includes('Menu')) {
+          let publishedAt = parseDate(dateStr);
+          if (!publishedAt) {
+            publishedAt = extractDateFromUrl(fullUrl);
+          }
+          
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title),
+            publishedAt: publishedAt,
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
     
     // 如果列表页没有日期，访问文章详情页获取真实发布时间
     if (items.length > 0) {
@@ -2640,7 +2722,7 @@ async function main() {
     {
       source: 'googleai',
       sourceName: 'Google AI',
-      sourceUrl: 'https://ai.google/products/',
+      sourceUrl: 'https://blog.google/innovation-and-ai/technology/ai/',
       fetcher: fetchFromGoogleAI
     },
     {

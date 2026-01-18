@@ -1,11 +1,11 @@
 {
-  "date": "2026-01-18",
+  "date": "2026-01-19",
   "sites": [
     {
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-01-18T15:34:43.681Z",
+      "updatedAt": "2026-01-18T16:04:51.179Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -141,7 +141,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-01-18T15:34:56.793Z",
+      "updatedAt": "2026-01-18T16:05:05.299Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -280,7 +280,7 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-01-18T15:35:00.399Z",
+      "updatedAt": "2026-01-18T16:05:09.307Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -293,7 +293,7 @@
             "设计系统"
           ],
           "publishedAt": "2026-01-12T16:00:00.000Z",
-          "publishedAtRelative": "5天前"
+          "publishedAtRelative": "6天前"
         },
         {
           "id": "figma-002",
@@ -414,7 +414,7 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-01-18T15:35:09.873Z",
+      "updatedAt": "2026-01-18T16:05:20.000Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -428,7 +428,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-002",
@@ -441,7 +441,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-003",
@@ -454,7 +454,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-004",
@@ -466,7 +466,7 @@
             "Claude"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-005",
@@ -479,7 +479,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-006",
@@ -492,7 +492,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-007",
@@ -505,7 +505,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-008",
@@ -518,7 +518,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T16:00:00.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "anthropic-009",
@@ -550,7 +550,7 @@
       "source": "openai",
       "sourceName": "Wired AI",
       "sourceUrl": "https://www.wired.com/tag/artificial-intelligence/",
-      "updatedAt": "2026-01-18T15:35:14.883Z",
+      "updatedAt": "2026-01-18T16:05:25.302Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -687,16 +687,142 @@
     {
       "source": "googleai",
       "sourceName": "Google AI",
-      "sourceUrl": "https://ai.google/products/",
-      "updatedAt": "2026-01-18T15:36:16.921Z",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/ai/",
+      "updatedAt": "2026-01-18T16:06:29.395Z",
       "updatedAtRelative": "刚刚",
-      "items": []
+      "items": [
+        {
+          "id": "googleai-001",
+          "title": "AI\n            \n              The work we're doing to make AI helpful for everyone.",
+          "url": "https://blog.google/innovation-and-ai/",
+          "thumbnail": "",
+          "summary": "The work we're doing to make AI helpful for everyone.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-002",
+          "title": "Google DeepMind",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
+          "thumbnail": "",
+          "summary": "Google DeepMind",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-003",
+          "title": "Google Research",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/",
+          "thumbnail": "",
+          "summary": "Google Research",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-004",
+          "title": "Google Labs",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/",
+          "thumbnail": "",
+          "summary": "Google Labs",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-005",
+          "title": "Gemini models",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/",
+          "thumbnail": "",
+          "summary": "Gemini models",
+          "tags": [
+            "Gemini"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-006",
+          "title": "Innovation & AI",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/",
+          "thumbnail": "",
+          "summary": "Innovation & AI",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-007",
+          "title": "Developer tools",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/",
+          "thumbnail": "",
+          "summary": "Developer tools",
+          "tags": [
+            "工具"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-008",
+          "title": "Innovation & AI",
+          "url": "https://blog.google/innovation-and-ai/products/",
+          "thumbnail": "",
+          "summary": "Innovation & AI",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-009",
+          "title": "Global network",
+          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/",
+          "thumbnail": "",
+          "summary": "Global network",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-010",
+          "title": "Google Cloud",
+          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/",
+          "thumbnail": "",
+          "summary": "Google Cloud",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        }
+      ]
     },
     {
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-01-18T15:36:19.953Z",
+      "updatedAt": "2026-01-18T16:06:32.571Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -709,7 +835,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-16T15:51:21.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
           "id": "aws-002",
@@ -723,7 +849,7 @@
             "Claude"
           ],
           "publishedAt": "2026-01-16T15:46:36.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
           "id": "aws-003",
@@ -735,7 +861,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-16T15:41:55.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
           "id": "aws-004",
@@ -747,7 +873,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-16T15:37:37.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
           "id": "aws-005",
@@ -759,7 +885,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T15:55:35.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "aws-006",
@@ -772,7 +898,7 @@
             "生成式"
           ],
           "publishedAt": "2026-01-15T15:53:15.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "aws-007",
@@ -785,7 +911,7 @@
             "生成式"
           ],
           "publishedAt": "2026-01-15T15:50:54.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "aws-008",
@@ -797,7 +923,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-15T15:45:02.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "aws-009",
@@ -829,15 +955,15 @@
       "source": "aibase",
       "sourceName": "AIBase",
       "sourceUrl": "https://www.aibase.com/zh/news",
-      "updatedAt": "2026-01-18T15:36:27.433Z",
+      "updatedAt": "2026-01-18T16:06:47.007Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "aibase-001",
-          "title": "TaiXu-Admin V0.0.10发��，支持与 Ollama 模型适配",
+          "title": "TaiXu-Admin V0.0.10发布，支持与 Ollama 模型适配",
           "url": "https://www.aibase.com/news/24689",
           "thumbnail": "",
-          "summary": "TaiXu-Admin V0.0.10发��，支持与 Ollama 模型适配",
+          "summary": "TaiXu-Admin V0.0.10发布，支持与 Ollama 模型适配",
           "tags": [
             "AI"
           ],
@@ -909,10 +1035,10 @@
         },
         {
           "id": "aibase-007",
-          "title": "MongoDB推Voyage AI新模型，用自��语言“对话”数据库，向量搜索准确率再升级",
+          "title": "MongoDB推Voyage AI新模型，用自然语言“对话”数据库，向量搜索准确率再升级",
           "url": "https://www.aibase.com/news/24682",
           "thumbnail": "",
-          "summary": "MongoDB推Voyage AI新模型，用自��语言“对话”数据库，向量搜索准确率再升级",
+          "summary": "MongoDB推Voyage AI新模型，用自然语言“对话”数据库，向量搜索准确率再升级",
           "tags": [
             "AI"
           ],
@@ -962,7 +1088,7 @@
       "source": "jiqizhixin",
       "sourceName": "机器之心",
       "sourceUrl": "https://www.jiqizhixin.com/",
-      "updatedAt": "2026-01-18T15:36:29.846Z",
+      "updatedAt": "2026-01-18T16:06:49.489Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -976,7 +1102,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-18T12:50:18.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAtRelative": "3小时前"
         },
         {
           "id": "jiqizhixin-002",
@@ -988,7 +1114,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-18T12:45:09.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAtRelative": "3小时前"
         },
         {
           "id": "jiqizhixin-003",
@@ -1001,7 +1127,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-18T12:42:12.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAtRelative": "3小时前"
         },
         {
           "id": "jiqizhixin-004",
@@ -1014,7 +1140,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-18T12:39:18.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAtRelative": "3小时前"
         },
         {
           "id": "jiqizhixin-005",
@@ -1097,7 +1223,7 @@
       "source": "qbitai",
       "sourceName": "量子位",
       "sourceUrl": "https://www.qbitai.com/",
-      "updatedAt": "2026-01-18T15:36:31.965Z",
+      "updatedAt": "2026-01-18T16:06:52.318Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1237,7 +1363,7 @@
       "source": "techcrunch",
       "sourceName": "TechCrunch AI",
       "sourceUrl": "https://techcrunch.com/category/artificial-intelligence/",
-      "updatedAt": "2026-01-18T15:36:34.553Z",
+      "updatedAt": "2026-01-18T16:06:54.822Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1250,7 +1376,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-01-18T15:30:00.000Z",
-          "publishedAtRelative": "6分钟前"
+          "publishedAtRelative": "36分钟前"
         },
         {
           "id": "techcrunch-002",
@@ -1371,7 +1497,7 @@
       "source": "googledeepmind",
       "sourceName": "Google DeepMind",
       "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
-      "updatedAt": "2026-01-18T15:36:37.744Z",
+      "updatedAt": "2026-01-18T16:06:58.043Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
