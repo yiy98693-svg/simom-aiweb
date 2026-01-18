@@ -939,14 +939,16 @@ async function fetchFromAnthropic() {
 }
 
 /**
- * OpenAI 抓取器
+ * Wired AI 抓取器
  */
 async function fetchFromOpenAI() {
   try {
-    // 使用中文新闻页面，添加 Referer 头避免 403
-    const url = 'https://openai.com/zh-Hans-CN/news/';
+    const url = 'https://www.wired.com/tag/artificial-intelligence/';
     const html = await fetch(url, {
       headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
         'Referer': 'https://www.google.com/'
       }
     });
@@ -954,57 +956,35 @@ async function fetchFromOpenAI() {
     const items = [];
     const seenUrls = new Set();
     
-    // 方法1：优先从链接中提取文章（OpenAI 页面没有 article 元素）
-    $('a[href*="/index/"], a[href*="/zh-Hans-CN/index/"]').each((i, elem) => {
+    // 方法1：从 article 元素中提取
+    $('article').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      let link = $elem.attr('href');
-      if (!link || !link.includes('/index/')) return;
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const link = $elem.find('a[href*="/story/"]').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
       
-      // 构建完整 URL
-      let fullUrl = link;
-      if (!link.startsWith('http')) {
-        fullUrl = link.startsWith('/') ? `https://openai.com${link}` : `https://openai.com/${link}`;
-      }
-      
-      // 规范化 URL
-      try {
-        const urlObj = new URL(fullUrl);
-        const normalizedUrl = urlObj.origin + urlObj.pathname;
-        if (seenUrls.has(normalizedUrl)) return;
-        seenUrls.add(normalizedUrl);
-        fullUrl = normalizedUrl;
-      } catch (e) {
-        if (seenUrls.has(fullUrl)) return;
-        seenUrls.add(fullUrl);
-      }
-      
-      // 获取标题 - 优先从链接文本或父元素获取
-      let title = $elem.text().trim();
-      if (!title || title.length < 5) {
-        const $parent = $elem.closest('div, section, li');
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim() ||
-                $parent.text().trim().split('\n')[0];
-      }
-      
-      // 清理标题（移除日期等）
-      title = title.replace(/\d{4}年\d{1,2}月\d{1,2}日/g, '').trim();
-      title = title.split('产品')[0].split('公司')[0].split('安全防护')[0].split('研究')[0].trim();
-      
-      // 获取摘要
-      const $parent = $elem.closest('div, section, li');
-      let summary = $parent.find('p, [class*="summary"], [class*="description"]').first().text().trim();
-      if (!summary) {
-        summary = $parent.text().trim().substring(title.length, title.length + 150);
-      }
-      
-      // 提取日期
-      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                    $parent.find('time').first().text().trim() ||
-                    $parent.find('[class*="date"]').first().text().trim();
-      
-      if (title && title.length > 5 && !title.includes('ChatGPT') && !title.includes('OpenAI for')) {
+      if (title && link && title.length > 5) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.wired.com${link}` : `https://www.wired.com/${link}`;
+        }
+        
+        // 规范化 URL
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
@@ -1014,6 +994,57 @@ async function fetchFromOpenAI() {
         });
       }
     });
+    
+    // 方法2：如果还不够，从链接中提取
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('a[href*="/story/"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        let link = $elem.attr('href');
+        if (!link || link.includes('#') || link.includes('javascript:')) return;
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://www.wired.com${link}` : `https://www.wired.com/${link}`;
+        }
+        
+        // 规范化 URL
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        // 获取标题
+        let title = $elem.text().trim();
+        if (!title || title.length < 5) {
+          const $parent = $elem.closest('article, div, section, li');
+          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+        }
+        
+        // 获取摘要和日期
+        const $parent = $elem.closest('article, div, section, li');
+        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+        const dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                        $parent.find('[class*="date"], time').first().text().trim();
+        
+        if (title && title.length > 5 && !title.includes('Subscribe') && !title.includes('Sign In')) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
     
     return items
       .filter((item, index, self) => {
@@ -1029,7 +1060,7 @@ async function fetchFromOpenAI() {
       .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
   } catch (error) {
-    console.error('OpenAI 抓取失败:', error.message);
+    console.error('Wired AI 抓取失败:', error.message);
     return [];
   }
 }
@@ -1998,8 +2029,8 @@ async function main() {
     },
     {
       source: 'openai',
-      sourceName: 'OpenAI',
-      sourceUrl: 'https://openai.com/zh-Hans-CN/news/',
+      sourceName: 'Wired AI',
+      sourceUrl: 'https://www.wired.com/tag/artificial-intelligence/',
       fetcher: fetchFromOpenAI
     },
     {
