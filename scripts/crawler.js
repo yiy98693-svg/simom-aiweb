@@ -700,29 +700,133 @@ async function fetchFromFigma() {
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
     
-    // 解析博客文章
-    $('article, [class*="post"], [class*="article"], a[href*="/blog/"]').each((i, elem) => {
+    // 已知的分类名称（用于排除分类链接）
+    const categories = new Set([
+      'maker-stories', 'working-well', 'inside-figma', 'insights', 'news',
+      'design-systems', '3d-design', 'accessibility', 'behind-the-scenes',
+      'brainstorming', 'branding', 'career-and-education', 'case-study',
+      'collaboration', 'config', 'profiles-and-interviews', 'quality-and-performance',
+      'the-long-and-short-of-it', 'product', 'community', 'features'
+    ]);
+    
+    // 方法1：优先从 article 元素中提取（最可靠，只包含具体文章）
+    $('article').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const titleElem = $elem.find('h1, h2, h3, h4, [class*="title"]').first();
-      const title = titleElem.text().trim() || $elem.text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time').first().text().trim();
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const link = $elem.find('a[href*="/blog/"]').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      const dateStr = $elem.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
       
       if (title && link && title.length > 10) {
-        const fullUrl = link.startsWith('http') ? link : `https://www.figma.com${link}`;
+        let fullUrl = link.startsWith('http') ? link : `https://www.figma.com${link}`;
+        
+        // 规范化 URL
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        // 排除分类链接
+        const linkParts = fullUrl.replace('https://www.figma.com', '').split('/').filter(p => p);
+        if (linkParts.length >= 2 && linkParts[0] === 'blog') {
+          const categoryOrSlug = linkParts[1];
+          if (categories.has(categoryOrSlug)) {
+            return; // 跳过分类链接
+          }
+        }
+        
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
-          summary: translateToChinese(summary || title),
+          summary: translateToChinese(summary || title.substring(0, 150)),
           publishedAt: parseDate(dateStr),
           tags: extractTags(title, summary)
         });
       }
     });
+    
+    // 方法2：如果还不够，从链接中提取（但排除分类链接）
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('a[href*="/blog/"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        let link = $elem.attr('href');
+        if (!link || link === '/blog/' || link.includes('#')) return;
+        
+        let fullUrl = link.startsWith('http') ? link : `https://www.figma.com${link}`;
+        
+        // 规范化 URL
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        // 排除分类链接
+        const linkParts = fullUrl.replace('https://www.figma.com', '').split('/').filter(p => p);
+        if (linkParts.length >= 2 && linkParts[0] === 'blog') {
+          const categoryOrSlug = linkParts[1];
+          // 如果是已知的分类名称，跳过
+          if (categories.has(categoryOrSlug)) {
+            return;
+          }
+          
+          // 确保是具体文章（不是单个分类页面）
+          // 具体文章通常有更长的 slug 或者有多个路径部分
+          if (linkParts.length === 2 && categoryOrSlug.length < 20) {
+            // 可能是分类，进一步检查
+            const text = $elem.text().trim();
+            // 如果链接文本很短或包含常见分类关键词，跳过
+            if (text.length < 15 || 
+                text.toLowerCase().includes('stories') ||
+                text.toLowerCase().includes('news') ||
+                text.toLowerCase().includes('insights')) {
+              return;
+            }
+          }
+        }
+        
+        // 获取标题
+        let title = $elem.text().trim();
+        if (!title || title.length < 10) {
+          const $parent = $elem.closest('article, div, section');
+          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+        }
+        
+        // 获取摘要
+        const $parent = $elem.closest('article, div, section');
+        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+        const dateStr = $parent.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+                        $parent.find('[class*="date"], time').first().text().trim();
+        
+        if (title && title.length > 10 && !title.includes('Figma Blog')) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
     
     // 优先过滤 AI 相关内容
     const aiItems = items.filter(item => 
@@ -738,6 +842,11 @@ async function fetchFromFigma() {
     }
     
     return resultItems
+      .filter((item, index, self) => {
+        // 去重：基于 URL
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index;
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
