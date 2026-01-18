@@ -1134,24 +1134,55 @@ async function fetchFromAnthropic() {
         seenUrls.add(fullUrl);
       }
       
-      // 获取标题 - 优先从父元素的标题元素中提取，避免链接文本包含日期等信息
+      // 获取标题 - 优先从链接文本提取（因为很多链接共享同一个父容器）
+      // 链接文本通常包含：日期 + 类型 + 标题 + 更多文本
+      let title = $elem.text().trim();
+      
+      // 清理标题：提取第一个有意义的长句子（至少20个字符，以大写字母开头）
+      // 先移除日期模式
+      title = title.replace(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d+,\s+\d{4}/g, '');
+      
+      // 移除开头的类型标签
+      title = title.replace(/^(Announcements|Case Study|Policy|Product)/i, '');
+      
+      // 提取第一个有意义的长句子（至少3个单词，20个字符以上）
+      // 匹配模式：大写字母开头的单词序列
+      let titleMatch = title.match(/([A-Z][a-z]+(?:\s+[A-Z][a-z]+){2,}[^A-Z]{0,100})/);
+      if (titleMatch && titleMatch[1]) {
+        title = titleMatch[1].trim();
+        // 如果标题太长，截取到第一个句号或合理长度
+        if (title.length > 150) {
+          title = title.substring(0, 150).trim();
+          // 尝试在最后一个单词前截断
+          const lastSpace = title.lastIndexOf(' ');
+          if (lastSpace > 100) {
+            title = title.substring(0, lastSpace).trim();
+          }
+        }
+      } else {
+        // 如果正则匹配失败，尝试提取第一个大写字母开头的20个字符以上的文本
+        titleMatch = title.match(/[A-Z][^A-Z]{19,}/);
+        if (titleMatch) {
+          title = titleMatch[0].trim();
+          // 如果太长，在合适的地方截断
+          if (title.length > 150) {
+            title = title.substring(0, 150).trim();
+            const lastSpace = title.lastIndexOf(' ');
+            if (lastSpace > 100) {
+              title = title.substring(0, lastSpace).trim();
+            }
+          }
+        }
+      }
+      
+      // 如果清理后标题太短或为空，尝试从父元素获取
       const $parent = $elem.closest('article, [class*="card"], [class*="post"], div, section');
-      let title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-      
-      // 如果父元素没有标题，再从链接文本提取
       if (!title || title.length < 10) {
-        title = $elem.text().trim();
+        const parentTitle = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+        if (parentTitle && parentTitle.length > 10) {
+          title = parentTitle;
+        }
       }
-      
-      // 清理标题：移除日期和类型信息（如 "Jan 16, 2026Announcements..."）
-      // 匹配模式：日期 + 类型 + 实际标题
-      const titleMatch = title.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d+,\s+\d{4}([A-Za-z\s]+)?(.+)/);
-      if (titleMatch && titleMatch[3]) {
-        title = titleMatch[3].trim();
-      }
-      
-      // 移除开头的类型标签（如 "Announcements", "Case Study", "Policy" 等）
-      title = title.replace(/^(Announcements|Case Study|Policy|Product)\s*/i, '').trim();
       
       // 排除导航文本（如 "Newsroom", "Read announcement", "Learn more" 等）
       if (!title || title.length < 10 || 
@@ -1180,10 +1211,47 @@ async function fetchFromAnthropic() {
           url: fullUrl,
           summary: translateToChinese(summary || title),
           publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
+          tags: extractTags(title, summary),
+          _needTitleFetch: title.length < 30 || !title.match(/^[A-Z]/) // 标记需要从详情页获取标题的项
         });
       }
     });
+    
+    // 如果标题不完整，访问详情页获取完整标题（最多前10篇）
+    if (items.length > 0) {
+      const itemsNeedingTitle = items.filter(item => item._needTitleFetch).slice(0, 10);
+      if (itemsNeedingTitle.length > 0) {
+        console.log(`  标题不完整，访问 ${itemsNeedingTitle.length} 篇文章详情页获取完整标题...`);
+        for (const item of itemsNeedingTitle) {
+          try {
+            const articleHtml = await fetch(item.url, {
+              headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Referer': url
+              }
+            });
+            const $article = cheerio.load(articleHtml);
+            
+            // 从详情页获取标题（优先 h1，然后是 title 标签）
+            const articleTitle = $article('h1').first().text().trim() || 
+                                $article('title').first().text().trim();
+            
+            if (articleTitle && articleTitle.length > 10) {
+              // 清理标题（移除网站名称等）
+              let cleanTitle = articleTitle.replace(/\s*[-|]\s*Anthropic.*$/i, '').trim();
+              item.title = translateToChinese(cleanTitle);
+            }
+            
+            await delay(200);
+          } catch (e) {
+            // 如果访问详情页失败，保持原样
+          }
+        }
+        // 清理临时标记
+        items.forEach(item => delete item._needTitleFetch);
+      }
+    }
     
     return items
       .filter((item, index, self) => {
