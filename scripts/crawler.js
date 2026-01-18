@@ -1472,7 +1472,7 @@ async function fetchFromJiqizhixin() {
           });
         }
       }
-    });
+    }
     
     // 方法2：从 HTML 文本中直接提取所有包含 reference/articles/news 的 URL（作为补充）
     const urlPatterns = [
