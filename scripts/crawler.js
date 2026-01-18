@@ -1523,182 +1523,88 @@ async function fetchFromMetaAI() {
  */
 async function fetchFromGoogleAI() {
   try {
-    // 使用 Google Blog 的 AI 页面，因为 ai.google 经常超时
-    const url = 'https://blog.google/innovation-and-ai/technology/ai/';
-    const html = await fetch(url);
-    const $ = cheerio.load(html);
+    // 使用 RSS feed 获取内容（最稳定的方式，包含更多文章，没有导航和标签）
+    const rssUrl = 'https://blog.google/innovation-and-ai/technology/ai/rss/';
+    const rssXml = await fetch(rssUrl, {
+      headers: {
+        'Accept': 'application/rss+xml,application/xml,text/xml,*/*',
+      }
+    });
+    const $ = cheerio.load(rssXml, { xmlMode: true });
     const items = [];
     const seenUrls = new Set();
     
-    // 方法1：从 article 元素中提取具体文章（排除分类和导航）
-    $('article').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+    // 解析 RSS 2.0 格式
+    $('item').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false; // 收集更多以便筛选
       
-      const $elem = $(elem);
-      const linkElem = $elem.find('a[href*="/innovation-and-ai/"]').first();
-      let link = linkElem.attr('href');
+      const $item = $(elem);
+      const title = $item.find('title').first().text().trim();
+      let link = $item.find('link').first().text().trim() || $item.find('link').first().attr('href');
+      const description = $item.find('description').first().text().trim();
+      const pubDate = $item.find('pubDate').first().text().trim();
       
-      // 排除分类、导航和主页链接
-      if (!link || link.includes('#') || link.includes('mailto:') || 
-          link.includes('/category/') || link === '/innovation-and-ai/' ||
-          link.endsWith('/innovation-and-ai/')) {
-        return;
-      }
+      if (!title || !link || title.length < 5) return;
       
-      // 确保是具体的文章链接（至少3层路径，如 /innovation-and-ai/products/gemini-app/personal-intelligence/）
-      // 排除只有2层的分类链接（如 /innovation-and-ai/models-and-research/google-deepmind/）
-      const pathParts = link.split('/').filter(p => p);
-      if (pathParts.length < 4 || link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+\/$/)) {
-        return;
-      }
-      
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-      
-      let fullUrl = link;
-      if (!link.startsWith('http')) {
-        fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
-      }
-      
-      // 规范化 URL 并去重
+      // 规范化 URL
       try {
-        const urlObj = new URL(fullUrl);
+        const urlObj = new URL(link);
         const normalizedUrl = urlObj.origin + urlObj.pathname;
+        
+        // 去重
         if (seenUrls.has(normalizedUrl)) return;
         seenUrls.add(normalizedUrl);
-        fullUrl = normalizedUrl;
-      } catch (e) {
-        if (seenUrls.has(fullUrl)) return;
-        seenUrls.add(fullUrl);
-      }
-      
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-      
-      // 优先从 HTML 元素中提取日期
-      let dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
-                    $elem.find('meta[property="og:published_time"]').first().attr('content') ||
-                    $elem.find('time[datetime]').first().attr('datetime') || 
-                    $elem.find('[datetime]').first().attr('datetime') ||
-                    $elem.find('[class*="date"]').first().attr('datetime');
-      
-      if (title && title.length > 5 && !title.includes('Skip') && !title.includes('Menu')) {
-        let publishedAt = parseDate(dateStr);
-        if (!publishedAt) {
-          publishedAt = extractDateFromUrl(fullUrl);
+        
+        // 只抓取 /innovation-and-ai/ 路径下的文章（排除其他分类）
+        if (!normalizedUrl.includes('/innovation-and-ai/')) {
+          return;
+        }
+        
+        // 确保是具体文章（至少4层路径，排除分类页面）
+        const pathParts = normalizedUrl.split('/').filter(p => p);
+        if (pathParts.length < 4) return;
+        
+        // 排除分类页面（通常以特定路径结尾）
+        if (normalizedUrl.match(/\/(models-and-research|products|technology|infrastructure-and-cloud)\/[^\/]+\/$/)) {
+          return;
+        }
+        
+        // 排除导航和标签标题（只排除完全匹配的短标题，不排除包含这些词的正常文章标题）
+        const excludeTitles = ['Google DeepMind', 'Google Research', 'Google Labs', 'Gemini models', 
+                              'Developer tools', 'Global network', 'Google Cloud', 'Skip', 'Menu'];
+        // 只排除完全匹配或长度很短的标题（导航标题通常是简短的）
+        if (excludeTitles.some(ex => title === ex || (title.length < 30 && title.toLowerCase().includes(ex.toLowerCase())))) {
+          return;
         }
         
         items.push({
           title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title),
-          publishedAt: publishedAt,
-          tags: extractTags(title, summary)
+          url: normalizedUrl,
+          summary: translateToChinese(description || title),
+          publishedAt: parseDate(pubDate),
+          tags: extractTags(title, description)
         });
+      } catch (e) {
+        // ignore invalid URL
       }
     });
     
-    // 方法2：如果还不够，从链接中提取（严格过滤）
-    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      $('a[href*="/innovation-and-ai/"]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
-        
-        const $elem = $(elem);
-        let link = $elem.attr('href');
-        
-        // 排除分类、导航和主页链接
-        if (!link || link.includes('#') || link.includes('mailto:') || 
-            link.includes('/category/') || link === '/innovation-and-ai/' ||
-            link.endsWith('/innovation-and-ai/')) {
-          return;
-        }
-        
-        // 确保是具体的文章链接（至少3层路径，如 /innovation-and-ai/products/gemini-app/personal-intelligence/）
-        // 排除只有2层的分类链接
-        const pathParts = link.split('/').filter(p => p);
-        if (pathParts.length < 4 || link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+\/$/)) {
-          return;
-        }
-        
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
-        }
-        
-        // 规范化 URL 并去重
-        try {
-          const urlObj = new URL(fullUrl);
-          const normalizedUrl = urlObj.origin + urlObj.pathname;
-          if (seenUrls.has(normalizedUrl)) return;
-          seenUrls.add(normalizedUrl);
-          fullUrl = normalizedUrl;
-        } catch (e) {
-          if (seenUrls.has(fullUrl)) return;
-          seenUrls.add(fullUrl);
-        }
-        
-        // 获取标题
-        let title = $elem.text().trim();
-        if (!title || title.length < 10) {
-          const $parent = $elem.closest('article, div, section');
-          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-        }
-        
-        const $parent = $elem.closest('article, div, section');
-        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-        
-        // 提取日期
-        let dateStr = $parent.find('meta[property="article:published_time"]').first().attr('content') ||
-                      $parent.find('time[datetime]').first().attr('datetime') ||
-                      $parent.find('[class*="date"]').first().attr('datetime');
-        
-        if (title && title.length > 10 && !title.includes('Skip') && !title.includes('Menu')) {
-          let publishedAt = parseDate(dateStr);
-          if (!publishedAt) {
-            publishedAt = extractDateFromUrl(fullUrl);
-          }
-          
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title),
-            publishedAt: publishedAt,
-            tags: extractTags(title, summary)
-          });
-        }
-      });
-    }
+    console.log(`  从 RSS feed 获取到 ${items.length} 篇文章`);
     
-    // 如果列表页没有日期，访问文章详情页获取真实发布时间
-    if (items.length > 0) {
-      const itemsWithoutDate = items.filter(item => !item.publishedAt);
-      if (itemsWithoutDate.length > 0) {
-        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取真实发布时间...`);
-        // 分批处理，避免并发过多
-        const batchSize = 5;
-        for (let i = 0; i < itemsWithoutDate.length; i += batchSize) {
-          const batch = itemsWithoutDate.slice(i, i + batchSize);
-          await Promise.all(batch.map(async (item) => {
-            try {
-              const articleDate = await fetchDateFromArticlePage(item.url, url);
-              if (articleDate) {
-                item.publishedAt = articleDate;
-              }
-              await delay(200);
-            } catch (e) {
-              // 如果访问详情页失败，保持原样
-            }
-          }));
-          if (i + batchSize < itemsWithoutDate.length) {
-            await delay(500);
-          }
-        }
-        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
-        if (dateCount > 0) {
-          console.log(`  从详情页获取到 ${dateCount} 个真实发布时间`);
-        }
-      }
-    }
-    
-    return items.slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+    return items
+      .filter((item, index, self) => {
+        // 去重：基于URL和标题
+        const indexInSelf = self.findIndex(i => i.url === item.url || 
+          (i.title.toLowerCase().trim() === item.title.toLowerCase().trim() && Math.abs(index - self.indexOf(i)) < 5));
+        return indexInSelf === index && item.title.length > 5;
+      })
+      .sort((a, b) => {
+        // 按发布日期排序（最新的在前）
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
   } catch (error) {
     console.error('Google AI 抓取失败:', error.message);

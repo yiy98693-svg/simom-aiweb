@@ -5,7 +5,7 @@
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-01-18T16:13:57.143Z",
+      "updatedAt": "2026-01-18T16:29:11.503Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -141,7 +141,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-01-18T16:14:09.504Z",
+      "updatedAt": "2026-01-18T16:29:25.171Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -280,7 +280,7 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-01-18T16:14:13.884Z",
+      "updatedAt": "2026-01-18T16:29:29.108Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -414,7 +414,7 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-01-18T16:14:25.246Z",
+      "updatedAt": "2026-01-18T16:30:11.916Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -550,7 +550,7 @@
       "source": "openai",
       "sourceName": "Wired AI",
       "sourceUrl": "https://www.wired.com/tag/artificial-intelligence/",
-      "updatedAt": "2026-01-18T16:14:33.924Z",
+      "updatedAt": "2026-01-18T16:30:16.569Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -688,97 +688,132 @@
       "source": "googleai",
       "sourceName": "Google AI",
       "sourceUrl": "https://blog.google/innovation-and-ai/technology/ai/",
-      "updatedAt": "2026-01-18T16:14:40.427Z",
+      "updatedAt": "2026-01-18T16:30:19.028Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "googleai-001",
-          "title": "Gemini introduces Personal Intelligence",
-          "url": "https://blog.google/innovation-and-ai/products/gemini-app/personal-intelligence/",
-          "thumbnail": "",
-          "summary": "Gemini introduces Personal Intelligence",
-          "tags": [
-            "Gemini"
-          ],
-          "publishedAt": "2026-01-14T15:00:00.000Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "googleai-002",
-          "title": "4 highlights from Google Beam in 2025",
-          "url": "https://blog.google/innovation-and-ai/technology/research/google-beam-2025-moments/",
-          "thumbnail": "",
-          "summary": "4 highlights from Google Beam in 2025",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2025-12-11T18:30:00.000Z",
-          "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "googleai-003",
-          "title": "The 7 finalists in the XPRIZE Quantum Applications competition",
-          "url": "https://blog.google/innovation-and-ai/technology/research/google-gesda-xprize-quantum-applications-finalists/",
-          "thumbnail": "",
-          "summary": "The 7 finalists in the XPRIZE Quantum Applications competition",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2025-12-10T17:00:00.000Z",
-          "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "googleai-004",
-          "title": "At our Research@ Poland event we shared how AI is helping us solve big challenges.",
-          "url": "https://blog.google/innovation-and-ai/technology/research/ai-collaboration-poland-2025/",
-          "thumbnail": "",
-          "summary": "At our Research@ Poland event we shared how AI is helping us solve big challenges.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2025-11-19T09:00:00.000Z",
-          "publishedAtRelative": "2个月前"
-        },
-        {
-          "id": "googleai-005",
-          "title": "TranslateGemma: A new suite of open translation models",
-          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/translategemma/",
-          "thumbnail": "",
-          "summary": "TranslateGemma: A new suite of open translation models",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-01-15T17:00:00.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "googleai-006",
           "title": "Introducing Community Benchmarks on Kaggle",
           "url": "https://blog.google/innovation-and-ai/technology/developers-tools/kaggle-community-benchmarks/",
           "thumbnail": "",
-          "summary": "Introducing Community Benchmarks on Kaggle",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/hero-final.max-600x600.format-webp.webp\">Community Benchmarks on Kaggle lets the community build, share and run custom evaluations for AI models.",
           "tags": [
-            "设计",
             "AI"
           ],
           "publishedAt": "2026-01-14T14:00:00.000Z",
           "publishedAtRelative": "4天前"
         },
         {
-          "id": "googleai-007",
-          "title": "Enhanced Veo 3.1 capabilities are now available in the Gemini API.",
-          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/veo-3-1-gemini-api/",
+          "id": "googleai-002",
+          "title": "Veo 3.1 Ingredients to Video: More consistency, creativity and control",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/veo-3-1-ingredients-to-video/",
           "thumbnail": "",
-          "summary": "Enhanced Veo 3.1 capabilities are now available in the Gemini API.",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/veo-3-1_keyword_blog_header_209.max-600x600.format-webp.webp\">Today, we’re introducing an enhanced version of Veo 3.1 “Ingredients to Video.”",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-01-13T17:00:00.000Z",
+          "publishedAtRelative": "4天前"
+        },
+        {
+          "id": "googleai-003",
+          "title": "2025 at Google",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/look-back-2025/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/EOY_2025_Header.max-600x600.format-webp.webp\">Learn more about Google’s launches, milestones and more from 2025.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2025-12-09T16:00:00.000Z",
+          "publishedAtRelative": "1个月前"
+        },
+        {
+          "id": "googleai-004",
+          "title": "The Google guide for holiday help",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/holiday-planning-ai-gemini-tips/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Holiday_Collection_header.max-600x600.format-webp.webp\">Learn more about using Google products like Gemini, Search, Shopping, Pixel and more over the holidays.",
+          "tags": [
+            "Gemini"
+          ],
+          "publishedAt": "2025-11-25T18:00:00.000Z",
+          "publishedAtRelative": "1个月前"
+        },
+        {
+          "id": "googleai-005",
+          "title": "I/O 2025",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2025-collection/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/IO25_hero.max-600x600.format-webp.webp\">We’re doing cutting-edge research to build the most helpful AI that’s more intelligent, agentic and personalized.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2025-05-20T17:45:00.000Z",
+          "publishedAtRelative": "8个月前"
+        },
+        {
+          "id": "googleai-006",
+          "title": "The Check Up with Google",
+          "url": "https://blog.google/innovation-and-ai/technology/health/google-health-check-up-2025/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/CheckUpCollectionHeader.max-600x600.format-webp.webp\">At The Check Up 2025, we shared more about the potential of AI in health and our latest health AI research, partnership and product updates.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2025-03-18T13:00:00.000Z",
+          "publishedAtRelative": "10个月前"
+        },
+        {
+          "id": "googleai-007",
+          "title": "The AI for Science Forum: A new era of discovery",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/ai-science-forum-2024/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AIFS_Collection_Hero.max-600x600.format-webp.webp\">Google DeepMind and the Royal Society are co-hosting the AI for Science Forum to explore how AI is rapidly accelerating science.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2024-11-18T17:00:00.000Z",
+          "publishedAtRelative": "1年前"
+        },
+        {
+          "id": "googleai-008",
+          "title": "Learn more about Gemini, our most capable AI model",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/gemini-collection/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/keyword_collection_header-2.max-600x600.format-webp.webp\">Explore our collection to find out more about Gemini, the most capable and general model we’ve ever built.",
           "tags": [
             "AI",
             "Gemini"
           ],
-          "publishedAt": "2026-01-13T17:00:00.000Z",
-          "publishedAtRelative": "4天前"
+          "publishedAt": "2023-12-06T15:15:00.000Z",
+          "publishedAtRelative": "2年前"
+        },
+        {
+          "id": "googleai-009",
+          "title": "What our quantum computing milestone means",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/what-our-quantum-computing-milestone-means/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/2019_SB_Google_0264_quantum_288.max-600x600.format-webp.webp\">This moment represents a distinct milestone in our effort to harness the principles of quantum mechanics to solve computational problems.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2019-10-23T09:00:00.000Z",
+          "publishedAtRelative": "6年前"
+        },
+        {
+          "id": "googleai-010",
+          "title": "How to make AI that’s good for people",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/how-make-ai-good-for-people/",
+          "thumbnail": "",
+          "summary": "If we want AI to play a positive role in tomorrow’s world, it must be guided by human concerns.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2018-04-07T16:00:00.000Z",
+          "publishedAtRelative": "7年前"
         }
       ]
     },
@@ -786,7 +821,7 @@
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-01-18T16:14:43.410Z",
+      "updatedAt": "2026-01-18T16:30:22.268Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -919,15 +954,15 @@
       "source": "aibase",
       "sourceName": "AIBase",
       "sourceUrl": "https://www.aibase.com/zh/news",
-      "updatedAt": "2026-01-18T16:14:50.552Z",
+      "updatedAt": "2026-01-18T16:30:30.518Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "aibase-001",
-          "title": "TaiXu-Admin V0.0.10发布，支持与 Ollama 模型适配",
+          "title": "TaiXu-Admin V0.0.10发��，支持与 Ollama 模型适配",
           "url": "https://www.aibase.com/news/24689",
           "thumbnail": "",
-          "summary": "TaiXu-Admin V0.0.10发布，支持与 Ollama 模型适配",
+          "summary": "TaiXu-Admin V0.0.10发��，支持与 Ollama 模型适配",
           "tags": [
             "AI"
           ],
@@ -1052,7 +1087,7 @@
       "source": "jiqizhixin",
       "sourceName": "机器之心",
       "sourceUrl": "https://www.jiqizhixin.com/",
-      "updatedAt": "2026-01-18T16:14:53.766Z",
+      "updatedAt": "2026-01-18T16:30:32.971Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1121,10 +1156,10 @@
         },
         {
           "id": "jiqizhixin-006",
-          "title": "AI 视频生成时代，留给人类的只有���技？",
+          "title": "AI 视频生成时代，留给人类的只有演技？",
           "url": "https://www.jiqizhixin.com/articles/2026-01-17-4",
           "thumbnail": "",
-          "summary": "AI 视频生成时代，留给人类的只有���技？",
+          "summary": "AI 视频生成时代，留给人类的只有演技？",
           "tags": [
             "AI",
             "生成式"
@@ -1187,7 +1222,7 @@
       "source": "qbitai",
       "sourceName": "量子位",
       "sourceUrl": "https://www.qbitai.com/",
-      "updatedAt": "2026-01-18T16:14:55.914Z",
+      "updatedAt": "2026-01-18T16:30:35.142Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1327,7 +1362,7 @@
       "source": "techcrunch",
       "sourceName": "TechCrunch AI",
       "sourceUrl": "https://techcrunch.com/category/artificial-intelligence/",
-      "updatedAt": "2026-01-18T16:14:58.596Z",
+      "updatedAt": "2026-01-18T16:30:37.788Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1340,7 +1375,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-01-18T15:30:00.000Z",
-          "publishedAtRelative": "44分钟前"
+          "publishedAtRelative": "1小时前"
         },
         {
           "id": "techcrunch-002",
@@ -1461,7 +1496,7 @@
       "source": "googledeepmind",
       "sourceName": "Google DeepMind",
       "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
-      "updatedAt": "2026-01-18T16:15:01.749Z",
+      "updatedAt": "2026-01-18T16:30:40.951Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
