@@ -173,18 +173,57 @@ async function fetchDateFromArticlePage(articleUrl, refererUrl = null) {
     });
     const $article = cheerio.load(articleHtml);
     
-    // 从详情页提取日期（多种方式，优先 meta 标签）
-    const articleDateStr = $article('meta[property="article:published_time"]').first().attr('content') ||
-                          $article('meta[property="og:published_time"]').first().attr('content') ||
-                          $article('meta[name="publish-date"]').first().attr('content') ||
-                          $article('meta[name="date"]').first().attr('content') ||
-                          $article('meta[property*="published"]').first().attr('content') ||
-                          $article('meta[name*="date"]').first().attr('content') ||
-                          $article('time[datetime]').first().attr('datetime') || 
-                          $article('[datetime]').first().attr('datetime') ||
-                          $article('[class*="date"]').first().attr('datetime') ||
-                          $article('[data-date]').first().attr('data-date') ||
-                          $article('[data-publish-date]').first().attr('data-publish-date');
+    // 从详情页提取日期（多种方式，优先 meta 标签和 JSON-LD）
+    // 方法1：从 JSON-LD 数据提取日期
+    let articleDateStr = null;
+    $article('script[type="application/ld+json"]').each((i, elem) => {
+      if (articleDateStr) return false; // 已经找到日期，跳过
+      const scriptContent = $article(elem).html();
+      if (scriptContent && (scriptContent.includes('datePublished') || scriptContent.includes('dateCreated'))) {
+        try {
+          const jsonData = JSON.parse(scriptContent);
+          // 查找 datePublished 或 dateCreated
+          if (jsonData.datePublished) {
+            articleDateStr = jsonData.datePublished;
+            return false;
+          }
+          if (jsonData.dateCreated) {
+            articleDateStr = jsonData.dateCreated;
+            return false;
+          }
+          // 如果在 @graph 数组中
+          if (jsonData['@graph'] && Array.isArray(jsonData['@graph'])) {
+            for (const item of jsonData['@graph']) {
+              if (item.datePublished) {
+                articleDateStr = item.datePublished;
+                return false;
+              }
+              if (item.dateCreated) {
+                articleDateStr = item.dateCreated;
+                return false;
+              }
+            }
+          }
+        } catch (e) {
+          // JSON 解析失败，继续
+        }
+      }
+    });
+    
+    // 方法2：从 meta 标签提取日期
+    if (!articleDateStr) {
+      articleDateStr = $article('meta[property="article:published_time"]').first().attr('content') ||
+                      $article('meta[property="og:published_time"]').first().attr('content') ||
+                      $article('meta[name="publish-date"]').first().attr('content') ||
+                      $article('meta[name="date"]').first().attr('content') ||
+                      $article('meta[property*="published"]').first().attr('content') ||
+                      $article('meta[name*="date"]').first().attr('content') ||
+                      $article('time[datetime]').first().attr('datetime') || 
+                      $article('[datetime]').first().attr('datetime') ||
+                      $article('[class*="date"]').first().attr('datetime') ||
+                      $article('[data-date]').first().attr('data-date') ||
+                      $article('[data-publish-date]').first().attr('data-publish-date');
+    }
     
     if (articleDateStr) {
       const articleDate = parseDate(articleDateStr);
@@ -2299,7 +2338,7 @@ function normalizeNewsItem(item, source, sourceName, index) {
     thumbnail: item.thumbnail || '',
     summary: item.summary || '',
     tags: item.tags || [],
-    publishedAt: item.publishedAt || new Date().toISOString(),
+    publishedAt: item.publishedAt || null, // 如果没有真实发布时间，设置为 null，而不是当前时间
     publishedAtRelative: getRelativeTime(item.publishedAt)
   };
 }
