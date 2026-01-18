@@ -1541,12 +1541,14 @@ async function fetchFromGoogleAI() {
       // 排除分类、导航和主页链接
       if (!link || link.includes('#') || link.includes('mailto:') || 
           link.includes('/category/') || link === '/innovation-and-ai/' ||
-          link.endsWith('/innovation-and-ai/') || link.match(/\/innovation-and-ai\/[^\/]+\/$/)) {
+          link.endsWith('/innovation-and-ai/')) {
         return;
       }
       
-      // 确保是具体的文章链接（包含完整路径，不是分类）
-      if (!link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+/)) {
+      // 确保是具体的文章链接（至少3层路径，如 /innovation-and-ai/products/gemini-app/personal-intelligence/）
+      // 排除只有2层的分类链接（如 /innovation-and-ai/models-and-research/google-deepmind/）
+      const pathParts = link.split('/').filter(p => p);
+      if (pathParts.length < 4 || link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+\/$/)) {
         return;
       }
       
@@ -1605,12 +1607,14 @@ async function fetchFromGoogleAI() {
         // 排除分类、导航和主页链接
         if (!link || link.includes('#') || link.includes('mailto:') || 
             link.includes('/category/') || link === '/innovation-and-ai/' ||
-            link.endsWith('/innovation-and-ai/') || link.match(/\/innovation-and-ai\/[^\/]+\/$/)) {
+            link.endsWith('/innovation-and-ai/')) {
           return;
         }
         
-        // 确保是具体的文章链接（包含完整路径）
-        if (!link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+/)) {
+        // 确保是具体的文章链接（至少3层路径，如 /innovation-and-ai/products/gemini-app/personal-intelligence/）
+        // 排除只有2层的分类链接
+        const pathParts = link.split('/').filter(p => p);
+        if (pathParts.length < 4 || link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+\/$/)) {
           return;
         }
         
