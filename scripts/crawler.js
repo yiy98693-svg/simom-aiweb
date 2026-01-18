@@ -1769,15 +1769,57 @@ async function fetchFromTechCrunch() {
  */
 async function fetchFromGoogleDeepMind() {
   try {
-    // 从 Google DeepMind 专门页面获取文章
-    const url = 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/';
-    const html = await fetch(url);
-    const $ = cheerio.load(html);
+    // 使用 RSS feed 获取文章（最稳定的方式，不需要执行 JavaScript）
+    const rssUrl = 'https://deepmind.google/discover/blog/feed/';
+    const rssXml = await fetch(rssUrl);
+    const $ = cheerio.load(rssXml, { xmlMode: true });
     const items = [];
-    const seenUrls = new Set();
     
-    // 方法1：从 article 元素中提取
-    $('article').each((i, elem) => {
+    // 解析 RSS 2.0 格式
+    $('item').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE) return false;
+      
+      const $item = $(elem);
+      const title = $item.find('title').first().text().trim();
+      const link = $item.find('link').first().text().trim();
+      const description = $item.find('description').first().text().trim();
+      const pubDate = $item.find('pubDate').first().text().trim();
+      
+      if (title && link && title.length > 5) {
+        // 清理描述（移除 HTML 标签）
+        let summary = description || '';
+        summary = summary.replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim();
+        
+        items.push({
+          title: translateToChinese(title),
+          url: link,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(pubDate),
+          tags: extractTags(title, summary)
+        });
+      }
+    });
+    
+    console.log(`  从 RSS feed 获取到 ${items.length} 篇文章`);
+    
+    return items
+      .filter((item, index, self) => {
+        // 去重：基于 URL
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index;
+      })
+      .sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+        const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+        return dateB - dateA;
+      })
+      .slice(0, CONFIG.MAX_ITEMS_PER_SITE);
+      
+  } catch (error) {
+    console.error('Google DeepMind 抓取失败:', error.message);
+    return [];
+  }
+}
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
