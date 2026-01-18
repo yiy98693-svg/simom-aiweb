@@ -1092,18 +1092,90 @@ async function fetchFromAnthropic() {
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
+    const seenTitles = new Set(); // 用于去重标题
     
-    $('article, [class*="post"], [class*="article"], a[href*="/news/"]').each((i, elem) => {
+    // 方法1：从所有 /news/ 链接中提取具体文章（排除导航链接）
+    $('a[href*="/news/"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time').first().text().trim();
+      let link = $elem.attr('href');
       
-      if (title && link) {
-        const fullUrl = link.startsWith('http') ? link : `https://www.anthropic.com${link}`;
+      // 排除导航链接：包含 #, mailto:, 或指向分类页面的链接
+      if (!link || link.includes('#') || link.includes('mailto:') || 
+          link.includes('/news/category') || link === '/news/' || link.endsWith('/news')) {
+        return;
+      }
+      
+      // 确保是具体的文章链接（包含完整的路径）
+      if (!link.match(/\/news\/[^\/]+/)) {
+        return;
+      }
+      
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://www.anthropic.com${link}` : `https://www.anthropic.com/${link}`;
+      }
+      
+      // 规范化 URL 并去重
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) {
+          return;
+        }
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl)) {
+          return;
+        }
+        seenUrls.add(fullUrl);
+      }
+      
+      // 获取标题 - 优先从父元素的标题元素中提取，避免链接文本包含日期等信息
+      const $parent = $elem.closest('article, [class*="card"], [class*="post"], div, section');
+      let title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      
+      // 如果父元素没有标题，再从链接文本提取
+      if (!title || title.length < 10) {
+        title = $elem.text().trim();
+      }
+      
+      // 清理标题：移除日期和类型信息（如 "Jan 16, 2026Announcements..."）
+      // 匹配模式：日期 + 类型 + 实际标题
+      const titleMatch = title.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d+,\s+\d{4}([A-Za-z\s]+)?(.+)/);
+      if (titleMatch && titleMatch[3]) {
+        title = titleMatch[3].trim();
+      }
+      
+      // 移除开头的类型标签（如 "Announcements", "Case Study", "Policy" 等）
+      title = title.replace(/^(Announcements|Case Study|Policy|Product)\s*/i, '').trim();
+      
+      // 排除导航文本（如 "Newsroom", "Read announcement", "Learn more" 等）
+      if (!title || title.length < 10 || 
+          title === 'Newsroom' || title.includes('Read announcement') || 
+          title.includes('Learn more') || title.includes('Skip to')) {
+        return;
+      }
+      
+      // 标题去重（基于规范化后的标题）
+      const normalizedTitle = title.toLowerCase().trim();
+      if (seenTitles.has(normalizedTitle)) {
+        return;
+      }
+      seenTitles.add(normalizedTitle);
+      
+      // 获取摘要（从父元素）
+      const $parent = $elem.closest('article, [class*="card"], div, section');
+      const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      
+      // 提取日期
+      const dateStr = $parent.find('[class*="date"], time[datetime]').first().attr('datetime') || 
+                      $parent.find('[class*="date"], time').first().text().trim();
+      
+      if (title && title.length > 10) {
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
@@ -1115,6 +1187,12 @@ async function fetchFromAnthropic() {
     });
     
     return items
+      .filter((item, index, self) => {
+        // 再次去重：基于URL和标题
+        const indexInSelf = self.findIndex(i => i.url === item.url || 
+          (i.title.toLowerCase().trim() === item.title.toLowerCase().trim() && Math.abs(index - self.indexOf(i)) < 5));
+        return indexInSelf === index && item.title.length > 5;
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
@@ -1542,38 +1620,66 @@ async function fetchFromAWS() {
     const html = await fetch(url); // fetch 函数现在会自动处理重定向
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
+    const seenTitles = new Set(); // 用于去重标题
     
-    // 尝试多种选择器
-    $('article, [class*="post"], [class*="article"], [class*="blog"], a[href*="/machine-learning/"], a[href*="/blog/"]').each((i, elem) => {
+    // 方法1：优先从 article 元素中提取具体文章（排除导航和分类链接）
+    $('article').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
       const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
+      const linkElem = $elem.find('a[href*="/machine-learning/"]').first();
+      let link = linkElem.attr('href');
+      
+      // 排除导航和分类链接
+      if (!link || link.includes('/category/') || link.includes('#') || link.includes('mailto:')) {
+        return;
+      }
+      
+      // 排除导航标题（如 "Artificial Intelligence" 指向主页的情况）
+      if (title === 'Artificial Intelligence' && (link.includes('#') || link.includes('/#') || link.endsWith('/'))) {
+        return;
+      }
+      
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
+      }
+      
+      // 规范化 URL 并去重
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl) || seenTitles.has(title.toLowerCase().trim())) {
+          return;
+        }
+        seenUrls.add(normalizedUrl);
+        seenTitles.add(title.toLowerCase().trim());
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl) || seenTitles.has(title.toLowerCase().trim())) {
+          return;
+        }
+        seenUrls.add(fullUrl);
+        seenTitles.add(title.toLowerCase().trim());
+      }
+      
       const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
       
-      // 优先从 HTML 元素中提取日期（优先 meta 标签，AWS 使用 time[datetime]）
+      // 优先从 HTML 元素中提取日期
       let dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
                     $elem.find('meta[property="og:published_time"]').first().attr('content') ||
-                    $elem.find('meta[name="publish-date"]').first().attr('content') ||
                     $elem.find('time[datetime]').first().attr('datetime') || 
                     $elem.find('[datetime]').first().attr('datetime') ||
-                    $elem.find('[class*="date"]').first().attr('datetime') ||
-                    $elem.find('[data-date]').first().attr('data-date') ||
-                    $elem.find('[class*="date"], time').first().text().trim();
+                    $elem.find('[class*="date"]').first().attr('datetime');
       
-      if (title && link && title.length > 5) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
-        }
-        
+      if (title && title.length > 5 && !title.includes('Read the post') && !title.includes('Permalink')) {
         // 优先从 HTML 元素中提取日期，如果找不到则从 URL 中提取
         let publishedAt = parseDate(dateStr);
         if (!publishedAt) {
           publishedAt = extractDateFromUrl(fullUrl);
         }
-        // 如果还是没有日期，设置为 null，稍后访问详情页获取
         
         items.push({
           title: translateToChinese(title),
@@ -1584,6 +1690,66 @@ async function fetchFromAWS() {
         });
       }
     });
+    
+    // 方法2：如果还不够，从其他链接中提取（但要严格过滤）
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('a[href*="/machine-learning/"]').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        let link = $elem.attr('href');
+        let title = $elem.text().trim();
+        
+        // 严格排除导航和分类链接
+        if (!link || link.includes('/category/') || link.includes('#') || link.includes('mailto:') ||
+            link.includes('/blog/') && !link.match(/\/blogs\/machine-learning\/[^\/]+\//)) {
+          return;
+        }
+        
+        // 排除导航标题
+        if (title === 'Artificial Intelligence' || title.includes('Read the post') || 
+            title.includes('Permalink') || title.includes('Comments') || title.length < 10) {
+          return;
+        }
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
+        }
+        
+        // 规范化 URL 并去重
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl) || seenTitles.has(title.toLowerCase().trim())) {
+            return;
+          }
+          seenUrls.add(normalizedUrl);
+          seenTitles.add(title.toLowerCase().trim());
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl) || seenTitles.has(title.toLowerCase().trim())) {
+            return;
+          }
+          seenUrls.add(fullUrl);
+          seenTitles.add(title.toLowerCase().trim());
+        }
+        
+        // 获取摘要（从父元素）
+        const $parent = $elem.closest('article, div, section');
+        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+        
+        if (title && title.length > 10) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title),
+            publishedAt: extractDateFromUrl(fullUrl),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
     
     // 如果列表页没有日期，访问文章详情页获取真实发布时间
     if (items.length > 0) {
