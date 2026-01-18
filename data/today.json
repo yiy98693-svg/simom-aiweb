@@ -5,7 +5,7 @@
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-01-18T16:04:51.179Z",
+      "updatedAt": "2026-01-18T16:08:17.629Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -141,7 +141,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-01-18T16:05:05.299Z",
+      "updatedAt": "2026-01-18T16:08:31.839Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -280,7 +280,7 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-01-18T16:05:09.307Z",
+      "updatedAt": "2026-01-18T16:08:36.144Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -414,7 +414,7 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-01-18T16:05:20.000Z",
+      "updatedAt": "2026-01-18T16:08:45.390Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -550,7 +550,7 @@
       "source": "openai",
       "sourceName": "Wired AI",
       "sourceUrl": "https://www.wired.com/tag/artificial-intelligence/",
-      "updatedAt": "2026-01-18T16:05:25.302Z",
+      "updatedAt": "2026-01-18T16:08:49.851Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -688,23 +688,11 @@
       "source": "googleai",
       "sourceName": "Google AI",
       "sourceUrl": "https://blog.google/innovation-and-ai/technology/ai/",
-      "updatedAt": "2026-01-18T16:06:29.395Z",
+      "updatedAt": "2026-01-18T16:08:58.885Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "googleai-001",
-          "title": "AI\n            \n              The work we're doing to make AI helpful for everyone.",
-          "url": "https://blog.google/innovation-and-ai/",
-          "thumbnail": "",
-          "summary": "The work we're doing to make AI helpful for everyone.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "googleai-002",
           "title": "Google DeepMind",
           "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
           "thumbnail": "",
@@ -717,7 +705,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "googleai-003",
+          "id": "googleai-002",
           "title": "Google Research",
           "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/",
           "thumbnail": "",
@@ -730,7 +718,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "googleai-004",
+          "id": "googleai-003",
           "title": "Google Labs",
           "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/",
           "thumbnail": "",
@@ -743,7 +731,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "googleai-005",
+          "id": "googleai-004",
           "title": "Gemini models",
           "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/",
           "thumbnail": "",
@@ -755,19 +743,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "googleai-006",
-          "title": "Innovation & AI",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/",
-          "thumbnail": "",
-          "summary": "Innovation & AI",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "googleai-007",
+          "id": "googleai-005",
           "title": "Developer tools",
           "url": "https://blog.google/innovation-and-ai/technology/developers-tools/",
           "thumbnail": "",
@@ -779,19 +755,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "googleai-008",
-          "title": "Innovation & AI",
-          "url": "https://blog.google/innovation-and-ai/products/",
-          "thumbnail": "",
-          "summary": "Innovation & AI",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "googleai-009",
+          "id": "googleai-006",
           "title": "Global network",
           "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/",
           "thumbnail": "",
@@ -804,7 +768,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "googleai-010",
+          "id": "googleai-007",
           "title": "Google Cloud",
           "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/",
           "thumbnail": "",
@@ -815,6 +779,44 @@
           ],
           "publishedAt": null,
           "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-008",
+          "title": "Safety & security",
+          "url": "https://blog.google/innovation-and-ai/technology/safety-security/",
+          "thumbnail": "",
+          "summary": "Safety & security",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-009",
+          "title": "Company news",
+          "url": "https://blog.google/innovation-and-ai/technology/health/",
+          "thumbnail": "",
+          "summary": "Company news",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "googleai-010",
+          "title": "Gemini introduces Personal Intelligence",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/personal-intelligence/",
+          "thumbnail": "",
+          "summary": "Gemini introduces Personal Intelligence",
+          "tags": [
+            "Gemini"
+          ],
+          "publishedAt": "2026-01-14T15:00:00.000Z",
+          "publishedAtRelative": "4天前"
         }
       ]
     },
@@ -822,7 +824,7 @@
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-01-18T16:06:32.571Z",
+      "updatedAt": "2026-01-18T16:09:02.049Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -955,15 +957,15 @@
       "source": "aibase",
       "sourceName": "AIBase",
       "sourceUrl": "https://www.aibase.com/zh/news",
-      "updatedAt": "2026-01-18T16:06:47.007Z",
+      "updatedAt": "2026-01-18T16:09:09.099Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "aibase-001",
-          "title": "TaiXu-Admin V0.0.10发布，支持与 Ollama 模型适配",
+          "title": "TaiXu-Admin V0.0.10发��，支持与 Ollama 模型适配",
           "url": "https://www.aibase.com/news/24689",
           "thumbnail": "",
-          "summary": "TaiXu-Admin V0.0.10发布，支持与 Ollama 模型适配",
+          "summary": "TaiXu-Admin V0.0.10发��，支持与 Ollama 模型适配",
           "tags": [
             "AI"
           ],
@@ -1088,7 +1090,7 @@
       "source": "jiqizhixin",
       "sourceName": "机器之心",
       "sourceUrl": "https://www.jiqizhixin.com/",
-      "updatedAt": "2026-01-18T16:06:49.489Z",
+      "updatedAt": "2026-01-18T16:09:11.536Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1157,10 +1159,10 @@
         },
         {
           "id": "jiqizhixin-006",
-          "title": "AI 视频生成时代，留给人类的只有演技？",
+          "title": "AI 视频生成时代，留给人类的只有���技？",
           "url": "https://www.jiqizhixin.com/articles/2026-01-17-4",
           "thumbnail": "",
-          "summary": "AI 视频生成时代，留给人类的只有演技？",
+          "summary": "AI 视频生成时代，留给人类的只有���技？",
           "tags": [
             "AI",
             "生成式"
@@ -1223,7 +1225,7 @@
       "source": "qbitai",
       "sourceName": "量子位",
       "sourceUrl": "https://www.qbitai.com/",
-      "updatedAt": "2026-01-18T16:06:52.318Z",
+      "updatedAt": "2026-01-18T16:09:13.700Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1363,7 +1365,7 @@
       "source": "techcrunch",
       "sourceName": "TechCrunch AI",
       "sourceUrl": "https://techcrunch.com/category/artificial-intelligence/",
-      "updatedAt": "2026-01-18T16:06:54.822Z",
+      "updatedAt": "2026-01-18T16:09:16.367Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1376,7 +1378,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-01-18T15:30:00.000Z",
-          "publishedAtRelative": "36分钟前"
+          "publishedAtRelative": "39分钟前"
         },
         {
           "id": "techcrunch-002",
@@ -1497,7 +1499,7 @@
       "source": "googledeepmind",
       "sourceName": "Google DeepMind",
       "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
-      "updatedAt": "2026-01-18T16:06:58.043Z",
+      "updatedAt": "2026-01-18T16:09:19.547Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {

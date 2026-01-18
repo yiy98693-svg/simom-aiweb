@@ -1530,18 +1530,27 @@ async function fetchFromGoogleAI() {
     const items = [];
     const seenUrls = new Set();
     
-    // 方法1：从 article 元素中提取
+    // 方法1：从 article 元素中提取具体文章（排除分类和导航）
     $('article').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
       const linkElem = $elem.find('a[href*="/innovation-and-ai/"]').first();
       let link = linkElem.attr('href');
       
-      if (!link || link.includes('#') || link.includes('mailto:')) {
+      // 排除分类、导航和主页链接
+      if (!link || link.includes('#') || link.includes('mailto:') || 
+          link.includes('/category/') || link === '/innovation-and-ai/' ||
+          link.endsWith('/innovation-and-ai/') || link.match(/\/innovation-and-ai\/[^\/]+\/$/)) {
         return;
       }
+      
+      // 确保是具体的文章链接（包含完整路径，不是分类）
+      if (!link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+/)) {
+        return;
+      }
+      
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
       
       let fullUrl = link;
       if (!link.startsWith('http')) {
@@ -1585,7 +1594,7 @@ async function fetchFromGoogleAI() {
       }
     });
     
-    // 方法2：如果还不够，从链接中提取
+    // 方法2：如果还不够，从链接中提取（严格过滤）
     if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
       $('a[href*="/innovation-and-ai/"]').each((i, elem) => {
         if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
@@ -1593,7 +1602,15 @@ async function fetchFromGoogleAI() {
         const $elem = $(elem);
         let link = $elem.attr('href');
         
-        if (!link || link.includes('#') || link.includes('mailto:') || link.includes('/category/')) {
+        // 排除分类、导航和主页链接
+        if (!link || link.includes('#') || link.includes('mailto:') || 
+            link.includes('/category/') || link === '/innovation-and-ai/' ||
+            link.endsWith('/innovation-and-ai/') || link.match(/\/innovation-and-ai\/[^\/]+\/$/)) {
+          return;
+        }
+        
+        // 确保是具体的文章链接（包含完整路径）
+        if (!link.match(/\/innovation-and-ai\/[^\/]+\/[^\/]+/)) {
           return;
         }
         
