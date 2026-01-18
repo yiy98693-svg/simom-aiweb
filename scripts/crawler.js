@@ -1167,8 +1167,7 @@ async function fetchFromAnthropic() {
       }
       seenTitles.add(normalizedTitle);
       
-      // 获取摘要（从父元素）
-      const $parent = $elem.closest('article, [class*="card"], div, section');
+      // 获取摘要（从父元素，$parent 已在上面定义）
       const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
       
       // 提取日期
