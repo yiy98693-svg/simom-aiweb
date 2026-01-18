@@ -1265,38 +1265,119 @@ async function fetchFromAIBase() {
  */
 async function fetchFromJiqizhixin() {
   try {
+    // 机器之心网站是 SPA，使用 RSS feed 或者尝试不同的 URL
+    // 尝试直接抓取文章列表页，或者从首页查找包含文章 ID 的链接
     const url = 'https://www.jiqizhixin.com/';
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
     
-    $('article, [class*="article"], [class*="post"], [class*="news"], a[href*="/articles/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+    // 方法1：直接查找所有链接，寻找文章链接模式
+    $('a[href]').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time').first().text().trim() || 
-                      $elem.find('[datetime]').first().attr('datetime');
+      let link = $elem.attr('href');
+      if (!link) return;
       
-      if (title && link && title.length > 5) {
+      // 查找包含文章 ID 或文章路径的链接（机器之心可能使用 UUID 或日期路径）
+      // 排除明显的非文章链接
+      if (link.includes('/reference/') || 
+          link.includes('/articles/') || 
+          link.match(/\/\d{4}\/\d{2}\/\d{2}\//) ||
+          (link.includes('/news/') && !link.includes('/newsroom/'))) {
+        
+        // 排除明显的导航链接
+        if (link.includes('#') || link.includes('javascript:') || link === '/') {
+          return;
+        }
+        
         let fullUrl = link;
         if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://www.jiqizhixin.com${link}` : `https://www.jiqizhixin.com/${link}`;
+          // 如果是 pro.jiqizhixin.com，保持不变，否则转换为主站
+          if (link.startsWith('//')) {
+            fullUrl = 'https:' + link;
+          } else if (link.startsWith('/')) {
+            fullUrl = `https://www.jiqizhixin.com${link}`;
+          } else {
+            fullUrl = `https://www.jiqizhixin.com/${link}`;
+          }
         }
-        items.push({
-          title: translateToChinese(title),
-          url: fullUrl,
-          summary: translateToChinese(summary || title),
-          publishedAt: parseDate(dateStr),
-          tags: extractTags(title, summary)
-        });
+        
+        // 获取标题
+        let title = $elem.text().trim();
+        if (!title || title.length < 5) {
+          // 尝试从父元素获取
+          const $parent = $elem.closest('div, article, section');
+          title = $parent.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+        }
+        
+        // 如果没有标题，从链接路径生成
+        if (!title || title.length < 5) {
+          const urlParts = fullUrl.split('/').filter(p => p);
+          title = urlParts[urlParts.length - 1] || '机器之心文章';
+        }
+        
+        // 获取摘要
+        const $parent = $elem.closest('div, article, section');
+        let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+        
+        if (title && title.length > 5 && !title.includes('PRO') && !title.includes('会员')) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: null,
+            tags: extractTags(title, summary)
+          });
+        }
       }
     });
     
+    // 方法2：如果方法1没找到，尝试查找包含日期路径的链接
+    if (items.length === 0) {
+      const linksRegex = /href=["']([^"']*(?:\/\d{4}\/\d{2}\/|articles|news|reference)[^"']*)["']/gi;
+      let match;
+      while ((match = linksRegex.exec(html)) !== null && items.length < CONFIG.MAX_ITEMS_PER_SITE * 3) {
+        let link = match[1];
+        if (link.includes('#') || link.includes('javascript:')) continue;
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          if (link.startsWith('//')) {
+            fullUrl = 'https:' + link;
+          } else if (link.startsWith('/')) {
+            fullUrl = `https://www.jiqizhixin.com${link}`;
+          } else {
+            fullUrl = `https://www.jiqizhixin.com/${link}`;
+          }
+        }
+        
+        // 查找对应的标题（在链接附近）
+        const linkIndex = html.indexOf(match[0]);
+        const context = html.substring(Math.max(0, linkIndex - 500), Math.min(html.length, linkIndex + 500));
+        const titleMatch = context.match(/<[^>]*class[^>]*title[^>]*>([^<]+)</i) || 
+                          context.match(/<h[1-4][^>]*>([^<]+)</i);
+        const title = titleMatch ? titleMatch[1].trim() : fullUrl.split('/').pop() || '机器之心文章';
+        
+        if (title.length > 5 && !title.includes('PRO') && !title.includes('会员')) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(title.substring(0, 150)),
+            publishedAt: null,
+            tags: extractTags(title, '')
+          });
+        }
+      }
+    }
+    
     return items
-      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .filter((item, index, self) => {
+        // 去重：基于 URL
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index && item.title.length > 5;
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
@@ -1369,34 +1450,117 @@ async function fetchFromTechCrunch() {
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
     
-    $('article, [class*="article"], [class*="post"], [class*="story"], a[href*="/202"]').each((i, elem) => {
+    // 方法1：直接查找包含 /202 的文章链接（更可靠）
+    $('a[href*="/202"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="deck"]').first().text().trim();
-      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
-                      $elem.find('[class*="date"], time').first().text().trim();
+      let link = $elem.attr('href');
+      if (!link || !link.includes('/202')) return;
       
-      if (title && link && title.length > 5) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://techcrunch.com${link}` : `https://techcrunch.com/${link}`;
-        }
+      // 规范化 URL（移除查询参数和 hash）
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://techcrunch.com${link}` : `https://techcrunch.com/${link}`;
+      }
+      
+      // 移除查询参数和 hash 用于去重
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) return;
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        // 如果 URL 解析失败，使用原始 URL
+        if (seenUrls.has(fullUrl)) return;
+        seenUrls.add(fullUrl);
+      }
+      
+      // 获取标题 - 优先从链接文本或父元素获取
+      let title = $elem.text().trim();
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('article, div, section');
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"], [class*="post-title"]').first().text().trim() ||
+                $elem.find('h1, h2, h3, h4').first().text().trim();
+      }
+      
+      // 获取摘要
+      const $parent = $elem.closest('article, div, section');
+      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="deck"]').first().text().trim();
+      if (!summary) {
+        summary = $elem.siblings('p').first().text().trim();
+      }
+      
+      // 获取日期
+      const dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                      $elem.closest('article, div').find('time[datetime]').first().attr('datetime') ||
+                      $parent.find('[class*="date"], time').first().text().trim();
+      
+      if (title && title.length > 5 && !title.includes('Skip') && !title.includes('Read more')) {
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
-          summary: translateToChinese(summary || title),
+          summary: translateToChinese(summary || title.substring(0, 150)),
           publishedAt: parseDate(dateStr),
           tags: extractTags(title, summary)
         });
       }
     });
     
+    // 方法2：如果方法1找到的太少，尝试从 article 元素提取
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('article').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        const $link = $elem.find('a[href*="/202"]').first();
+        if ($link.length === 0) return;
+        
+        let link = $link.attr('href');
+        if (!link) return;
+        
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://techcrunch.com${link}` : `https://techcrunch.com/${link}`;
+        }
+        
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+        const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="deck"]').first().text().trim();
+        const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                        $elem.find('[class*="date"], time').first().text().trim();
+        
+        if (title && title.length > 5) {
+          items.push({
+            title: translateToChinese(title),
+            url: fullUrl,
+            summary: translateToChinese(summary || title.substring(0, 150)),
+            publishedAt: parseDate(dateStr),
+            tags: extractTags(title, summary)
+          });
+        }
+      });
+    }
+    
     return items
-      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
+      .filter((item, index, self) => {
+        // 再次去重（基于 URL）
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index;
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
