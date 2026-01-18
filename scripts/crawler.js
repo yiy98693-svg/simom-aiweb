@@ -606,34 +606,69 @@ async function fetchFromGoogleDesign() {
       let category = '';
       
       if ($elem.length > 0) {
-        // 从链接元素中获取标题
-        title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-        if (!title || title.length < 5) {
-          const $parent = $elem.closest('article, [class*="card"], div, section, a');
-          title = $parent.find('h1, h2, h3, h4').first().text().trim() ||
-                  $elem.siblings('h1, h2, h3, h4').first().text().trim() ||
-                  $elem.text().trim();
+        // 优先从链接文本中获取标题（通常这是真正的文章标题）
+        title = $elem.text().trim();
+        
+        // 如果链接文本太短或看起来不像标题，尝试从父元素获取
+        if (!title || title.length < 5 || 
+            title.toLowerCase().includes('read more') ||
+            title.toLowerCase().includes('view') ||
+            title.toLowerCase().includes('skip') ||
+            title.toLowerCase().includes('learn more')) {
+          const $parent = $elem.closest('article, [class*="card"], div, section');
+          
+          // 尝试从父元素中的标题元素获取
+          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+          
+          // 如果还是找不到，尝试从兄弟元素获取
+          if (!title || title.length < 5) {
+            title = $elem.siblings('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+          }
+          
+          // 最后尝试从父元素的文本中提取（排除链接文本）
+          if (!title || title.length < 5) {
+            const parentText = $parent.text().trim();
+            // 尝试提取第一个有意义的文本行（排除链接文本和导航文本）
+            const lines = parentText.split('\n').map(l => l.trim()).filter(l => 
+              l.length > 10 && 
+              !l.toLowerCase().includes('read more') &&
+              !l.toLowerCase().includes('view') &&
+              !l.toLowerCase().includes('skip') &&
+              !l.toLowerCase().includes('category') &&
+              !l.toLowerCase().includes('tag')
+            );
+            if (lines.length > 0) {
+              title = lines[0];
+            }
+          }
         }
         
         // 获取摘要
         const $parent = $elem.closest('article, [class*="card"], div, section');
-        summary = $parent.find('p').first().text().trim();
+        summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
         if (!summary) {
-          summary = $elem.siblings('p').first().text().trim();
+          summary = $elem.siblings('p, [class*="summary"]').first().text().trim();
         }
         
-        // 获取分类
+        // 获取分类（用于标签）
         category = $parent.find('a[href*="/category/"], a[href*="/tags/"]').first().text().trim() || '';
       }
       
-      // 如果还是找不到标题，从链接路径生成标题
+      // 如果还是找不到标题，从链接路径生成标题（最后备选）
       if (!title || title.length < 5) {
         const pathParts = relPath.split('/').pop().split('-');
         title = pathParts.map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
       }
       
-      // 跳过导航和无关文本
-      if (title.includes('Skip') || title.includes('View') || title.length < 5) {
+      // 跳过明显的导航和分类文本
+      if (title.length < 5 ||
+          title.toLowerCase().includes('skip') || 
+          title.toLowerCase().includes('view') ||
+          title.toLowerCase().includes('read more') ||
+          title.toLowerCase().includes('learn more') ||
+          title.toLowerCase().includes('category') ||
+          title.toLowerCase().includes('tag') ||
+          title.toLowerCase() === 'library') {
         return;
       }
       
@@ -1260,40 +1295,136 @@ async function fetchFromGitHub() {
  */
 async function fetchFromAWS() {
   try {
-    // 使用英文URL，避免重定向问题
-    const url = 'https://aws.amazon.com/blogs/machine-learning/';
-    const html = await fetch(url); // fetch 函数现在会自动处理重定向
+    // 从主博客页面获取文章
+    const url = 'https://aws.amazon.com/blogs/';
+    const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
     
-    // 尝试多种选择器
-    $('article, [class*="post"], [class*="article"], [class*="blog"], a[href*="/machine-learning/"], a[href*="/blog/"]').each((i, elem) => {
+    // 方法1：从链接中提取具体文章（/blogs/aws/xxx/ 或 /blogs/category/xxx/ 格式，至少3个路径段）
+    $('a[href*="/blogs/"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="heading"]').first().text().trim();
-      const link = $elem.attr('href') || $elem.find('a').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time, [datetime]').first().attr('datetime') || 
-                      $elem.find('[class*="date"], time').first().text().trim();
+      let link = $elem.attr('href');
+      if (!link || link.includes('#') || link.includes('javascript:')) return;
       
-      if (title && link && title.length > 5) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
-        }
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
+      }
+      
+      // 规范化 URL
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) return;
+        
+        // 检查是否是具体文章（至少3个路径段，且不是导航链接）
+        const pathParts = urlObj.pathname.split('/').filter(p => p);
+        const isNavLink = pathParts.length < 3 || // 具体文章至少有3个路径段
+                         pathParts[pathParts.length - 1] === 'blogs' ||
+                         pathParts[pathParts.length - 1] === 'blog' ||
+                         normalizedUrl === 'https://aws.amazon.com/blogs/' ||
+                         normalizedUrl.includes('/blogs/#');
+        
+        if (isNavLink) return;
+        
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl)) return;
+        seenUrls.add(fullUrl);
+      }
+      
+      // 获取标题
+      let title = $elem.text().trim();
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('article, div, section, li');
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      }
+      
+      // 获取摘要和日期
+      const $parent = $elem.closest('article, div, section, li');
+      const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      const dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                      $parent.find('[class*="date"], time').first().text().trim();
+      
+      // 排除明显的导航标题
+      if (title && title.length > 10 && 
+          !title.includes('Read the post') &&
+          !title.includes('Learn') &&
+          !title.includes('Resources') &&
+          !title.includes('Developers') &&
+          !title.includes('Help')) {
         items.push({
           title: translateToChinese(title),
           url: fullUrl,
-          summary: translateToChinese(summary || title),
+          summary: translateToChinese(summary || title.substring(0, 150)),
           publishedAt: parseDate(dateStr),
           tags: extractTags(title, summary)
         });
       }
     });
     
+    // 方法2：如果还不够，从 article 元素中提取
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      $('article').each((i, elem) => {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
+        
+        const $elem = $(elem);
+        const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+        const link = $elem.find('a[href*="/blogs/"]').first().attr('href');
+        const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+        const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                        $elem.find('[class*="date"], time').first().text().trim();
+        
+        if (title && link && title.length > 10) {
+          let fullUrl = link;
+          if (!link.startsWith('http')) {
+            fullUrl = link.startsWith('/') ? `https://aws.amazon.com${link}` : `https://aws.amazon.com/${link}`;
+          }
+          
+          // 规范化 URL
+          try {
+            const urlObj = new URL(fullUrl);
+            const normalizedUrl = urlObj.origin + urlObj.pathname;
+            if (seenUrls.has(normalizedUrl)) return;
+            
+            const pathParts = urlObj.pathname.split('/').filter(p => p);
+            const isNavLink = pathParts.length < 3 || 
+                             pathParts[pathParts.length - 1] === 'blogs' ||
+                             pathParts[pathParts.length - 1] === 'blog';
+            
+            if (isNavLink) return;
+            
+            seenUrls.add(normalizedUrl);
+            fullUrl = normalizedUrl;
+          } catch (e) {
+            if (seenUrls.has(fullUrl)) return;
+            seenUrls.add(fullUrl);
+          }
+          
+          if (title && title.length > 10) {
+            items.push({
+              title: translateToChinese(title),
+              url: fullUrl,
+              summary: translateToChinese(summary || title.substring(0, 150)),
+              publishedAt: parseDate(dateStr),
+              tags: extractTags(title, summary)
+            });
+          }
+        }
+      });
+    }
+    
     return items
-      .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index) // 去重
+      .filter((item, index, self) => {
+        // 去重：基于 URL
+        const indexInSelf = self.findIndex(i => i.url === item.url);
+        return indexInSelf === index && item.title.length > 5;
+      })
       .sort((a, b) => {
         const dateA = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
         const dateB = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
@@ -2042,7 +2173,7 @@ async function main() {
     {
       source: 'aws',
       sourceName: 'AWS',
-      sourceUrl: 'https://aws.amazon.com/cn/machine-learning/',
+      sourceUrl: 'https://aws.amazon.com/blogs/',
       fetcher: fetchFromAWS
     },
     {
