@@ -461,110 +461,55 @@ async function fetchFromMicrosoftDesign() {
     const items = [];
     const seenUrls = new Set();
     
-    // 方法1：从 article 元素中提取，排除分类链接（最可靠）
-    $('article').each((i, elem) => {
+    // 方法1：优先从 /articles/ 链接中提取（具体文章，不是分类导航）
+    $('a[href*="/articles/"]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-      const link = $elem.find('a[href]').first().attr('href');
-      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-      const dateStr = $elem.find('[class*="date"], time[datetime]').first().attr('datetime') || 
-                      $elem.find('[class*="date"], time').first().text().trim();
+      let link = $elem.attr('href');
+      if (!link || link.includes('/category/') || link.includes('#')) return;
       
-      if (title && link && title.length > 10) {
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://microsoft.design${link}` : `https://microsoft.design/${link}`;
-        }
-        
-        // 规范化 URL
-        try {
-          const urlObj = new URL(fullUrl);
-          const normalizedUrl = urlObj.origin + urlObj.pathname;
-          if (seenUrls.has(normalizedUrl)) return;
-          seenUrls.add(normalizedUrl);
-          fullUrl = normalizedUrl;
-        } catch (e) {
-          if (seenUrls.has(fullUrl)) return;
-          seenUrls.add(fullUrl);
-        }
-        
-        // 排除分类链接（包含 /category/）
-        if (fullUrl.includes('/category/')) {
-          return;
-        }
-        
-        // 确保是具体文章（包含 /articles/ 或 /news-and-stories/ 但不包含 /category/）
-        if (fullUrl.includes('/articles/') || 
-            (fullUrl.includes('/news-and-stories/') && !fullUrl.includes('/category/'))) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
+      // 构建完整 URL
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        fullUrl = link.startsWith('/') ? `https://microsoft.design${link}` : `https://microsoft.design/${link}`;
+      }
+      
+      // 规范化 URL
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) return;
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl)) return;
+        seenUrls.add(fullUrl);
+      }
+      
+      // 获取标题
+      let title = $elem.text().trim();
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('article, div, section');
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      }
+      
+      // 获取摘要和日期
+      const $parent = $elem.closest('article, div, section');
+      const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      const dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+                      $parent.find('[class*="date"], time').first().text().trim();
+      
+      if (title && title.length > 5) {
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
       }
     });
-    
-    // 方法2：如果还不够，从链接中提取（排除分类）
-    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      $('a[href]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
-        
-        const $elem = $(elem);
-        let link = $elem.attr('href');
-        if (!link || link.includes('#') || link.includes('/category/')) return;
-        
-        // 确保是具体文章链接
-        if (!link.includes('/articles/') && 
-            !(link.includes('/news-and-stories/') && !link.includes('/category/'))) {
-          return;
-        }
-        
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          fullUrl = link.startsWith('/') ? `https://microsoft.design${link}` : `https://microsoft.design/${link}`;
-        }
-        
-        // 规范化 URL
-        try {
-          const urlObj = new URL(fullUrl);
-          const normalizedUrl = urlObj.origin + urlObj.pathname;
-          if (seenUrls.has(normalizedUrl)) return;
-          seenUrls.add(normalizedUrl);
-          fullUrl = normalizedUrl;
-        } catch (e) {
-          if (seenUrls.has(fullUrl)) return;
-          seenUrls.add(fullUrl);
-        }
-        
-        // 获取标题
-        let title = $elem.text().trim();
-        if (!title || title.length < 10) {
-          const $parent = $elem.closest('article, div, section');
-          title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-        }
-        
-        // 获取摘要
-        const $parent = $elem.closest('article, div, section');
-        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
-        const dateStr = $parent.find('[class*="date"], time[datetime]').first().attr('datetime') || 
-                        $parent.find('[class*="date"], time').first().text().trim();
-        
-        if (title && title.length > 10) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
-      });
-    }
     
     // 优先过滤 AI 相关内容
     const aiItems = items.filter(item => 
@@ -1824,180 +1769,73 @@ async function fetchFromTechCrunch() {
  */
 async function fetchFromGoogleDeepMind() {
   try {
-    // 从 Google DeepMind 分类页面获取文章（更直接）
+    // 从 Google DeepMind 专门页面获取文章
     const url = 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/';
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
     const seenUrls = new Set();
     
-    // 已知的导航链接（用于排除）
-    const navKeywords = ['google-deepmind', 'google-research', 'google-labs', 'gemini-models',
-                        'developers-tools', 'global-network', 'google-cloud', 'safety-security',
-                        'models-and-research', 'technology', 'infrastructure-and-cloud'];
-    
-    // 排除的导航路径
-    const excludedPaths = [
-      '/models-and-research/',
-      '/technology/',
-      '/infrastructure-and-cloud/',
-      '/innovation-and-ai/'
-    ];
-    
-    // 方法1：从分类页面的链接中提取具体文章
-    $('a[href*="/innovation-and-ai/"]').each((i, elem) => {
-      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
+    // 方法1：从 article 元素中提取
+    $('article').each((i, elem) => {
+      if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
       
       const $elem = $(elem);
-      let link = $elem.attr('href');
-      if (!link || link.includes('#') || link === '/innovation-and-ai/') return;
+      const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
+      const link = $elem.find('a[href*="/innovation-and-ai/"]').first().attr('href');
+      const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+                      $elem.find('[class*="date"], time').first().text().trim();
       
-      // 排除导航链接
-      const isExcluded = excludedPaths.some(path => link.includes(path) && link.endsWith(path));
-      if (isExcluded) return;
-      
-      // 排除已知的导航链接
-      const linkParts = link.split('/').filter(p => p);
-      const lastPart = linkParts[linkParts.length - 1] || '';
-      if (navKeywords.includes(lastPart.replace(/.html?$/, '')) && link.endsWith('/')) {
-        return; // 跳过导航链接
+      if (title && link && title.length > 10) {
+        let fullUrl = link;
+        if (!link.startsWith('http')) {
+          fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
+        }
+        
+        // 规范化 URL
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) return;
+          
+          // 排除导航链接（分类页面通常路径较短或结尾是分类名）
+          const pathParts = urlObj.pathname.split('/').filter(p => p);
+          // 具体文章通常至少有4个路径段，且不是分类页面
+          const isNavLink = pathParts.length < 4 || // 具体文章至少有4个路径段
+                         (pathParts.length === 3 && pathParts[pathParts.length - 1] === 'google-deepmind') ||
+                         pathParts[pathParts.length - 1] === 'google-research' ||
+                         pathParts[pathParts.length - 1] === 'google-labs' ||
+                         pathParts[pathParts.length - 1] === 'gemini-models' ||
+                         fullUrl === 'https://blog.google/innovation-and-ai/';
+          
+          if (isNavLink) return;
+          
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) return;
+          seenUrls.add(fullUrl);
+        }
+        
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: parseDate(dateStr),
+          tags: extractTags(title, summary)
+        });
       }
-      
-      // 确保是具体文章（包含 google-deepmind 的路径，且有多个路径部分）
-      if (!link.includes('google-deepmind') || linkParts.length < 6) {
-        return; // 不是 DeepMind 文章或可能是分类页面
-      }
-      
-      // 排除分类页面（以分类名结尾）
-      if (link.endsWith('/google-deepmind/') || link.endsWith('/')) {
-        return;
-      }
-      
-      let fullUrl = link;
-      if (!link.startsWith('http')) {
-        fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
-      }
-      
-      // 规范化 URL
-      try {
-        const urlObj = new URL(fullUrl);
-        const normalizedUrl = urlObj.origin + urlObj.pathname;
-        if (seenUrls.has(normalizedUrl)) return;
-        seenUrls.add(normalizedUrl);
-        fullUrl = normalizedUrl;
-      } catch (e) {
-        if (seenUrls.has(fullUrl)) return;
-        seenUrls.add(fullUrl);
-      }
-      
-      // 获取标题
-      let title = $elem.text().trim();
-      if (!title || title.length < 10) {
-        const $parent = $elem.closest('article, div, section');
-        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-      }
-      
-      // 排除导航标题
-      if (!title || title.length < 15 || 
-          title.includes('Google Research') || 
-          title.includes('Google Labs') ||
-          title.includes('Gemini models') ||
-          title.includes('See all') ||
-          title.includes('Google DeepMind') && title.length < 30) {
-        return;
-      }
-      
-      // 获取摘要
-      const $parent = $elem.closest('article, div, section');
-      const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-      const dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                      $parent.find('[class*="date"], time').first().text().trim();
-      
-      items.push({
-        title: translateToChinese(title),
-        url: fullUrl,
-        summary: translateToChinese(summary || title.substring(0, 150)),
-        publishedAt: parseDate(dateStr),
-        tags: extractTags(title, summary)
-      });
     });
     
-    // 方法2：从 article 元素中提取（作为补充）
+    // 方法2：如果还不够，从链接中提取（具体文章通常有至少4个路径段）
     if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      $('article').each((i, elem) => {
+      $('a[href*="/innovation-and-ai/"]').each((i, elem) => {
         if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 2) return false;
         
         const $elem = $(elem);
-        const title = $elem.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
-        const link = $elem.find('a[href*="/innovation-and-ai/"]').first().attr('href');
-        const summary = $elem.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-        const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
-                        $elem.find('[class*="date"], time').first().text().trim();
-        
-        if (title && link && title.length > 15 && link.includes('google-deepmind')) {
-          let fullUrl = link;
-          if (!link.startsWith('http')) {
-            fullUrl = link.startsWith('/') ? `https://blog.google${link}` : `https://blog.google/${link}`;
-          }
-          
-          // 规范化 URL
-          try {
-            const urlObj = new URL(fullUrl);
-            const normalizedUrl = urlObj.origin + urlObj.pathname;
-            if (seenUrls.has(normalizedUrl)) return;
-            seenUrls.add(normalizedUrl);
-            fullUrl = normalizedUrl;
-          } catch (e) {
-            if (seenUrls.has(fullUrl)) return;
-            seenUrls.add(fullUrl);
-          }
-          
-          // 排除导航链接
-          const isExcluded = excludedPaths.some(path => fullUrl.includes(path) && fullUrl.endsWith(path));
-          if (isExcluded) return;
-          
-          // 排除导航标题
-          if (title.includes('Google DeepMind') && title.length < 30) {
-            return;
-          }
-          
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: parseDate(dateStr),
-            tags: extractTags(title, summary)
-          });
-        }
-      });
-    }
-    
-    // 方法2：如果还不够，从链接中提取（但要排除导航链接）
-    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
-      $('a[href*="/innovation-and-ai/"]').each((i, elem) => {
-        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
-        
-        const $elem = $(elem);
         let link = $elem.attr('href');
-        if (!link || link.includes('#') || link === '/innovation-and-ai/') return;
-        
-        // 排除导航链接（分类页面）
-        const isExcluded = excludedPaths.some(path => link.includes(path) && link.endsWith(path));
-        if (isExcluded) return;
-        
-        // 排除已知的导航链接
-        const navKeywords = ['google-deepmind', 'google-research', 'google-labs', 'gemini-models',
-                            'developers-tools', 'global-network', 'google-cloud', 'safety-security'];
-        const linkParts = link.split('/').filter(p => p);
-        const lastPart = linkParts[linkParts.length - 1] || '';
-        if (navKeywords.includes(lastPart.replace(/.html?$/, '')) && link.endsWith('/')) {
-          return; // 跳过导航链接
-        }
-        
-        // 确保是具体文章（有多个路径部分，不是分类页面）
-        if (linkParts.length < 5) {
-          return; // 可能是分类页面
-        }
+        if (!link || link.includes('#') || link.includes('mailto:')) return;
         
         let fullUrl = link;
         if (!link.startsWith('http')) {
@@ -2009,6 +1847,19 @@ async function fetchFromGoogleDeepMind() {
           const urlObj = new URL(fullUrl);
           const normalizedUrl = urlObj.origin + urlObj.pathname;
           if (seenUrls.has(normalizedUrl)) return;
+          
+          // 检查是否是具体文章（至少4个路径段）
+          const pathParts = urlObj.pathname.split('/').filter(p => p);
+          // 具体文章通常至少有4个路径段，且不是分类页面
+          const isNavLink = pathParts.length < 4 || // 具体文章至少有4个路径段
+                         (pathParts.length === 3 && pathParts[pathParts.length - 1] === 'google-deepmind') ||
+                         pathParts[pathParts.length - 1] === 'google-research' ||
+                         pathParts[pathParts.length - 1] === 'google-labs' ||
+                         pathParts[pathParts.length - 1] === 'gemini-models' ||
+                         fullUrl === 'https://blog.google/innovation-and-ai/';
+          
+          if (isNavLink) return;
+          
           seenUrls.add(normalizedUrl);
           fullUrl = normalizedUrl;
         } catch (e) {
@@ -2019,25 +1870,27 @@ async function fetchFromGoogleDeepMind() {
         // 获取标题
         let title = $elem.text().trim();
         if (!title || title.length < 10) {
-          const $parent = $elem.closest('article, div, section');
+          const $parent = $elem.closest('article, div, section, li');
           title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim();
         }
         
-        // 排除导航标题
-        if (title.includes('Google Research') || 
-            title.includes('Google Labs') ||
-            title.includes('Gemini models') ||
-            title.includes('See all')) {
-          return;
-        }
-        
-        // 获取摘要
-        const $parent = $elem.closest('article, div, section');
-        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
+        // 获取摘要和日期
+        const $parent = $elem.closest('article, div, section, li');
+        const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
         const dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
                         $parent.find('[class*="date"], time').first().text().trim();
         
-        if (title && title.length > 15) {
+        // 排除明显的导航标题
+        if (title && title.length > 10 && 
+            !title.includes('Google Research') && 
+            !title.includes('Google Labs') &&
+            !title.includes('Gemini models') &&
+            !title.includes('Developer tools') &&
+            !title.includes('Global network') &&
+            !title.includes('Google Cloud') &&
+            !title.includes('Safety & security') &&
+            !title.includes('See all AI updates') &&
+            !title.includes('Google DeepMind')) {
           items.push({
             title: translateToChinese(title),
             url: fullUrl,
