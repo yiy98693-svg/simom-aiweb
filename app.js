@@ -263,7 +263,14 @@ function hideLoadingAnimation() {
 
 // 渲染新闻项（参考 momoyu.cc 的简洁风格）
 function renderNewsItem(item, index) {
-  const publishedTime = item.publishedAtRelative || getRelativeTime(item.publishedAt);
+  // 优先使用 publishedAt（文章发布时间），如果不存在则使用 publishedAtRelative
+  let publishedTime = '';
+  if (item.publishedAt) {
+    publishedTime = getRelativeTime(item.publishedAt);
+  } else if (item.publishedAtRelative) {
+    publishedTime = item.publishedAtRelative;
+  }
+  
   const tags = item.tags && Array.isArray(item.tags) ? item.tags : [];
   const tagsHtml = tags.length > 0 
     ? `<div class="news-tags">${tags.map(tag => `<span class="news-tag">${escapeHtml(tag)}</span>`).join('')}</div>`
@@ -307,13 +314,10 @@ function renderSiteCard(site) {
     `;
   }
 
-  const updatedTime = site.updatedAtRelative || getRelativeTime(site.updatedAt);
-
   return `
     <div class="site-card">
       <div class="site-card-header">
         <h2 class="site-card-title">${escapeHtml(site.sourceName)}</h2>
-        ${updatedTime ? `<span class="site-updated-time">${updatedTime}</span>` : ''}
       </div>
       ${contentHtml}
     </div>
