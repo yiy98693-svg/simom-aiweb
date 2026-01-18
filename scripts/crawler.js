@@ -79,7 +79,7 @@ function fetch(url, options = {}) {
               }
             }
             
-            // 清空响应数据，继续跟随重定向
+            // 清空响应数据，继续跟随重定向（保持相同的 options）
             res.resume(); // 清空响应流
             return makeRequest(redirectUrl);
           }
