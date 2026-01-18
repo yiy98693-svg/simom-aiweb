@@ -643,76 +643,101 @@ async function fetchFromGoogleDesign() {
           }
         }
         
-        // 如果标题可能是从URL生成的格式，尝试从HTML中查找真正的标题
+        // 总是尝试从HTML中查找真正的标题（不依赖标题是否从URL生成）
+        // 查找链接在HTML中的位置
+        let linkIndex = html.indexOf(relPath);
+        if (linkIndex < 0) {
+          linkIndex = html.indexOf(link);
+        }
+        if (linkIndex < 0) {
+          // 尝试查找链接的最后一部分
+          const pathPart = relPath.split('/').pop();
+          linkIndex = html.indexOf(pathPart);
+        }
+        
+        if (linkIndex >= 0) {
+          // 在链接前后各查找1500字符的上下文
+          const context = html.substring(Math.max(0, linkIndex - 1500), Math.min(html.length, linkIndex + 1500));
+          
+          // 查找链接附近的标题元素（多种模式，按优先级）
+          let titleMatch = null;
+          
+          // 模式1：查找包含链接的 <a> 标签中的文本（通常这是真正的标题）
+          // 转义特殊字符以便在正则表达式中使用
+          const escapedPath = relPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const linkPattern = new RegExp(`<a[^>]*href=["'][^"']*${escapedPath}[^"']*["'][^>]*>([^<]{10,200})<\/a>`, 'i');
+          titleMatch = context.match(linkPattern);
+          
+          // 模式2：查找 <h1-h4> 标签中的标题（在链接之前或之后）
+          if (!titleMatch) {
+            titleMatch = context.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/i);
+          }
+          
+          // 模式3：查找链接前面最近的标题（查找 <h> 标签，在链接之前）
+          if (!titleMatch) {
+            const linkPosInContext = context.indexOf(relPath) >= 0 ? context.indexOf(relPath) : context.indexOf(link);
+            if (linkPosInContext >= 0) {
+              const beforeLink = context.substring(0, linkPosInContext);
+              const hMatches = beforeLink.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/gi);
+              if (hMatches && hMatches.length > 0) {
+                // 取最后一个匹配（最接近链接的）
+                const lastMatch = hMatches[hMatches.length - 1];
+                const hMatch = lastMatch.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/i);
+                if (hMatch && hMatch[1]) {
+                  titleMatch = hMatch;
+                }
+              }
+            }
+          }
+          
+          // 模式4：查找 class 包含 title 的 div
+          if (!titleMatch) {
+            titleMatch = context.match(/<div[^>]*class=["'][^"']*title[^"']*["'][^>]*>([^<]{10,200})<\/div>/i);
+          }
+          
+          // 模式5：查找 class 包含 title 的 span
+          if (!titleMatch) {
+            titleMatch = context.match(/<span[^>]*class=["'][^"']*title[^"']*["'][^>]*>([^<]{10,200})<\/span>/i);
+          }
+          
+          if (titleMatch && titleMatch[1]) {
+            const newTitle = titleMatch[1].replace(/<[^>]+>/g, '').trim();
+            // 清理标题（移除多余的空白字符）
+            const cleanTitle = newTitle.replace(/\s+/g, ' ').trim();
+            // 检查是否是真正的标题（不是导航文本）
+            if (cleanTitle.length > 10 && cleanTitle.length < 200 && 
+                !cleanTitle.toLowerCase().includes('read more') &&
+                !cleanTitle.toLowerCase().includes('view') &&
+                !cleanTitle.toLowerCase().includes('skip') &&
+                !cleanTitle.toLowerCase().includes('library') &&
+                !cleanTitle.toLowerCase().includes('illustrating') || // 允许包含 "Illustrating"
+                (cleanTitle.length > 20 && !cleanTitle.match(/^[A-Z][a-z]+ [A-Z][a-z]+ [A-Z][a-z]+$/))) { // 排除简单的格式如 "Gemini Ai Visual"
+              title = cleanTitle;
+            }
+          }
+        }
+        
+        // 如果标题可能是从URL生成的格式，进行二次检查
         if (title && title.length > 5) {
           const titleWords = title.toLowerCase().split(' ').filter(w => w.length > 2);
           const urlParts = relPath.split('/').pop().split('-').filter(p => p.length > 2);
-          // 如果标题单词数和URL部分数量相似，可能是从URL生成的
-          if (titleWords.length === urlParts.length || 
-              (titleWords.length === urlParts.length - 1 && urlParts.length > 2)) {
-            // 尝试重新从HTML中查找真正的标题
-            // 查找链接在HTML中的位置（查找完整URL或相对路径）
-            let linkIndex = html.indexOf(relPath);
-            if (linkIndex < 0) {
-              linkIndex = html.indexOf(link);
-            }
-            if (linkIndex < 0) {
-              // 尝试查找链接的最后一部分
-              const pathPart = relPath.split('/').pop();
-              linkIndex = html.indexOf(pathPart);
-            }
-            
+          // 如果标题单词数和URL部分数量完全匹配，很可能是从URL生成的
+          if (titleWords.length === urlParts.length && urlParts.length > 2) {
+            // 再次尝试从HTML中查找标题
+            const linkIndex = html.indexOf(relPath);
             if (linkIndex >= 0) {
-              // 在链接前后各查找1000字符的上下文
-              const context = html.substring(Math.max(0, linkIndex - 1500), Math.min(html.length, linkIndex + 1500));
-              
-              // 查找链接附近的标题元素（多种模式，按优先级）
-              let titleMatch = null;
-              
-              // 模式1：查找 <h1-h4> 标签中的标题
-              titleMatch = context.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/i);
-              
-              // 模式2：查找 class 包含 title 的 div
-              if (!titleMatch) {
-                titleMatch = context.match(/<div[^>]*class=["'][^"']*title[^"']*["'][^>]*>([^<]{10,200})<\/div>/i);
-              }
-              
-              // 模式3：查找 class 包含 title 的 span
-              if (!titleMatch) {
-                titleMatch = context.match(/<span[^>]*class=["'][^"']*title[^"']*["'][^>]*>([^<]{10,200})<\/span>/i);
-              }
-              
-              // 模式4：查找包含链接的 <a> 标签中的文本（通常这是真正的标题）
-              if (!titleMatch) {
-                // 转义特殊字符以便在正则表达式中使用
-                const escapedPath = relPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const linkPattern = new RegExp(`<a[^>]*href=["'][^"']*${escapedPath}[^"']*["'][^>]*>([^<]{10,200})<\/a>`, 'i');
-                titleMatch = context.match(linkPattern);
-              }
-              
-              // 模式5：查找链接前面最近的标题（查找 <h> 标签，在链接之前）
-              if (!titleMatch) {
-                const beforeLink = context.substring(0, context.indexOf(relPath) >= 0 ? context.indexOf(relPath) : context.indexOf(link));
-                const hMatches = beforeLink.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/gi);
-                if (hMatches && hMatches.length > 0) {
-                  // 取最后一个匹配（最接近链接的）
-                  const lastMatch = hMatches[hMatches.length - 1];
-                  const hMatch = lastMatch.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/i);
-                  if (hMatch && hMatch[1]) {
-                    titleMatch = hMatch;
-                  }
-                }
-              }
-              
-              if (titleMatch && titleMatch[1]) {
-                const newTitle = titleMatch[1].replace(/<[^>]+>/g, '').trim();
-                // 清理标题（移除多余的空白字符）
+              const context = html.substring(Math.max(0, linkIndex - 2000), Math.min(html.length, linkIndex + 2000));
+              // 查找链接标签中的文本
+              const escapedPath = relPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const linkPattern = new RegExp(`<a[^>]*href=["'][^"']*${escapedPath}[^"']*["'][^>]*>([^<]{10,200})<\/a>`, 'i');
+              const linkMatch = context.match(linkPattern);
+              if (linkMatch && linkMatch[1]) {
+                const newTitle = linkMatch[1].replace(/<[^>]+>/g, '').trim();
                 const cleanTitle = newTitle.replace(/\s+/g, ' ').trim();
-                if (cleanTitle.length > 10 && cleanTitle.length < 200 && 
+                if (cleanTitle.length > 10 && cleanTitle.length < 200 &&
                     !cleanTitle.toLowerCase().includes('read more') &&
                     !cleanTitle.toLowerCase().includes('view') &&
-                    !cleanTitle.toLowerCase().includes('skip') &&
-                    !cleanTitle.toLowerCase().includes('library')) {
+                    !cleanTitle.toLowerCase().includes('skip')) {
                   title = cleanTitle;
                 }
               }
