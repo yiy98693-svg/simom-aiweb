@@ -643,6 +643,35 @@ async function fetchFromGoogleDesign() {
           }
         }
         
+        // 如果标题可能是从URL生成的格式，尝试从HTML中查找真正的标题
+        if (title && title.length > 5) {
+          const titleWords = title.toLowerCase().split(' ').filter(w => w.length > 2);
+          const urlParts = relPath.split('/').pop().split('-').filter(p => p.length > 2);
+          // 如果标题单词数和URL部分数量相似，可能是从URL生成的
+          if (titleWords.length === urlParts.length || 
+              (titleWords.length === urlParts.length - 1 && urlParts.length > 2)) {
+            // 尝试重新从HTML中查找真正的标题
+            const linkIndex = html.indexOf(relPath);
+            if (linkIndex >= 0) {
+              const context = html.substring(Math.max(0, linkIndex - 1000), Math.min(html.length, linkIndex + 1000));
+              // 查找链接附近的标题元素
+              const titleMatch = context.match(/<h[1-4][^>]*>([^<]{10,200})<\/h[1-4]>/i) ||
+                                 context.match(/<div[^>]*class=["'][^"']*title[^"']*["'][^>]*>([^<]{10,200})<\/div>/i) ||
+                                 context.match(/<span[^>]*class=["'][^"']*title[^"']*["'][^>]*>([^<]{10,200})<\/span>/i) ||
+                                 context.match(/<a[^>]*href=["'][^"']*\/library\/[^"']*["'][^>]*>([^<]{10,200})<\/a>/i);
+              if (titleMatch && titleMatch[1]) {
+                const newTitle = titleMatch[1].replace(/<[^>]+>/g, '').trim();
+                if (newTitle.length > 10 && newTitle.length < 200 && 
+                    !newTitle.toLowerCase().includes('read more') &&
+                    !newTitle.toLowerCase().includes('view') &&
+                    !newTitle.toLowerCase().includes('skip')) {
+                  title = newTitle;
+                }
+              }
+            }
+          }
+        }
+        
         // 获取摘要
         const $parent = $elem.closest('article, [class*="card"], div, section');
         summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
