@@ -1265,14 +1265,13 @@ async function fetchFromAIBase() {
  */
 async function fetchFromJiqizhixin() {
   try {
-    // 机器之心网站是 SPA，使用 RSS feed 或者尝试不同的 URL
-    // 尝试直接抓取文章列表页，或者从首页查找包含文章 ID 的链接
     const url = 'https://www.jiqizhixin.com/';
     const html = await fetch(url);
     const $ = cheerio.load(html);
     const items = [];
+    const seenUrls = new Set();
     
-    // 方法1：直接查找所有链接，寻找文章链接模式
+    // 方法1：使用 cheerio 查找所有链接（优先查找有文本内容的链接）
     $('a[href]').each((i, elem) => {
       if (items.length >= CONFIG.MAX_ITEMS_PER_SITE * 3) return false;
       
@@ -1280,67 +1279,118 @@ async function fetchFromJiqizhixin() {
       let link = $elem.attr('href');
       if (!link) return;
       
-      // 查找包含文章 ID 或文章路径的链接（机器之心可能使用 UUID 或日期路径）
-      // 排除明显的非文章链接
-      if (link.includes('/reference/') || 
-          link.includes('/articles/') || 
-          link.match(/\/\d{4}\/\d{2}\/\d{2}\//) ||
-          (link.includes('/news/') && !link.includes('/newsroom/'))) {
-        
-        // 排除明显的导航链接
-        if (link.includes('#') || link.includes('javascript:') || link === '/') {
-          return;
+      // 获取链接文本
+      let title = $elem.text().trim();
+      
+      // 跳过明显的非文章链接
+      if (link.includes('#') || 
+          link.includes('javascript:') || 
+          link === '/' ||
+          link.includes('/inbox') ||
+          link.includes('/m/') ||
+          link.includes('/ai_shortlist') ||
+          link.includes('aihaohaoyong.com') ||
+          link.includes('/short_urls')) {
+        return;
+      }
+      
+      // 查找包含文章路径的链接（包括 pro.jiqizhixin.com/reference/）
+      const isArticleLink = link.includes('/reference/') || 
+                           link.includes('/articles/') || 
+                           link.includes('/news/') ||
+                           link.match(/\/\d{4}\/\d{2}\/\d{2}\//) ||
+                           (link.includes('jiqizhixin.com') && !link.includes('/inbox') && !link.includes('/m/'));
+      
+      if (!isArticleLink) return;
+      
+      // 构建完整 URL
+      let fullUrl = link;
+      if (!link.startsWith('http')) {
+        if (link.startsWith('//')) {
+          fullUrl = 'https:' + link;
+        } else if (link.startsWith('/')) {
+          fullUrl = `https://www.jiqizhixin.com${link}`;
+        } else {
+          fullUrl = `https://www.jiqizhixin.com/${link}`;
         }
-        
-        let fullUrl = link;
-        if (!link.startsWith('http')) {
-          // 如果是 pro.jiqizhixin.com，保持不变，否则转换为主站
-          if (link.startsWith('//')) {
-            fullUrl = 'https:' + link;
-          } else if (link.startsWith('/')) {
-            fullUrl = `https://www.jiqizhixin.com${link}`;
-          } else {
-            fullUrl = `https://www.jiqizhixin.com/${link}`;
-          }
+      }
+      
+      // 规范化 URL（移除查询参数和 hash）
+      try {
+        const urlObj = new URL(fullUrl);
+        const normalizedUrl = urlObj.origin + urlObj.pathname;
+        if (seenUrls.has(normalizedUrl)) return;
+        seenUrls.add(normalizedUrl);
+        fullUrl = normalizedUrl;
+      } catch (e) {
+        if (seenUrls.has(fullUrl)) return;
+        seenUrls.add(fullUrl);
+      }
+      
+      // 如果链接文本太短，尝试从父元素或兄弟元素获取标题
+      if (!title || title.length < 5) {
+        const $parent = $elem.closest('div, article, section, li');
+        title = $parent.find('h1, h2, h3, h4, [class*="title"], [class*="headline"]').first().text().trim() ||
+                $elem.siblings('h1, h2, h3, h4, [class*="title"]').first().text().trim();
+      }
+      
+      // 如果还是找不到，尝试从附近的文本节点获取
+      if (!title || title.length < 5) {
+        const $parent = $elem.parent();
+        title = $parent.text().trim().split('\n')[0].substring(0, 100);
+      }
+      
+      // 如果仍然找不到，从 URL 生成标题
+      if (!title || title.length < 5) {
+        const urlParts = fullUrl.split('/').filter(p => p && !p.includes('.'));
+        const lastPart = urlParts[urlParts.length - 1] || '';
+        // 如果是 UUID，跳过（因为这些通常是 PRO 会员内容）
+        if (lastPart.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+          return; // 跳过 UUID 链接（通常是 PRO 内容）
         }
-        
-        // 获取标题
-        let title = $elem.text().trim();
-        if (!title || title.length < 5) {
-          // 尝试从父元素获取
-          const $parent = $elem.closest('div, article, section');
-          title = $parent.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
-        }
-        
-        // 如果没有标题，从链接路径生成
-        if (!title || title.length < 5) {
-          const urlParts = fullUrl.split('/').filter(p => p);
-          title = urlParts[urlParts.length - 1] || '机器之心文章';
-        }
-        
-        // 获取摘要
-        const $parent = $elem.closest('div, article, section');
-        let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
-        
-        if (title && title.length > 5 && !title.includes('PRO') && !title.includes('会员')) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(summary || title.substring(0, 150)),
-            publishedAt: null,
-            tags: extractTags(title, summary)
-          });
-        }
+        title = lastPart.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      }
+      
+      // 获取摘要
+      const $parent = $elem.closest('div, article, section');
+      let summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
+      if (!summary) {
+        summary = $parent.text().trim().substring(title.length, title.length + 150);
+      }
+      
+      // 过滤掉明显的非文章内容（但允许PRO链接，因为首页主要是这些）
+      if (title && 
+          title.length > 5 && 
+          !title.includes('Skip') &&
+          !title.includes('AI Shortlist') &&
+          !title.includes('SOTA！模型') &&
+          !title.includes('通讯会员') &&
+          !title.includes('PRO通讯会员') &&
+          title !== '机器之心文章') {
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(summary || title.substring(0, 150)),
+          publishedAt: null,
+          tags: extractTags(title, summary)
+        });
       }
     });
     
-    // 方法2：如果方法1没找到，尝试查找包含日期路径的链接
-    if (items.length === 0) {
-      const linksRegex = /href=["']([^"']*(?:\/\d{4}\/\d{2}\/|articles|news|reference)[^"']*)["']/gi;
+    // 方法2：从 HTML 文本中直接提取所有包含 reference/articles/news 的 URL（作为补充）
+    const urlPatterns = [
+      /href=["']([^"']*(?:reference|articles|news)[^"']*)["']/gi,
+      /https?:\/\/[^\s"'<>]+(?:pro\.)?jiqizhixin\.com\/(?:reference|articles|news)\/[^\s"'<>]+/gi
+    ];
+    
+    urlPatterns.forEach(pattern => {
       let match;
-      while ((match = linksRegex.exec(html)) !== null && items.length < CONFIG.MAX_ITEMS_PER_SITE * 3) {
-        let link = match[1];
-        if (link.includes('#') || link.includes('javascript:')) continue;
+      while ((match = pattern.exec(html)) !== null && items.length < CONFIG.MAX_ITEMS_PER_SITE * 3) {
+        let link = match[1] || match[0];
+        if (!link || link.includes('#') || link.includes('javascript:')) continue;
+        
+        // 清理链接（移除 HTML 实体）
+        link = link.replace(/&amp;/g, '&').replace(/&#39;/g, "'");
         
         let fullUrl = link;
         if (!link.startsWith('http')) {
@@ -1353,28 +1403,125 @@ async function fetchFromJiqizhixin() {
           }
         }
         
-        // 查找对应的标题（在链接附近）
-        const linkIndex = html.indexOf(match[0]);
-        const context = html.substring(Math.max(0, linkIndex - 500), Math.min(html.length, linkIndex + 500));
-        const titleMatch = context.match(/<[^>]*class[^>]*title[^>]*>([^<]+)</i) || 
-                          context.match(/<h[1-4][^>]*>([^<]+)</i);
-        const title = titleMatch ? titleMatch[1].trim() : fullUrl.split('/').pop() || '机器之心文章';
+        // 规范化 URL
+        try {
+          const urlObj = new URL(fullUrl);
+          const normalizedUrl = urlObj.origin + urlObj.pathname;
+          if (seenUrls.has(normalizedUrl)) continue;
+          seenUrls.add(normalizedUrl);
+          fullUrl = normalizedUrl;
+        } catch (e) {
+          if (seenUrls.has(fullUrl)) continue;
+          seenUrls.add(fullUrl);
+        }
         
-        if (title.length > 5 && !title.includes('PRO') && !title.includes('会员')) {
-          items.push({
-            title: translateToChinese(title),
-            url: fullUrl,
-            summary: translateToChinese(title.substring(0, 150)),
-            publishedAt: null,
-            tags: extractTags(title, '')
-          });
+        // 从 HTML 中查找标题（在链接附近）
+        const linkIndex = html.indexOf(match[0]);
+        const context = html.substring(Math.max(0, linkIndex - 1000), Math.min(html.length, linkIndex + 1000));
+        
+        // 尝试多种方式提取标题
+        let title = null;
+        const titlePatterns = [
+          />([^<]{10,100})</g, // 查找链接附近的文本
+          /title=["']([^"']+)["']/i,
+          /data-title=["']([^"']+)["']/i
+        ];
+        
+        for (const titlePattern of titlePatterns) {
+          const matches = context.match(titlePattern);
+          if (matches && matches[1] && matches[1].trim().length > 5 && matches[1].trim().length < 200) {
+            title = matches[1].trim();
+            // 过滤掉 HTML 标签和特殊字符
+            title = title.replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, '').trim();
+            if (title.length > 5 && !title.includes('PRO') && !title.includes('会员')) {
+              break;
+            }
+          }
+        }
+        
+        // 如果还是找不到，跳过（避免使用默认标题）
+        if (!title || title.length < 5 || title.includes('PRO') || title.includes('会员')) {
+          continue;
+        }
+        
+        items.push({
+          title: translateToChinese(title),
+          url: fullUrl,
+          summary: translateToChinese(title.substring(0, 150)),
+          publishedAt: null,
+          tags: extractTags(title, '')
+        });
+      }
+      pattern.lastIndex = 0; // 重置正则
+    });
+    
+    // 如果还是不够，尝试访问其他页面或使用备用方法
+    if (items.length < CONFIG.MAX_ITEMS_PER_SITE) {
+      // 方法3：尝试从script标签中的JSON数据提取（如果存在）
+      const scripts = $('script').toArray();
+      for (const script of scripts) {
+        if (items.length >= CONFIG.MAX_ITEMS_PER_SITE) break;
+        
+        const scriptContent = $(script).html() || '';
+        // 查找可能的JSON数据中的文章列表
+        if (scriptContent.includes('articles') || scriptContent.includes('news') || scriptContent.includes('list')) {
+          // 尝试提取URL模式
+          const urlMatches = scriptContent.match(/https?:\/\/[^\s"'<>]+(?:reference|articles|news)[^\s"'<>]+/gi);
+          if (urlMatches) {
+            for (const urlMatch of urlMatches) {
+              if (items.length >= CONFIG.MAX_ITEMS_PER_SITE) break;
+              
+              let fullUrl = urlMatch.replace(/['"]/g, '').replace(/&amp;/g, '&');
+              try {
+                const urlObj = new URL(fullUrl);
+                const normalizedUrl = urlObj.origin + urlObj.pathname;
+                if (seenUrls.has(normalizedUrl)) continue;
+                seenUrls.add(normalizedUrl);
+                fullUrl = normalizedUrl;
+                
+                // 尝试从script内容中查找对应的标题
+                const urlIndex = scriptContent.indexOf(urlMatch);
+                const context = scriptContent.substring(Math.max(0, urlIndex - 500), Math.min(scriptContent.length, urlIndex + 500));
+                const titleMatch = context.match(/"title"\s*:\s*"([^"]+)"/i) || 
+                                  context.match(/'title'\s*:\s*'([^']+)'/i) ||
+                                  context.match(/title:\s*"([^"]+)"/i);
+                
+                let title = titleMatch ? titleMatch[1].trim() : null;
+                if (!title || title.length < 5) {
+                  // 尝试从URL生成标题
+                  const urlParts = fullUrl.split('/').filter(p => p);
+                  const lastPart = urlParts[urlParts.length - 1];
+                  if (lastPart && !lastPart.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+                    title = lastPart.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                  } else {
+                    continue; // 跳过UUID链接
+                  }
+                }
+                
+                if (title && title.length > 5 && 
+                    !title.includes('PRO通讯会员') && 
+                    !title.includes('通讯会员') &&
+                    !title.includes('AI Shortlist')) {
+                  items.push({
+                    title: translateToChinese(title),
+                    url: fullUrl,
+                    summary: translateToChinese(title.substring(0, 150)),
+                    publishedAt: null,
+                    tags: extractTags(title, '')
+                  });
+                }
+              } catch (e) {
+                // URL解析失败，跳过
+                continue;
+              }
+            }
+          }
         }
       }
     }
     
     return items
       .filter((item, index, self) => {
-        // 去重：基于 URL
         const indexInSelf = self.findIndex(i => i.url === item.url);
         return indexInSelf === index && item.title.length > 5;
       })
