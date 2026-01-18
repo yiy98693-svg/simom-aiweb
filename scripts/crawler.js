@@ -1401,16 +1401,16 @@ async function fetchFromJiqizhixin() {
         
         // 构建完整 URL
         let fullUrl = link;
-      if (!link.startsWith('http')) {
-        if (link.startsWith('//')) {
-          fullUrl = 'https:' + link;
-        } else if (link.startsWith('/')) {
-          fullUrl = `https://www.jiqizhixin.com${link}`;
-        } else {
-          fullUrl = `https://www.jiqizhixin.com/${link}`;
+        if (!link.startsWith('http')) {
+          if (link.startsWith('//')) {
+            fullUrl = 'https:' + link;
+          } else if (link.startsWith('/')) {
+            fullUrl = `https://www.jiqizhixin.com${link}`;
+          } else {
+            fullUrl = `https://www.jiqizhixin.com/${link}`;
+          }
         }
-      }
-      
+        
         // 规范化 URL（移除查询参数和 hash）
         try {
           const urlObj = new URL(fullUrl);
