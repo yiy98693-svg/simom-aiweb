@@ -159,6 +159,47 @@ function extractDateFromUrl(url) {
   }
 }
 
+// 从文章详情页获取日期
+async function fetchDateFromArticlePage(articleUrl, refererUrl = null) {
+  if (!articleUrl) return null;
+  
+  try {
+    const articleHtml = await fetch(articleUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Referer': refererUrl || 'https://www.google.com/'
+      }
+    });
+    const $article = cheerio.load(articleHtml);
+    
+    // 从详情页提取日期（多种方式，优先 meta 标签）
+    const articleDateStr = $article('meta[property="article:published_time"]').first().attr('content') ||
+                          $article('meta[property="og:published_time"]').first().attr('content') ||
+                          $article('meta[name="publish-date"]').first().attr('content') ||
+                          $article('meta[name="date"]').first().attr('content') ||
+                          $article('meta[property*="published"]').first().attr('content') ||
+                          $article('meta[name*="date"]').first().attr('content') ||
+                          $article('time[datetime]').first().attr('datetime') || 
+                          $article('[datetime]').first().attr('datetime') ||
+                          $article('[class*="date"]').first().attr('datetime') ||
+                          $article('[data-date]').first().attr('data-date') ||
+                          $article('[data-publish-date]').first().attr('data-publish-date');
+    
+    if (articleDateStr) {
+      const articleDate = parseDate(articleDateStr);
+      if (articleDate) {
+        return articleDate;
+      }
+    }
+    
+    return null;
+  } catch (e) {
+    // 如果访问详情页失败，返回 null
+    return null;
+  }
+}
+
 // 解析日期字符串
 function parseDate(dateStr) {
   if (!dateStr) return null;
@@ -533,8 +574,11 @@ async function fetchFromMicrosoftDesign() {
       const $parent = $elem.closest('article, div, section');
       const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
       
-      // 优先从 HTML 元素中提取日期，如果找不到则从 URL 中提取
-      let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
+      // 优先从 HTML 元素中提取日期（优先 meta 标签），如果找不到则从 URL 中提取
+      let dateStr = $parent.find('meta[property="article:published_time"]').first().attr('content') ||
+                    $parent.find('meta[property="og:published_time"]').first().attr('content') ||
+                    $parent.find('meta[name="publish-date"]').first().attr('content') ||
+                    $parent.find('time[datetime]').first().attr('datetime') || 
                     $parent.find('[datetime]').first().attr('datetime') ||
                     $parent.find('[class*="date"]').first().attr('datetime') ||
                     $parent.find('[data-date]').first().attr('data-date') ||
@@ -546,6 +590,7 @@ async function fetchFromMicrosoftDesign() {
       if (!publishedAt) {
         publishedAt = extractDateFromUrl(fullUrl);
       }
+      // 如果还是没有日期，设置为 null，稍后访问详情页获取
       
       if (title && title.length > 5) {
         items.push({
@@ -557,6 +602,30 @@ async function fetchFromMicrosoftDesign() {
         });
       }
     });
+    
+    // 如果列表页没有日期，访问文章详情页获取日期（最多前10篇，避免性能问题）
+    if (items.length > 0) {
+      const itemsWithoutDate = items.filter(item => !item.publishedAt).slice(0, 10);
+      if (itemsWithoutDate.length > 0) {
+        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取日期...`);
+        await Promise.all(itemsWithoutDate.map(async (item) => {
+          try {
+            const articleDate = await fetchDateFromArticlePage(item.url, url);
+            if (articleDate) {
+              item.publishedAt = articleDate;
+            }
+            // 延迟一下，避免请求过快
+            await delay(200);
+          } catch (e) {
+            // 如果访问详情页失败，保持原样（使用 null 或不使用日期）
+          }
+        }));
+        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
+        if (dateCount > 0) {
+          console.log(`  从详情页获取到 ${dateCount} 个日期`);
+        }
+      }
+    }
     
     // 优先过滤 AI 相关内容
     const aiItems = items.filter(item => 
@@ -686,6 +755,7 @@ async function fetchFromGoogleDesign() {
       
       // 尝试从 URL 中提取日期（Google Design 的 URL 可能包含日期）
       let publishedAt = extractDateFromUrl(link);
+      // 如果 URL 中没有日期，设置为 null，稍后访问详情页获取
       
       items.push({
         title: translateToChinese(title),
@@ -697,6 +767,37 @@ async function fetchFromGoogleDesign() {
     });
     
     console.log(`  解析后得到 ${items.length} 个文章项`);
+    
+    // 如果列表页没有日期，访问文章详情页获取真实发布时间
+    if (items.length > 0) {
+      const itemsWithoutDate = items.filter(item => !item.publishedAt);
+      if (itemsWithoutDate.length > 0) {
+        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取真实发布时间...`);
+        // 分批处理，避免并发过多
+        const batchSize = 5;
+        for (let i = 0; i < itemsWithoutDate.length; i += batchSize) {
+          const batch = itemsWithoutDate.slice(i, i + batchSize);
+          await Promise.all(batch.map(async (item) => {
+            try {
+              const articleDate = await fetchDateFromArticlePage(item.url, url);
+              if (articleDate) {
+                item.publishedAt = articleDate;
+              }
+              await delay(200);
+            } catch (e) {
+              // 如果访问详情页失败，保持原样
+            }
+          }));
+          if (i + batchSize < itemsWithoutDate.length) {
+            await delay(500);
+          }
+        }
+        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
+        if (dateCount > 0) {
+          console.log(`  从详情页获取到 ${dateCount} 个真实发布时间`);
+        }
+      }
+    }
     
     // 如果还是没找到，使用 cheerio 选择器作为备用
     if (items.length === 0) {
@@ -1082,21 +1183,25 @@ async function fetchFromOpenAI() {
         const $parent = $elem.closest('article, div, section, li');
         const summary = $parent.find('p, [class*="summary"], [class*="excerpt"], [class*="description"]').first().text().trim();
         
-        // 优先从 HTML 元素中提取日期，如果找不到则从 URL 中提取
-        let dateStr = $parent.find('time[datetime]').first().attr('datetime') || 
-                      $parent.find('[datetime]').first().attr('datetime') ||
-                      $parent.find('[class*="date"]').first().attr('datetime') ||
-                      $parent.find('[data-date]').first().attr('data-date') ||
-                      $parent.find('[data-publish-date]').first().attr('data-publish-date') ||
-                      $parent.find('[class*="date"], time').first().text().trim();
-        
-        // 如果 HTML 中没有找到日期，尝试从 URL 中提取
-        let publishedAt = parseDate(dateStr);
-        if (!publishedAt) {
-          publishedAt = extractDateFromUrl(fullUrl);
-        }
-        
-        if (title && title.length > 5 && !title.includes('Subscribe') && !title.includes('Sign In')) {
+      // 优先从 HTML 元素中提取日期（优先 meta 标签），如果找不到则从 URL 中提取
+      let dateStr = $parent.find('meta[property="article:published_time"]').first().attr('content') ||
+                    $parent.find('meta[property="og:published_time"]').first().attr('content') ||
+                    $parent.find('meta[name="publish-date"]').first().attr('content') ||
+                    $parent.find('time[datetime]').first().attr('datetime') || 
+                    $parent.find('[datetime]').first().attr('datetime') ||
+                    $parent.find('[class*="date"]').first().attr('datetime') ||
+                    $parent.find('[data-date]').first().attr('data-date') ||
+                    $parent.find('[data-publish-date]').first().attr('data-publish-date') ||
+                    $parent.find('[class*="date"], time').first().text().trim();
+      
+      // 如果 HTML 中没有找到日期，尝试从 URL 中提取
+      let publishedAt = parseDate(dateStr);
+      if (!publishedAt) {
+        publishedAt = extractDateFromUrl(fullUrl);
+      }
+      // 如果还是没有日期，设置为 null，稍后访问详情页获取
+      
+      if (title && title.length > 5 && !title.includes('Subscribe') && !title.includes('Sign In')) {
           items.push({
             title: translateToChinese(title),
             url: fullUrl,
@@ -1106,6 +1211,30 @@ async function fetchFromOpenAI() {
           });
         }
       });
+    }
+    
+    // 如果列表页没有日期，访问文章详情页获取日期（最多前10篇，避免性能问题）
+    if (items.length > 0) {
+      const itemsWithoutDate = items.filter(item => !item.publishedAt).slice(0, 10);
+      if (itemsWithoutDate.length > 0) {
+        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取日期...`);
+        await Promise.all(itemsWithoutDate.map(async (item) => {
+          try {
+            const articleDate = await fetchDateFromArticlePage(item.url, url);
+            if (articleDate) {
+              item.publishedAt = articleDate;
+            }
+            // 延迟一下，避免请求过快
+            await delay(200);
+          } catch (e) {
+            // 如果访问详情页失败，保持原样（使用 null 或不使用日期）
+          }
+        }));
+        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
+        if (dateCount > 0) {
+          console.log(`  从详情页获取到 ${dateCount} 个日期`);
+        }
+      }
     }
     
     return items
@@ -1222,7 +1351,10 @@ async function fetchFromGoogleAI() {
       const title = $elem.find('h1, h2, h3, h4, [class*="title"]').first().text().trim();
       const link = $elem.attr('href') || $elem.find('a').first().attr('href');
       const summary = $elem.find('p, [class*="summary"]').first().text().trim();
-      const dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+      // 优先从 meta 标签提取日期
+      const dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
+                      $elem.find('meta[property="og:published_time"]').first().attr('content') ||
+                      $elem.find('time[datetime]').first().attr('datetime') || 
                       $elem.find('[datetime]').first().attr('datetime') ||
                       $elem.find('[class*="date"]').first().attr('datetime') ||
                       $elem.find('[data-date]').first().attr('data-date') ||
@@ -1236,6 +1368,7 @@ async function fetchFromGoogleAI() {
         if (!publishedAt) {
           publishedAt = extractDateFromUrl(fullUrl);
         }
+        // 如果还是没有日期，设置为 null，稍后访问详情页获取
         
         items.push({
           title: translateToChinese(title),
@@ -1246,6 +1379,37 @@ async function fetchFromGoogleAI() {
         });
       }
     });
+    
+    // 如果列表页没有日期，访问文章详情页获取真实发布时间
+    if (items.length > 0) {
+      const itemsWithoutDate = items.filter(item => !item.publishedAt);
+      if (itemsWithoutDate.length > 0) {
+        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取真实发布时间...`);
+        // 分批处理，避免并发过多
+        const batchSize = 5;
+        for (let i = 0; i < itemsWithoutDate.length; i += batchSize) {
+          const batch = itemsWithoutDate.slice(i, i + batchSize);
+          await Promise.all(batch.map(async (item) => {
+            try {
+              const articleDate = await fetchDateFromArticlePage(item.url, url);
+              if (articleDate) {
+                item.publishedAt = articleDate;
+              }
+              await delay(200);
+            } catch (e) {
+              // 如果访问详情页失败，保持原样
+            }
+          }));
+          if (i + batchSize < itemsWithoutDate.length) {
+            await delay(500);
+          }
+        }
+        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
+        if (dateCount > 0) {
+          console.log(`  从详情页获取到 ${dateCount} 个真实发布时间`);
+        }
+      }
+    }
     
     return items.slice(0, CONFIG.MAX_ITEMS_PER_SITE);
       
@@ -1349,8 +1513,11 @@ async function fetchFromAWS() {
       const link = $elem.attr('href') || $elem.find('a').first().attr('href');
       const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
       
-      // 优先从 HTML 元素中提取日期（AWS 使用 time[datetime]）
-      let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+      // 优先从 HTML 元素中提取日期（优先 meta 标签，AWS 使用 time[datetime]）
+      let dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
+                    $elem.find('meta[property="og:published_time"]').first().attr('content') ||
+                    $elem.find('meta[name="publish-date"]').first().attr('content') ||
+                    $elem.find('time[datetime]').first().attr('datetime') || 
                     $elem.find('[datetime]').first().attr('datetime') ||
                     $elem.find('[class*="date"]').first().attr('datetime') ||
                     $elem.find('[data-date]').first().attr('data-date') ||
@@ -1367,6 +1534,7 @@ async function fetchFromAWS() {
         if (!publishedAt) {
           publishedAt = extractDateFromUrl(fullUrl);
         }
+        // 如果还是没有日期，设置为 null，稍后访问详情页获取
         
         items.push({
           title: translateToChinese(title),
@@ -1377,6 +1545,37 @@ async function fetchFromAWS() {
         });
       }
     });
+    
+    // 如果列表页没有日期，访问文章详情页获取真实发布时间
+    if (items.length > 0) {
+      const itemsWithoutDate = items.filter(item => !item.publishedAt);
+      if (itemsWithoutDate.length > 0) {
+        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取真实发布时间...`);
+        // 分批处理，避免并发过多
+        const batchSize = 5;
+        for (let i = 0; i < itemsWithoutDate.length; i += batchSize) {
+          const batch = itemsWithoutDate.slice(i, i + batchSize);
+          await Promise.all(batch.map(async (item) => {
+            try {
+              const articleDate = await fetchDateFromArticlePage(item.url, url);
+              if (articleDate) {
+                item.publishedAt = articleDate;
+              }
+              await delay(200);
+            } catch (e) {
+              // 如果访问详情页失败，保持原样
+            }
+          }));
+          if (i + batchSize < itemsWithoutDate.length) {
+            await delay(500);
+          }
+        }
+        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
+        if (dateCount > 0) {
+          console.log(`  从详情页获取到 ${dateCount} 个真实发布时间`);
+        }
+      }
+    }
     
     return items
       .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index) // 去重
@@ -1519,8 +1718,11 @@ async function fetchFromAIBase() {
       const link = $elem.attr('href') || $elem.find('a').first().attr('href');
       const summary = $elem.find('p, [class*="summary"], [class*="excerpt"]').first().text().trim();
       
-      // 优先从 HTML 元素中提取日期
-      let dateStr = $elem.find('time[datetime]').first().attr('datetime') || 
+      // 优先从 HTML 元素中提取日期（优先 meta 标签）
+      let dateStr = $elem.find('meta[property="article:published_time"]').first().attr('content') ||
+                    $elem.find('meta[property="og:published_time"]').first().attr('content') ||
+                    $elem.find('meta[name="publish-date"]').first().attr('content') ||
+                    $elem.find('time[datetime]').first().attr('datetime') || 
                     $elem.find('[datetime]').first().attr('datetime') ||
                     $elem.find('[class*="date"]').first().attr('datetime') ||
                     $elem.find('[data-date]').first().attr('data-date') ||
@@ -1537,6 +1739,7 @@ async function fetchFromAIBase() {
         if (!publishedAt) {
           publishedAt = extractDateFromUrl(fullUrl);
         }
+        // 如果还是没有日期，设置为 null，稍后访问详情页获取
         
         items.push({
           title: translateToChinese(title),
@@ -1547,6 +1750,37 @@ async function fetchFromAIBase() {
         });
       }
     });
+    
+    // 如果列表页没有日期，访问文章详情页获取真实发布时间
+    if (items.length > 0) {
+      const itemsWithoutDate = items.filter(item => !item.publishedAt);
+      if (itemsWithoutDate.length > 0) {
+        console.log(`  列表页没有日期，访问 ${itemsWithoutDate.length} 篇文章详情页获取真实发布时间...`);
+        // 分批处理，避免并发过多
+        const batchSize = 5;
+        for (let i = 0; i < itemsWithoutDate.length; i += batchSize) {
+          const batch = itemsWithoutDate.slice(i, i + batchSize);
+          await Promise.all(batch.map(async (item) => {
+            try {
+              const articleDate = await fetchDateFromArticlePage(item.url, url);
+              if (articleDate) {
+                item.publishedAt = articleDate;
+              }
+              await delay(200);
+            } catch (e) {
+              // 如果访问详情页失败，保持原样
+            }
+          }));
+          if (i + batchSize < itemsWithoutDate.length) {
+            await delay(500);
+          }
+        }
+        const dateCount = itemsWithoutDate.filter(item => item.publishedAt).length;
+        if (dateCount > 0) {
+          console.log(`  从详情页获取到 ${dateCount} 个真实发布时间`);
+        }
+      }
+    }
     
     return items
       .filter((item, index, self) => self.findIndex(i => i.url === item.url) === index)
