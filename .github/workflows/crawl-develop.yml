@@ -1,11 +1,15 @@
-name: 每日自动抓取 AI 设计资讯
+name: 每日自动抓取 AI 设计资讯（测试环境）
 
 on:
-  # 每天北京时间 0:00（UTC 16:00）自动触发
+  # 每天北京时间 0:00（UTC 16:00）自动触发（测试环境）
   schedule:
     - cron: '0 16 * * *'  # UTC 16:00 = 北京时间 0:00
   # 允许手动触发
   workflow_dispatch:
+  # 当 develop 分支有推送时触发
+  push:
+    branches:
+      - develop
 
 jobs:
   crawl:
@@ -21,6 +25,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: develop  # 指定检出 develop 分支
 
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -52,16 +57,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Actions"
           git add data/today.json
-          git commit -m "🔄 自动更新: $(date '+%Y-%m-%d') 的 AI 设计资讯" || exit 0
+          git commit -m "🔄 自动更新（测试环境）: $(date '+%Y-%m-%d') 的 AI 设计资讯" || exit 0
 
-      - name: 推送更改到 main（正式环境）
-        if: steps.check-changes.outputs.changed == 'true' && github.ref == 'refs/heads/main'
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git push origin main
-      
       - name: 推送更改到 develop（测试环境）
-        if: steps.check-changes.outputs.changed == 'true' && github.ref == 'refs/heads/develop'
+        if: steps.check-changes.outputs.changed == 'true'
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin develop
