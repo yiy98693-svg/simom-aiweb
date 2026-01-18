@@ -3,7 +3,12 @@
 // ====================
 const CONFIG = {
   DATA_URL: './data/today.json', // 数据文件路径
-  SITE_ORDER: ['microsoft', 'google', 'figma', 'anthropic', 'openai', 'googleai', 'aws', 'aibase', 'jiqizhixin', 'qbitai', 'techcrunch', 'googledeepmind'], // 站点显示顺序
+  // 站点显示顺序：
+  // 第一排：techcrunch, anthropic, googledeepmind
+  // 第二排：openai (Wired AI), googleai, figma
+  // 第三排：jiqizhixin, qbitai, aws (剩下的)
+  // 最后四排：microsoft, aibase, google, aws -> 实际：microsoft, aibase, google, aws
+  SITE_ORDER: ['techcrunch', 'anthropic', 'googledeepmind', 'openai', 'googleai', 'figma', 'jiqizhixin', 'qbitai', 'microsoft', 'aibase', 'google', 'aws'], // 站点显示顺序
 };
 
 // ====================
