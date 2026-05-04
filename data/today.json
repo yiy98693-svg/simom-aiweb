@@ -1,11 +1,11 @@
 {
-  "date": "2026-05-04",
+  "date": "2026-05-05",
   "sites": [
     {
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-05-03T16:54:12.502Z",
+      "updatedAt": "2026-05-04T17:42:15.722Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -19,7 +19,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-28T15:05:00.000Z",
-          "publishedAtRelative": "5天前"
+          "publishedAtRelative": "6天前"
         },
         {
           "id": "microsoft-002",
@@ -97,7 +97,7 @@
             "AI"
           ],
           "publishedAt": "2026-03-05T17:00:00.000Z",
-          "publishedAtRelative": "1个月前"
+          "publishedAtRelative": "2个月前"
         },
         {
           "id": "microsoft-008",
@@ -143,7 +143,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-05-03T16:54:25.401Z",
+      "updatedAt": "2026-05-04T17:42:22.758Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -282,7 +282,7 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-05-03T16:54:27.790Z",
+      "updatedAt": "2026-05-04T17:42:25.531Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -296,7 +296,7 @@
             "Gemini"
           ],
           "publishedAt": "2026-04-28T16:00:00.000Z",
-          "publishedAtRelative": "5天前"
+          "publishedAtRelative": "6天前"
         },
         {
           "id": "figma-002",
@@ -309,7 +309,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAtRelative": "0个月前"
         },
         {
           "id": "figma-003",
@@ -407,7 +407,7 @@
             "AI"
           ],
           "publishedAt": "2026-01-04T16:00:00.000Z",
-          "publishedAtRelative": "3个月前"
+          "publishedAtRelative": "4个月前"
         }
       ]
     },
@@ -415,11 +415,24 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-05-03T16:54:38.048Z",
+      "updatedAt": "2026-05-04T17:42:49.013Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "anthropic-001",
+          "title": "Building a new enterprise AI services company with Blackstone, Hellman & Friedman, and Goldman Sachs",
+          "url": "https://www.anthropic.com/news/enterprise-ai-services-company",
+          "thumbnail": "",
+          "summary": "Building a new enterprise",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "anthropic-002",
           "title": "Claude for Creative Work",
           "url": "https://www.anthropic.com/news/claude-for-creative-work",
           "thumbnail": "",
@@ -427,11 +440,11 @@
           "tags": [
             "Claude"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "anthropic-002",
+          "id": "anthropic-003",
           "title": "Theo Hourmouzis General Manager of",
           "url": "https://www.anthropic.com/news/theo-hourmouzis-general-manager-australia-new-zealand",
           "thumbnail": "",
@@ -440,11 +453,11 @@
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "anthropic-003",
+          "id": "anthropic-004",
           "title": "An update on our election safeguards",
           "url": "https://www.anthropic.com/news/election-safeguards-update",
           "thumbnail": "",
@@ -453,11 +466,11 @@
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "anthropic-004",
+          "id": "anthropic-005",
           "title": "Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce",
           "url": "https://www.anthropic.com/news/anthropic-nec",
           "thumbnail": "",
@@ -466,11 +479,11 @@
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "anthropic-005",
+          "id": "anthropic-006",
           "title": "Amazon expand collaboration for up to 5 gigawatts of new compute",
           "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
           "thumbnail": "",
@@ -479,11 +492,11 @@
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "anthropic-006",
+          "id": "anthropic-007",
           "title": "Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors",
           "url": "https://www.anthropic.com/news/narasimhan-board",
           "thumbnail": "",
@@ -492,11 +505,11 @@
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "anthropic-007",
+          "id": "anthropic-008",
           "title": "Anthropic expands partnership with",
           "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
           "thumbnail": "",
@@ -504,21 +517,8 @@
           "tags": [
             "Claude"
           ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
-        },
-        {
-          "id": "anthropic-008",
-          "title": "Australian government and Anthropic sign MOU for AI safety and research",
-          "url": "https://www.anthropic.com/news/australia-MOU",
-          "thumbnail": "",
-          "summary": "Australian government and",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-05-03T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
         },
         {
           "id": "anthropic-009",
@@ -552,7 +552,7 @@
       "source": "openai",
       "sourceName": "Wired AI",
       "sourceUrl": "https://www.wired.com/tag/artificial-intelligence/",
-      "updatedAt": "2026-05-03T16:54:42.007Z",
+      "updatedAt": "2026-05-04T17:42:53.064Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -567,7 +567,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-05-02T10:30:00.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
           "id": "openai-002",
@@ -579,7 +579,7 @@
             "AI"
           ],
           "publishedAt": "2026-05-01T20:25:28.617Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
           "id": "openai-003",
@@ -592,7 +592,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-05-01T00:51:18.099Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "openai-004",
@@ -605,7 +605,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-30T23:00:51.331Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "openai-005",
@@ -617,7 +617,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-30T18:54:54.626Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
           "id": "openai-006",
@@ -630,7 +630,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-04-30T17:41:14.210Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "4天前"
         },
         {
           "id": "openai-007",
@@ -643,7 +643,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-04-30T17:30:39.512Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "4天前"
         },
         {
           "id": "openai-008",
@@ -655,7 +655,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-30T10:30:00.000Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "4天前"
         },
         {
           "id": "openai-009",
@@ -667,7 +667,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-30T09:00:00.000Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "4天前"
         },
         {
           "id": "openai-010",
@@ -680,7 +680,7 @@
             "ChatGPT"
           ],
           "publishedAt": "2026-04-29T23:41:51.978Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "4天前"
         }
       ]
     },
@@ -688,11 +688,23 @@
       "source": "googleai",
       "sourceName": "Google AI",
       "sourceUrl": "https://blog.google/innovation-and-ai/technology/ai/",
-      "updatedAt": "2026-05-03T16:54:44.198Z",
+      "updatedAt": "2026-05-04T17:42:55.243Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "googleai-001",
+          "title": "The latest AI news we announced in April 2026",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-april-2026/",
+          "thumbnail": "",
+          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/April_2026_AI_Recap_still.max-600x600.format-webp.webp\">Here are Google’s latest AI updates from April 2026",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T17:00:00.000Z",
+          "publishedAtRelative": "42分钟前"
+        },
+        {
+          "id": "googleai-002",
           "title": "Join the new AI Agents Vibe Coding Course from Google and Kaggle",
           "url": "https://blog.google/innovation-and-ai/technology/developers-tools/kaggle-genai-intensive-course-vibe-coding-june-2026/",
           "thumbnail": "",
@@ -701,10 +713,10 @@
             "AI"
           ],
           "publishedAt": "2026-04-27T13:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googleai-002",
+          "id": "googleai-003",
           "title": "Here’s how our TPUs power increasingly demanding AI workloads.",
           "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/what-is-a-tpu/",
           "thumbnail": "",
@@ -716,7 +728,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googleai-003",
+          "id": "googleai-004",
           "title": "Elevating Austria: Google invests in its first data center in the Alps.",
           "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/google-data-center-austria/",
           "thumbnail": "",
@@ -729,7 +741,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googleai-004",
+          "id": "googleai-005",
           "title": "We're launching two specialized TPUs for the agentic era.",
           "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/tpus-8t-8i-cloud-next/",
           "thumbnail": "",
@@ -741,7 +753,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googleai-005",
+          "id": "googleai-006",
           "title": "New ways to create personalized images in the Gemini app",
           "url": "https://blog.google/innovation-and-ai/products/gemini-app/personal-intelligence-nano-banana/",
           "thumbnail": "",
@@ -754,7 +766,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googleai-006",
+          "id": "googleai-007",
           "title": "Gemini 3.1 Flash TTS: the next generation of expressive AI speech",
           "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-flash-tts/",
           "thumbnail": "",
@@ -767,7 +779,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googleai-007",
+          "id": "googleai-008",
           "title": "New ways to balance cost and reliability in the Gemini API",
           "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-flex-and-priority-inference/",
           "thumbnail": "",
@@ -779,7 +791,7 @@
           "publishedAtRelative": "1个月前"
         },
         {
-          "id": "googleai-008",
+          "id": "googleai-009",
           "title": "The latest AI news we announced in March 2026",
           "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-march-2026/",
           "thumbnail": "",
@@ -791,7 +803,7 @@
           "publishedAtRelative": "1个月前"
         },
         {
-          "id": "googleai-009",
+          "id": "googleai-010",
           "title": "Build with Veo 3.1 Lite, our most cost-effective video generation model",
           "url": "https://blog.google/innovation-and-ai/technology/ai/veo-3-1-lite/",
           "thumbnail": "",
@@ -802,18 +814,6 @@
           ],
           "publishedAt": "2026-03-31T16:00:00.000Z",
           "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "googleai-010",
-          "title": "Watch James Manyika talk AI and creativity with LL COOL J.",
-          "url": "https://blog.google/innovation-and-ai/technology/ai/ll-cool-j-dialogues/",
-          "thumbnail": "",
-          "summary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Approved_thumbnail_with_logo.max-600x600.format-webp.webp\">In the latest episode of our Dialogues on Technology and Society series, LL COOL J sits down with James Manyika.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-03-26T17:00:00.000Z",
-          "publishedAtRelative": "1个月前"
         }
       ]
     },
@@ -821,11 +821,86 @@
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-05-03T16:54:46.422Z",
+      "updatedAt": "2026-05-04T17:42:57.423Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "aws-001",
+          "title": "Introducing the agent performance loop: AgentCore Optimization now in preview",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-the-agent-performance-loop-agentcore-optimization-now-in-preview/",
+          "thumbnail": "",
+          "summary": "Generate recommendations from production traces, validate them with batch evaluation and A/B testing, and ship with confidence. AI agents that perform well at launch don’t stay that way. As models evolve, user behavior shifts, and prompts get reused in new contexts they were never designed for. Agent quality quietly degrades. In most teams, the improvement […]",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T17:13:42.000Z",
+          "publishedAtRelative": "29分钟前"
+        },
+        {
+          "id": "aws-002",
+          "title": "Agent-guided workflows to accelerate model customization in Amazon SageMaker AI",
+          "url": "https://aws.amazon.com/blogs/machine-learning/agent-guided-workflows-to-accelerate-model-customization-in-amazon-sagemaker-ai/",
+          "thumbnail": "",
+          "summary": "Amazon SageMaker AI now offers an agentic experience that changes this. Developers describe their use case using natural language, and the AI coding agent streamlines the entire journey, from use case definition and data preparation through technique selection, evaluation, and deployment. In this post, we walk you through the model customization lifecycle using SageMaker AI agent skills.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T17:10:46.000Z",
+          "publishedAtRelative": "32分钟前"
+        },
+        {
+          "id": "aws-003",
+          "title": "Generate dashboards from natural language prompts in Amazon Quick",
+          "url": "https://aws.amazon.com/blogs/machine-learning/generate-dashboards-from-natural-language-prompts-in-amazon-quick/",
+          "thumbnail": "",
+          "summary": "Building meaningful dashboards demands hours of manual setup, even for experienced BI professionals. Amazon Quick now generates complete multi-sheet dashboards from natural language prompts, taking you from one or more datasets to a production-ready analysis in minutes. Data analysts building recurring operations reports, program managers preparing a leadership review, or engineers exploring a new dataset can […]",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T16:51:37.000Z",
+          "publishedAtRelative": "51分钟前"
+        },
+        {
+          "id": "aws-004",
+          "title": "From data lake to AI-ready analytics: Introducing new data source with S3 Tables in Amazon Quick",
+          "url": "https://aws.amazon.com/blogs/machine-learning/from-data-lake-to-ai-ready-analytics-introducing-direct-query-with-s3-tables-in-amazon-quick/",
+          "thumbnail": "",
+          "summary": "Amazon Quick introduces Amazon S3 Tables (Apache Iceberg tables) as a new data source. With this feature, customers can directly query and visualize Apache Iceberg tables stored in an Amazon S3 table bucket without the need for intermediate data layers. In this post, we explored how Amazon Quick’s new Amazon S3 Tables data source enables near real-time analytics while streamlining modern data architectures.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T16:12:37.000Z",
+          "publishedAtRelative": "1小时前"
+        },
+        {
+          "id": "aws-005",
+          "title": "Introducing Dataset Q&A: Expanding natural language querying for structured datasets in Amazon Quick",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-dataset-qa-expanding-natural-language-querying-for-structured-datasets-in-amazon-quick/",
+          "thumbnail": "",
+          "summary": "In this post, you learn how to get started with Dataset Q&A, explore real-world use cases with hands-on examples, and discover advanced capabilities like auto-discovery across all your data assets and multi-dataset querying in a single conversation.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T16:08:12.000Z",
+          "publishedAtRelative": "1小时前"
+        },
+        {
+          "id": "aws-006",
+          "title": "Capacity-aware inference: Automatic instance fallback for SageMaker AI endpoints",
+          "url": "https://aws.amazon.com/blogs/machine-learning/capacity-aware-inference-automatic-instance-fallback-for-sagemaker-ai-endpoints/",
+          "thumbnail": "",
+          "summary": "Today, Amazon SageMaker AI introduces capacity aware instance pool for new and existing inference endpoints. You define a prioritized list of instance types, and SageMaker AI automatically works through your list whenever capacity is constrained at creation, during scale-out, and during scale-in. Your endpoint provisions on available AI Infrastructure without manual intervention. This capability is available for Single Model Endpoints, Inference Component-based endpoints, and Asynchronous Inference endpoints.",
+          "tags": [
+            "AI",
+            "设计系统"
+          ],
+          "publishedAt": "2026-05-04T16:05:02.000Z",
+          "publishedAtRelative": "1小时前"
+        },
+        {
+          "id": "aws-007",
           "title": "AWS Transform now automates BI migration to Amazon Quick in days",
           "url": "https://aws.amazon.com/blogs/machine-learning/aws-transform-now-automates-bi-migration-to-amazon-quick-in-days/",
           "thumbnail": "",
@@ -835,10 +910,10 @@
             "AI"
           ],
           "publishedAt": "2026-05-01T18:29:06.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "aws-002",
+          "id": "aws-008",
           "title": "Reinforcement fine-tuning with LLM-as-a-judge",
           "url": "https://aws.amazon.com/blogs/machine-learning/reinforcement-fine-tuning-with-llm-as-a-judge/",
           "thumbnail": "",
@@ -847,10 +922,10 @@
             "AI"
           ],
           "publishedAt": "2026-04-30T20:07:25.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "3天前"
         },
         {
-          "id": "aws-003",
+          "id": "aws-009",
           "title": "AWS Generative AI Model Agility Solution: A comprehensive guide to migrating LLMs for generative AI production",
           "url": "https://aws.amazon.com/blogs/machine-learning/aws-generative-ai-model-agility-solution-a-comprehensive-guide-to-migrating-llms-for-generative-ai-production/",
           "thumbnail": "",
@@ -861,10 +936,10 @@
             "生成式"
           ],
           "publishedAt": "2026-04-30T17:04:41.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAtRelative": "4天前"
         },
         {
-          "id": "aws-004",
+          "id": "aws-010",
           "title": "Sun Finance automates ID extraction and fraud detection with generative AI on AWS",
           "url": "https://aws.amazon.com/blogs/machine-learning/sun-finance-automates-id-extraction-and-fraud-detection-with-generative-ai-on-aws/",
           "thumbnail": "",
@@ -875,82 +950,6 @@
             "生成式"
           ],
           "publishedAt": "2026-04-30T17:00:45.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "aws-005",
-          "title": "Unleashing Agentic AI Analytics on Amazon SageMaker with Amazon Athena and Amazon Quick",
-          "url": "https://aws.amazon.com/blogs/machine-learning/unleashing-agentic-ai-analytics-on-amazon-sagemaker-with-amazon-athena-and-amazon-quick/",
-          "thumbnail": "",
-          "summary": "This post demonstrates how agentic AI assistant from Amazon Quick transform data analytics into a self-service capability by using Amazon Simple Storage Service (Amazon S3) as a storage, Amazon SageMaker and AWS Glue for lakehouse, Amazon Athena for serverless SQL querying across multiple storage formats (S3 Table, Iceberg, and Parquet).",
-          "tags": [
-            "AI",
-            "Copilot"
-          ],
-          "publishedAt": "2026-04-30T16:52:40.000Z",
-          "publishedAtRelative": "3天前"
-        },
-        {
-          "id": "aws-006",
-          "title": "Configuring Amazon Bedrock AgentCore Gateway for secure access to private resources",
-          "url": "https://aws.amazon.com/blogs/machine-learning/configuring-amazon-bedrock-agentcore-gateway-for-secure-access-to-private-resources/",
-          "thumbnail": "",
-          "summary": "In this post, you will configure Amazon Bedrock AgentCore Gateway to access private endpoints using Resource Gateway, a managed construct that provisions Elastic Network Interfaces (ENIs) directly inside your Amazon VPC, one per subnet. You will explore two implementation modes (managed and self-managed) and walk through three practical scenarios: connecting to a private Amazon API Gateway endpoint, integrating with a MCP server on Amazon Elastic Kubernetes Service (Amazon EKS), and accessing a private REST API.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-04-30T16:32:43.000Z",
-          "publishedAtRelative": "3天前"
-        },
-        {
-          "id": "aws-007",
-          "title": "Extracting contract insights with PwC’s AI-driven annotation on AWS",
-          "url": "https://aws.amazon.com/blogs/machine-learning/extracting-contract-insights-with-pwcs-ai-driven-annotation-on-aws/",
-          "thumbnail": "",
-          "summary": "This post was co-written with Yash Munsadwala, Adam Hood, Justin Guse, and Hector Hernandez from PwC. Contract analysis often consumes significant time for legal, compliance, and procurement teams, especially when important insights are buried in lengthy, unstructured agreements. As contract volumes grow, finding specific clauses and assessing extracted terms can become increasingly difficult to scale. […]",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-04-29T21:19:39.000Z",
-          "publishedAtRelative": "3天前"
-        },
-        {
-          "id": "aws-008",
-          "title": "Organizing Agents’ memory at scale: Namespace design patterns in AgentCore Memory",
-          "url": "https://aws.amazon.com/blogs/machine-learning/organizing-agents-memory-at-scale-namespace-design-patterns-in-agentcore-memory/",
-          "thumbnail": "",
-          "summary": "In this post, you will learn how to design namespace hierarchies, choose the right retrieval patterns, and implement AWS Identity and Access Management (IAM)-based access control for AgentCore Memory.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-04-29T19:31:54.000Z",
-          "publishedAtRelative": "3天前"
-        },
-        {
-          "id": "aws-009",
-          "title": "Building AI-ready data: Vanguard’s Virtual Analyst journey",
-          "url": "https://aws.amazon.com/blogs/machine-learning/building-ai-ready-data-vanguards-virtual-analyst-journey/",
-          "thumbnail": "",
-          "summary": "In this post, you’ll learn how Vanguard built their Virtual Analyst solution by focusing on eight guiding principles of AI-ready data, the AWS services that powered their implementation, and the measurable business outcomes they achieved.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-04-29T11:56:33.000Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "aws-010",
-          "title": "Run custom MCP proxies serverless on Amazon Bedrock AgentCore Runtime",
-          "url": "https://aws.amazon.com/blogs/machine-learning/run-custom-mcp-proxies-serverless-on-amazon-bedrock-agentcore-runtime/",
-          "thumbnail": "",
-          "summary": "This post shows you how to deploy a serverless MCP proxy on Amazon Bedrock AgentCore Runtime that gives you a programmable layer to implement proper governance, controls, and observability aligned with an organization’s security policies.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-04-29T11:52:16.000Z",
           "publishedAtRelative": "4天前"
         }
       ]
@@ -959,7 +958,7 @@
       "source": "aibase",
       "sourceName": "AIBase",
       "sourceUrl": "https://www.aibase.com/zh/news",
-      "updatedAt": "2026-05-03T16:55:23.117Z",
+      "updatedAt": "2026-05-04T17:43:28.738Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1094,7 +1093,7 @@
       "source": "jiqizhixin",
       "sourceName": "机器之心",
       "sourceUrl": "https://www.jiqizhixin.com/",
-      "updatedAt": "2026-05-03T16:55:25.670Z",
+      "updatedAt": "2026-05-04T17:43:32.278Z",
       "updatedAtRelative": "刚刚",
       "items": []
     },
@@ -1102,7 +1101,7 @@
       "source": "qbitai",
       "sourceName": "量子位",
       "sourceUrl": "https://www.qbitai.com/",
-      "updatedAt": "2026-05-03T16:55:29.855Z",
+      "updatedAt": "2026-05-04T17:43:35.828Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1171,7 +1170,7 @@
         },
         {
           "id": "qbitai-006",
-          "title": "他用AI办了��音乐节，主题：别读博",
+          "title": "他用AI办了个音乐节，主题：别读博",
           "url": "https://www.qbitai.com/2026/05/412597.html",
           "thumbnail": "",
           "summary": "一代科研人的赛博苦中作乐\n\n                    \n                    \t\n                         邓思邈",
@@ -1196,6 +1195,19 @@
         },
         {
           "id": "qbitai-008",
+          "title": "太抓马了！马斯克OpenAI开庭，硅谷巨富互揭老底像极了村口吵架",
+          "url": "https://www.qbitai.com/2026/05/412447.html",
+          "thumbnail": "",
+          "summary": "瓜多到吃不完\n\n                    \n                    \t\n                         听雨",
+          "tags": [
+            "AI",
+            "ChatGPT"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "qbitai-009",
           "title": "重塑中国豪华汽车全球旗舰标杆，魏牌V9X重磅登陆北京车展",
           "url": "https://www.qbitai.com/2026/04/412041.html",
           "thumbnail": "",
@@ -1208,25 +1220,13 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "qbitai-009",
+          "id": "qbitai-010",
           "title": "坦克铁汉柔情燃动北京车展，全新坦克700领衔定义全域豪华新标杆",
           "url": "https://www.qbitai.com/2026/04/412021.html",
           "thumbnail": "",
           "summary": "42.8万元起售\n\n                    \n                    \t\n                         杰西卡",
           "tags": [
             "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "qbitai-010",
-          "title": "Stripe 发布 288 项新功能，构建 AI 时代的经济基础设施",
-          "url": "https://www.qbitai.com/2026/04/412018.html",
-          "thumbnail": "",
-          "summary": "Stripe推出由 Link 驱动的智能体钱包\n\n                    \n                    \t\n                         量子位",
-          "tags": [
             "AI"
           ],
           "publishedAt": null,
@@ -1238,11 +1238,113 @@
       "source": "techcrunch",
       "sourceName": "TechCrunch AI",
       "sourceUrl": "https://techcrunch.com/category/artificial-intelligence/",
-      "updatedAt": "2026-05-03T16:55:31.974Z",
+      "updatedAt": "2026-05-04T17:43:37.933Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "techcrunch-001",
+          "title": "Elon Musk’s only AI expert witness at the OpenAI trial fears an AGI arms race",
+          "url": "https://techcrunch.com/2026/05/04/elon-musks-only-expert-witness-at-the-openai-trial-fears-an-agi-arms-race/",
+          "thumbnail": "",
+          "summary": "Elon Musk’s only AI expert witness at the OpenAI trial fears an AGI arms race",
+          "tags": [
+            "AI",
+            "ChatGPT"
+          ],
+          "publishedAt": "2026-05-04T16:57:47.000Z",
+          "publishedAtRelative": "45分钟前"
+        },
+        {
+          "id": "techcrunch-002",
+          "title": "Sierra raises $950M as the race to own enterprise AI gets serious",
+          "url": "https://techcrunch.com/2026/05/04/sierra-raises-950m-as-the-race-to-own-enterprise-ai-gets-serious/",
+          "thumbnail": "",
+          "summary": "Sierra raises $950M as the race to own enterprise AI gets serious",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T16:45:55.000Z",
+          "publishedAtRelative": "57分钟前"
+        },
+        {
+          "id": "techcrunch-003",
+          "title": "Elon Musk sent ominous texts to Greg Brockman, Sam Altman after asking for a settlement, OpenAI claims",
+          "url": "https://techcrunch.com/2026/05/04/elon-musk-sent-ominous-texts-to-greg-brockman-sam-altman-after-asking-for-a-settlement-openai-claims/",
+          "thumbnail": "",
+          "summary": "Elon Musk sent ominous texts to Greg Brockman, Sam Altman after asking for a settlement, OpenAI claims",
+          "tags": [
+            "AI",
+            "ChatGPT"
+          ],
+          "publishedAt": "2026-05-04T16:36:03.000Z",
+          "publishedAtRelative": "1小时前"
+        },
+        {
+          "id": "techcrunch-004",
+          "title": "Anthropic and OpenAI are both launching joint ventures for enterprise AI services",
+          "url": "https://techcrunch.com/2026/05/04/anthropic-and-openai-are-both-launching-joint-ventures-for-enterprise-ai-services/",
+          "thumbnail": "",
+          "summary": "Anthropic and OpenAI are both launching joint ventures for enterprise AI services",
+          "tags": [
+            "AI",
+            "Claude",
+            "ChatGPT"
+          ],
+          "publishedAt": "2026-05-04T15:59:24.000Z",
+          "publishedAtRelative": "1小时前"
+        },
+        {
+          "id": "techcrunch-005",
+          "title": "5 days only: Bring a partner or colleague and get 50% off a second TechCrunch Disrupt 2026 pass",
+          "url": "https://techcrunch.com/2026/05/04/5-days-only-bring-a-partner-or-colleague-and-get-50-off-a-second-techcrunch-disrupt-2026-pass/",
+          "thumbnail": "",
+          "summary": "5 days only: Bring a partner or colleague and get 50% off a second TechCrunch Disrupt 2026 pass",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-05-04T14:00:00.000Z",
+          "publishedAtRelative": "3小时前"
+        },
+        {
+          "id": "techcrunch-006",
+          "title": "DoorDash adds AI tools to speed up merchant onboarding, edit photos of dishes",
+          "url": "https://techcrunch.com/2026/05/04/doordash-adds-ai-tools-to-speed-up-merchant-onboarding-edit-photos-of-dishes/",
+          "thumbnail": "",
+          "summary": "DoorDash adds AI tools to speed up merchant onboarding, edit photos of dishes",
+          "tags": [
+            "AI",
+            "工具"
+          ],
+          "publishedAt": "2026-05-04T13:00:00.000Z",
+          "publishedAtRelative": "4小时前"
+        },
+        {
+          "id": "techcrunch-007",
+          "title": "‘This is fine’ creator says AI startup stole his art",
+          "url": "https://techcrunch.com/2026/05/03/this-is-fine-creator-says-ai-startup-stole-his-art/",
+          "thumbnail": "",
+          "summary": "‘This is fine’ creator says AI startup stole his art",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-03T20:16:51.000Z",
+          "publishedAtRelative": "21小时前"
+        },
+        {
+          "id": "techcrunch-008",
+          "title": "In Harvard study, AI offered more accurate emergency room diagnoses than two human doctors",
+          "url": "https://techcrunch.com/2026/05/03/in-harvard-study-ai-offered-more-accurate-diagnoses-than-emergency-room-doctors/",
+          "thumbnail": "",
+          "summary": "In Harvard study, AI offered more accurate emergency room diagnoses than two human doctors",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-05-03T18:00:09.000Z",
+          "publishedAtRelative": "23小时前"
+        },
+        {
+          "id": "techcrunch-009",
           "title": "AI-generated actors and scripts are now ineligible for Oscars",
           "url": "https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/",
           "thumbnail": "",
@@ -1251,10 +1353,10 @@
             "AI"
           ],
           "publishedAt": "2026-05-02T21:54:58.000Z",
-          "publishedAtRelative": "19小时前"
+          "publishedAtRelative": "1天前"
         },
         {
-          "id": "techcrunch-002",
+          "id": "techcrunch-010",
           "title": "The best AI dictation apps, tested and ranked",
           "url": "https://techcrunch.com/2026/05/02/the-best-ai-powered-dictation-apps-of-2025/",
           "thumbnail": "",
@@ -1263,105 +1365,6 @@
             "AI"
           ],
           "publishedAt": "2026-05-02T16:00:00.000Z",
-          "publishedAtRelative": "1天前"
-        },
-        {
-          "id": "techcrunch-003",
-          "title": "Replit’s Amjad Masad on the Cursor deal, fighting Apple, and why he’d rather not sell",
-          "url": "https://techcrunch.com/2026/05/01/replits-amjad-masad-on-the-cursor-deal-fighting-apple-and-why-hed-rather-not-sell/",
-          "thumbnail": "",
-          "summary": "Replit’s Amjad Masad on the Cursor deal, fighting Apple, and why he’d rather not sell",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-05-01T23:06:50.000Z",
-          "publishedAtRelative": "1天前"
-        },
-        {
-          "id": "techcrunch-004",
-          "title": "Meta buys robotics startup to bolster its humanoid AI ambitions",
-          "url": "https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/",
-          "thumbnail": "",
-          "summary": "Meta buys robotics startup to bolster its humanoid AI ambitions",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-05-01T22:13:27.000Z",
-          "publishedAtRelative": "1天前"
-        },
-        {
-          "id": "techcrunch-005",
-          "title": "Pentagon inks deals with Nvidia, Microsoft, and AWS to deploy AI on classified networks",
-          "url": "https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/",
-          "thumbnail": "",
-          "summary": "Pentagon inks deals with Nvidia, Microsoft, and AWS to deploy AI on classified networks",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-05-01T16:02:36.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "techcrunch-006",
-          "title": "ChatGPT Images 2.0 is a hit in India, but not a big winner elsewhere, yet",
-          "url": "https://techcrunch.com/2026/04/30/chatgpt-images-2-0-is-a-hit-in-india-but-not-a-big-winner-elsewhere-yet/",
-          "thumbnail": "",
-          "summary": "ChatGPT Images 2.0 is a hit in India, but not a big winner elsewhere, yet",
-          "tags": [
-            "ChatGPT"
-          ],
-          "publishedAt": "2026-05-01T02:00:00.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "techcrunch-007",
-          "title": "Sources: Anthropic potential $900B+ valuation round could happen within 2 weeks",
-          "url": "https://techcrunch.com/2026/04/30/anthropic-potential-900b-valuation-round-could-happen-within-two-weeks/",
-          "thumbnail": "",
-          "summary": "Sources: Anthropic potential $900B+ valuation round could happen within 2 weeks",
-          "tags": [
-            "Claude"
-          ],
-          "publishedAt": "2026-04-30T23:07:56.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "techcrunch-008",
-          "title": "Apple was surprised by AI-driven demand for Macs",
-          "url": "https://techcrunch.com/2026/04/30/apple-was-surprised-by-ai-driven-demand-for-macs/",
-          "thumbnail": "",
-          "summary": "Apple was surprised by AI-driven demand for Macs",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-04-30T22:12:52.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "techcrunch-009",
-          "title": "Legal AI startup Legora hits $5.6B valuation and its battle with Harvey just got hotter",
-          "url": "https://techcrunch.com/2026/04/30/legal-ai-startup-legora-hits-5-6-valuation-and-its-battle-with-harvey-just-got-hotter/",
-          "thumbnail": "",
-          "summary": "Legal AI startup Legora hits $5.6B valuation and its battle with Harvey just got hotter",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-04-30T20:14:47.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "techcrunch-010",
-          "title": "After dissing Anthropic for limiting Mythos, OpenAI restricts access to Cyber, too",
-          "url": "https://techcrunch.com/2026/04/30/after-dissing-anthropic-for-limiting-mythos-openai-restricts-access-to-cyber-too/",
-          "thumbnail": "",
-          "summary": "After dissing Anthropic for limiting Mythos, OpenAI restricts access to Cyber, too",
-          "tags": [
-            "AI",
-            "Claude",
-            "ChatGPT"
-          ],
-          "publishedAt": "2026-04-30T19:27:41.000Z",
           "publishedAtRelative": "2天前"
         }
       ]
@@ -1370,7 +1373,7 @@
       "source": "googledeepmind",
       "sourceName": "Google DeepMind",
       "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
-      "updatedAt": "2026-05-03T16:55:34.393Z",
+      "updatedAt": "2026-05-04T17:43:40.367Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1383,7 +1386,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-30T12:14:15.000Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "4天前"
         },
         {
           "id": "googledeepmind-002",
@@ -1395,7 +1398,7 @@
             "AI"
           ],
           "publishedAt": "2026-04-27T07:00:06.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAtRelative": "0个月前"
         },
         {
           "id": "googledeepmind-003",
