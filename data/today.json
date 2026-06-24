@@ -1,15 +1,27 @@
 {
-  "date": "2026-06-23",
+  "date": "2026-06-25",
   "sites": [
     {
       "source": "microsoft",
       "sourceName": "Microsoft Design",
       "sourceUrl": "https://microsoft.design/",
-      "updatedAt": "2026-06-22T19:30:03.761Z",
+      "updatedAt": "2026-06-24T17:54:51.696Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "microsoft-001",
+          "title": "Pride is alive",
+          "url": "https://microsoft.design/articles/pride-is-alive/",
+          "thumbnail": "",
+          "summary": "How everyday moments inspired Microsoft’s Pride 2026 campaign",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T16:44:29.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "microsoft-002",
           "title": "The Great UXR Transformation",
           "url": "https://microsoft.design/articles/the-great-uxr-transformation/",
           "thumbnail": "",
@@ -19,10 +31,10 @@
             "用户体验"
           ],
           "publishedAt": "2026-06-18T13:00:00.000Z",
-          "publishedAtRelative": "4天前"
+          "publishedAtRelative": "6天前"
         },
         {
-          "id": "microsoft-002",
+          "id": "microsoft-003",
           "title": "Self-portraits: Madeline Kleiner",
           "url": "https://microsoft.design/articles/self-portraits-madeline-kleiner/",
           "thumbnail": "",
@@ -36,7 +48,7 @@
           "publishedAtRelative": "1个月前"
         },
         {
-          "id": "microsoft-003",
+          "id": "microsoft-004",
           "title": "A simplified system",
           "url": "https://microsoft.design/articles/a-simplified-system/",
           "thumbnail": "",
@@ -49,7 +61,7 @@
           "publishedAtRelative": "1个月前"
         },
         {
-          "id": "microsoft-004",
+          "id": "microsoft-005",
           "title": "The missing seat at the frontier team table",
           "url": "https://microsoft.design/articles/the-missing-seat-at-the-frontier-team-table/",
           "thumbnail": "",
@@ -62,7 +74,7 @@
           "publishedAtRelative": "1个月前"
         },
         {
-          "id": "microsoft-005",
+          "id": "microsoft-006",
           "title": "The Next-Gen Research Stack: Agents, Experimentation, and Evaluation",
           "url": "https://microsoft.design/articles/the-next-gen-research-stack-agents-experimentation-and-evaluation/",
           "thumbnail": "",
@@ -75,7 +87,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "microsoft-006",
+          "id": "microsoft-007",
           "title": "Human-Centered Research in an AI-Driven World",
           "url": "https://microsoft.design/articles/human-centered-research-in-an-ai-driven-world/",
           "thumbnail": "",
@@ -87,7 +99,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "microsoft-007",
+          "id": "microsoft-008",
           "title": "Debug Faster, Think Deeper: AI for Coding and Quant Research",
           "url": "https://microsoft.design/articles/debug-faster-think-deeper-ai-for-coding-and-quant-research/",
           "thumbnail": "",
@@ -99,7 +111,7 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "microsoft-008",
+          "id": "microsoft-009",
           "title": "AI-accelerated research: Speed and scale, without compromising rigor",
           "url": "https://microsoft.design/articles/ai-accelerated-research-speed-and-scale-without-compromising-rigor/",
           "thumbnail": "",
@@ -111,25 +123,13 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "microsoft-009",
+          "id": "microsoft-010",
           "title": "Expanding human intelligence, not just automating tasks",
           "url": "https://microsoft.design/articles/expanding-human-intelligence-not-just-automating-tasks/",
           "thumbnail": "",
           "summary": "Expanding human intelligence, not just automating tasks",
           "tags": [
             "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "microsoft-010",
-          "title": "The new UI for enterprise AI",
-          "url": "https://microsoft.design/articles/the-new-ui-for-enterprise-ai/",
-          "thumbnail": "",
-          "summary": "Evolving business apps and agents through form and function",
-          "tags": [
             "AI"
           ],
           "publishedAt": null,
@@ -141,7 +141,7 @@
       "source": "google",
       "sourceName": "Google Design",
       "sourceUrl": "https://design.google/",
-      "updatedAt": "2026-06-22T19:30:06.310Z",
+      "updatedAt": "2026-06-24T17:54:54.269Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -175,11 +175,124 @@
       "source": "figma",
       "sourceName": "Figma",
       "sourceUrl": "https://www.figma.com",
-      "updatedAt": "2026-06-22T19:30:08.610Z",
+      "updatedAt": "2026-06-24T17:54:56.974Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "figma-001",
+          "title": "Figma’s design agent, now with custom tools and greater context",
+          "url": "https://www.figma.com/blog/agent-custom-tools-context-skills/",
+          "thumbnail": "",
+          "summary": "Prompting gets you started. Custom tools, real context, and skills take the design agent further—so what ends up on the canvas actually looks like you.",
+          "tags": [
+            "工具"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-002",
+          "title": "Figma's 2026 AI report: Can AI help us collaborate better?",
+          "url": "https://www.figma.com/blog/2026-ai-report/",
+          "thumbnail": "",
+          "summary": "AI used to be a solo act. According to our research, it’s not anymore.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-003",
+          "title": "What does the future of software look like?",
+          "url": "https://www.figma.com/blog/future-states/",
+          "thumbnail": "",
+          "summary": "Our community imagines how AI might bring about more human ways to interact with software.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-004",
+          "title": "Config 2026: New materials, new tools and a more expressive canvas",
+          "url": "https://www.figma.com/blog/config-2026-recap/",
+          "thumbnail": "",
+          "summary": "Push past what you thought was possible with code layers, Figma Motion, shaders, generative plugins and Weave tools, all on the canvas.",
+          "tags": [
+            "工具",
+            "生成式"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-005",
+          "title": "Introducing Figma Motion: Your canvas now has a timeline",
+          "url": "https://www.figma.com/blog/introducing-figma-motion/",
+          "thumbnail": "",
+          "summary": "Motion now lives on the canvas—in the same file as your components, your variables, and your team—so your designs can come to life from day one.",
+          "tags": [
+            "设计系统"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-006",
+          "title": "Code on the Figma canvas",
+          "url": "https://www.figma.com/blog/code-on-the-figma-canvas/",
+          "thumbnail": "",
+          "summary": "With code layers in Figma Design, you can explore multiple directions with code, side by side with your team.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-007",
+          "title": "Connecting Figma and Weave",
+          "url": "https://www.figma.com/blog/connecting-figma-and-weave/",
+          "thumbnail": "",
+          "summary": "Today, we’re announcing new ways your Weave creative workflows can live alongside your Figma frames.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-008",
+          "title": "Principles in motion",
+          "url": "https://www.figma.com/blog/principles-in-motion/",
+          "thumbnail": "",
+          "summary": "When you’re designing motion, you’re designing with time. Understanding the mechanics turns movement into meaning.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T16:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "figma-009",
+          "title": "Direct every frame with Runway Aleph 2.0, now in Figma Weave",
+          "url": "https://www.figma.com/blog/direct-every-frame-with-runway-aleph-2/",
+          "thumbnail": "",
+          "summary": "Aleph 2.0 brings frame-level creative direction to the Figma Weave canvas.",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-17T16:00:00.000Z",
+          "publishedAtRelative": "0个月前"
+        },
+        {
+          "id": "figma-010",
           "title": "Speaking the language of color",
           "url": "https://www.figma.com/blog/pantone-speaking-the-language-of-color/",
           "thumbnail": "",
@@ -188,118 +301,7 @@
             "AI"
           ],
           "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
-        },
-        {
-          "id": "figma-002",
-          "title": "4 new ways to go from idea to product with AI tools",
-          "url": "https://www.figma.com/blog/4-new-ways-to-go-from-idea-to-product-with-ai-tools/",
-          "thumbnail": "",
-          "summary": "AI tools are changing how teams build products—from where they start to what carries through to production. Here's what that shift looks like across four organizations.",
-          "tags": [
-            "AI",
-            "工具"
-          ],
-          "publishedAt": "2026-05-27T16:00:00.000Z",
           "publishedAtRelative": "0个月前"
-        },
-        {
-          "id": "figma-003",
-          "title": "Issue no.16: Trust the process",
-          "url": "https://www.figma.com/blog/trust-the-process/",
-          "thumbnail": "",
-          "summary": "Between new model drops and agentic tools, how design happens is changing fast.",
-          "tags": [
-            "工具"
-          ],
-          "publishedAt": "2026-05-25T16:00:00.000Z",
-          "publishedAtRelative": "0个月前"
-        },
-        {
-          "id": "figma-004",
-          "title": "What matters when anyone can build",
-          "url": "https://www.figma.com/blog/what-matters-when-anyone-can-build/",
-          "thumbnail": "",
-          "summary": "If AI can make anyone a product builder, the real edge is knowing what’s worth shipping.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-05-21T16:00:00.000Z",
-          "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "figma-005",
-          "title": "7 tips for using Figma Make credits more efficiently",
-          "url": "https://www.figma.com/blog/7-tips-for-using-figma-make-credits-more-efficiently/",
-          "thumbnail": "",
-          "summary": "While everyone’s talking about “tokenmaxxing,” we’ve compiled seven best practices to help you build smarter—without prompting more—in Figma Make.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-05-21T16:00:00.000Z",
-          "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "figma-006",
-          "title": "FigJam is now your coding agent’s whiteboard too",
-          "url": "https://www.figma.com/blog/figjam-your-coding-agents-whiteboard/",
-          "thumbnail": "",
-          "summary": "Agents are changing your code faster than your team can follow. Now you can close that gap with new MCP skills, architecture layouts, and more in FigJam.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-04-27T16:00:00.000Z",
-          "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "figma-007",
-          "title": "Agents, meet the Figma canvas",
-          "url": "https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/",
-          "thumbnail": "",
-          "summary": "Starting today, you can use AI agents to design directly on the Figma canvas. And with skills, you can guide agents with context about your team’s decisions and intent.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-03-23T16:00:00.000Z",
-          "publishedAtRelative": "3个月前"
-        },
-        {
-          "id": "figma-008",
-          "title": "Design’s influence is expanding, and here’s why that feels hard",
-          "url": "https://www.figma.com/blog/designs-influence-is-expanding-and-heres-why-that-feels-hard/",
-          "thumbnail": "",
-          "summary": "As AI accelerates creation and raises expectations, designers are navigating a field that’s bigger, faster, and more demanding than ever.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-03-16T16:00:00.000Z",
-          "publishedAtRelative": "3个月前"
-        },
-        {
-          "id": "figma-009",
-          "title": "5 design skills to sharpen in the AI era",
-          "url": "https://www.figma.com/blog/skills-for-the-ai-era/",
-          "thumbnail": "",
-          "summary": "Our latest research highlights the skills designers need to meet the moment.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-03-09T16:00:00.000Z",
-          "publishedAtRelative": "3个月前"
-        },
-        {
-          "id": "figma-010",
-          "title": "Our Config 2026 speakers on the biggest opportunities with AI",
-          "url": "https://www.figma.com/blog/config-speakers-looking-ahead-2026/",
-          "thumbnail": "",
-          "summary": "Here’s a first look at our speakers and how they’re interrogating craft, quality, and intention in an AI-powered world.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-03-02T16:00:00.000Z",
-          "publishedAtRelative": "3个月前"
         }
       ]
     },
@@ -307,11 +309,59 @@
       "source": "anthropic",
       "sourceName": "Anthropic",
       "sourceUrl": "https://www.anthropic.com",
-      "updatedAt": "2026-06-22T19:30:47.915Z",
+      "updatedAt": "2026-06-24T17:55:28.896Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "anthropic-001",
+          "title": "Introducing Claude Tag",
+          "url": "https://www.anthropic.com/news/introducing-claude-tag",
+          "thumbnail": "",
+          "summary": "Claude Tag is a new way for teams to work with Claude.",
+          "tags": [
+            "Claude"
+          ],
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
+        },
+        {
+          "id": "anthropic-002",
+          "title": "Introducing Claude Corps",
+          "url": "https://www.anthropic.com/news/claude-corps",
+          "thumbnail": "",
+          "summary": "Claude Tag is a new way for teams to work with Claude.",
+          "tags": [
+            "Claude"
+          ],
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
+        },
+        {
+          "id": "anthropic-003",
+          "title": "Expanding Project Glasswing",
+          "url": "https://www.anthropic.com/news/expanding-project-glasswing",
+          "thumbnail": "",
+          "summary": "Claude Tag is a new way for teams to work with Claude.",
+          "tags": [
+            "Claude"
+          ],
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
+        },
+        {
+          "id": "anthropic-004",
+          "title": "Introducing Claude Opus 4.8",
+          "url": "https://www.anthropic.com/news/claude-opus-4-8",
+          "thumbnail": "",
+          "summary": "Claude Tag is a new way for teams to work with Claude.",
+          "tags": [
+            "Claude"
+          ],
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
+        },
+        {
+          "id": "anthropic-005",
           "title": "Seoul office and announces new partnerships across the",
           "url": "https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem",
           "thumbnail": "",
@@ -320,11 +370,11 @@
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "anthropic-002",
+          "id": "anthropic-006",
           "title": "Results from the first Anthropic Public Record",
           "url": "https://www.anthropic.com/news/anthropic-public-record",
           "thumbnail": "",
@@ -332,11 +382,11 @@
           "tags": [
             "Claude"
           ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "anthropic-003",
+          "id": "anthropic-007",
           "title": "TCS and Anthropic partner to bring Claude to regulated industries",
           "url": "https://www.anthropic.com/news/tcs-anthropic-partnership",
           "thumbnail": "",
@@ -344,11 +394,11 @@
           "tags": [
             "Claude"
           ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "anthropic-004",
+          "id": "anthropic-008",
           "title": "Claude into the systems banks, airlines, and other regulated industries rely on",
           "url": "https://www.anthropic.com/news/dxc-anthropic-alliance",
           "thumbnail": "",
@@ -357,11 +407,11 @@
             "AI",
             "Claude"
           ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "anthropic-005",
+          "id": "anthropic-009",
           "title": "Claude Fable 5 and Claude Mythos 5",
           "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
           "thumbnail": "",
@@ -369,11 +419,11 @@
           "tags": [
             "Claude"
           ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "anthropic-006",
+          "id": "anthropic-010",
           "title": "Introducing the Services Track and Partner Hub of the Claude Partner Network",
           "url": "https://www.anthropic.com/news/services-track-partner-hub",
           "thumbnail": "",
@@ -381,60 +431,8 @@
           "tags": [
             "Claude"
           ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
-        },
-        {
-          "id": "anthropic-007",
-          "title": "What we learned mapping a year’s worth of",
-          "url": "https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack",
-          "thumbnail": "",
-          "summary": "What we learned mapping a year’s worth of",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-06-16T16:00:00.000Z",
-          "publishedAtRelative": "6天前"
-        },
-        {
-          "id": "anthropic-008",
-          "title": "S government directive to suspend access to",
-          "url": "https://www.anthropic.com/news/fable-mythos-access",
-          "thumbnail": "",
-          "summary": "The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-06-11T16:00:00.000Z",
-          "publishedAtRelative": "0个月前"
-        },
-        {
-          "id": "anthropic-009",
-          "title": "Introducing Claude Corps",
-          "url": "https://www.anthropic.com/news/claude-corps",
-          "thumbnail": "",
-          "summary": "We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.",
-          "tags": [
-            "AI",
-            "Claude"
-          ],
-          "publishedAt": "2026-06-10T16:00:00.000Z",
-          "publishedAtRelative": "0个月前"
-        },
-        {
-          "id": "anthropic-010",
-          "title": "Expanding Project Glasswing",
-          "url": "https://www.anthropic.com/news/expanding-project-glasswing",
-          "thumbnail": "",
-          "summary": "We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.",
-          "tags": [
-            "AI",
-            "Claude"
-          ],
-          "publishedAt": "2026-06-10T16:00:00.000Z",
-          "publishedAtRelative": "0个月前"
+          "publishedAt": "2026-06-22T16:00:00.000Z",
+          "publishedAtRelative": "2天前"
         }
       ]
     },
@@ -442,26 +440,105 @@
       "source": "openai",
       "sourceName": "Wired AI",
       "sourceUrl": "https://www.wired.com/tag/artificial-intelligence/",
-      "updatedAt": "2026-06-22T19:30:52.249Z",
+      "updatedAt": "2026-06-24T17:55:33.863Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "openai-001",
-          "title": "artificial intelligence",
-          "url": "https://www.wired.com/story/openai-launches-full-scale-effort-to-patch-open-source-bugs-as-it-takes-on-anthropics-mythos/",
+          "title": "PRIME DAY",
+          "url": "https://www.wired.com/story/amazon-prime-day-absolute-best-deals-06-24-2026/",
           "thumbnail": "",
-          "summary": "<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_120,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 120w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_240,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 240w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_320,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 320w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_640,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 640w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_960,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_120,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 120w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_240,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 240w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_320,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 320w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_640,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 640w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_960,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 960w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_1280,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 1280w\" sizes=\"100vw\"/><img alt=\"OpenAI Launches Full-Scale Effort to Patch Open-Source Bugs as It Takes on Anthropic’s Mythos\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_1280%2Cc_limit/061526_OpenAI%2520Hires%2520an%2520Army%2520to%2520Patch%2520Open%2520Source%2520Bugs%2520as%2520It%2520Battles%2520Mythos%2520for%2520Cyber%2520AI%2520Supremacy.jpg\" data-src=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_1280%2Cc_limit/061526_OpenAI%2520Hires%2520an%2520Army%2520to%2520Patch%2520Open%2520Source%2520Bugs%2520as%2520It%2520Battles%2520Mythos%2520for%2520Cyber%2520AI%2520Supremacy.jpg\"/>SecurityOpenAI Launches Full-Scale Effort to Patch Open-Source Bugs as It Takes on Anthropic’s MythosBy Lily Hay Newman<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_120,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 120w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_240,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 240w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_320,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 320w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_640,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 640w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_960,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_120,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 120w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_240,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 240w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_320,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 320w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_640,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 640w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_960,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 960w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_1280,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Some Electricians Think Building Data Centers Is for Sellouts\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_1280%2Cc_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg\" data-src=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_1280%2Cc_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg\"/>BusinessSome Electricians Think Building Data Centers Is for SelloutsBy Caroline Haskins<video aria-label=\"World Cup Scams Are Getting Harder to Spot\" autoplay=\"\" class=\"responsive-clip__video\" loop=\"\" muted=\"\"></video>SecurityWorld Cup Scams Are Getting Harder to SpotBy Jumana Naim<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_120,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 120w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_240,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 240w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_320,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 320w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_640,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 640w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_960,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_120,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 120w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_240,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 240w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_320,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 320w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_640,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 640w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_960,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 960w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_1280,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 1280w\" sizes=\"100vw\"/><img alt=\"28 Tips to Take Your ChatGPT Prompts to the Next Level\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_1280%2Cc_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg\" data-src=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_1280%2Cc_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg\"/>How To and Advice28 Tips to Take Your ChatGPT Prompts to the Next LevelBy David Nield<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_120,c_limit/Gear_TestingSiriAI-v1.jpg 120w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_240,c_limit/Gear_TestingSiriAI-v1.jpg 240w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_320,c_limit/Gear_TestingSiriAI-v1.jpg 320w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_640,c_limit/Gear_TestingSiriAI-v1.jpg 640w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_960,c_limit/Gear_TestingSiriAI-v1.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_120,c_limit/Gear_TestingSiriAI-v1.jpg 120w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_240,c_limit/Gear_TestingSiriAI-v1.jpg 240w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_320,c_limit/Gear_TestingSiriAI-v1.jpg 320w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_640,c_limit/Gear_TestingSiriAI-v1.jpg 640w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_960,c_limit/Gear_TestingSiriAI-v1.jpg 960w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_1280,c_limit/Gear_TestingSiriAI-v1.jpg 1280w\" sizes=\"100vw\"/><img alt=\"I Let Siri AI Show Me Around San Francisco\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_1280%2Cc_limit/Gear_TestingSiriAI-v1.jpg\" data-src=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_1280%2Cc_limit/Gear_TestingSiriAI-v1.jpg\"/>GearI Let Siri AI Show Me Around San FranciscoBy Reece Rogers<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_120,c_limit/061726-peter-thiel-secret-society-ranked.jpg 120w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_240,c_limit/061726-peter-thiel-secret-society-ranked.jpg 240w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_320,c_limit/061726-peter-thiel-secret-society-ranked.jpg 320w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_640,c_limit/061726-peter-thiel-secret-society-ranked.jpg 640w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_960,c_limit/061726-peter-thiel-secret-society-ranked.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_120,c_limit/061726-peter-thiel-secret-society-ranked.jpg 120w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_240,c_limit/061726-peter-thiel-secret-society-ranked.jpg 240w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_320,c_limit/061726-peter-thiel-secret-society-ranked.jpg 320w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_640,c_limit/061726-peter-thiel-secret-society-ranked.jpg 640w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_960,c_limit/061726-peter-thiel-secret-society-ranked.jpg 960w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_1280,c_limit/061726-peter-thiel-secret-society-ranked.jpg 1280w\" sizes=\"100vw\"/><img alt=\"How the Peter Thiel-Linked Dialog Club Secretly Ranks Its Members\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_1280%2Cc_limit/061726-peter-thiel-secret-society-ranked.jpg\" data-src=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_1280%2Cc_limit/061726-peter-thiel-secret-society-ranked.jpg\"/>SecurityHow the Peter Thiel-Linked Dialog Club Secretly Ranks Its MembersBy Dell Cameron, Dhruv Mehrotra, and Yulia Almazova<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_120,c_limit/Model-Behavior-SB.jpg 120w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_240,c_limit/Model-Behavior-SB.jpg 240w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_320,c_limit/Model-Behavior-SB.jpg 320w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_640,c_limit/Model-Behavior-SB.jpg 640w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_960,c_limit/Model-Behavior-SB.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_120,c_limit/Model-Behavior-SB.jpg 120w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_240,c_limit/Model-Behavior-SB.jpg 240w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_320,c_limit/Model-Behavior-SB.jpg 320w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_640,c_limit/Model-Behavior-SB.jpg 640w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_960,c_limit/Model-Behavior-SB.jpg 960w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_1280,c_limit/Model-Behavior-SB.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The White House Is Making Up Its Rules for AI in Real Time\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_1280%2Cc_limit/Model-Behavior-SB.jpg\" data-src=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_1280%2Cc_limit/Model-Behavior-SB.jpg\"/>BusinessThe White House Is Making Up Its Rules for AI in Real TimeBy Maxwell Zeff<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_120,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 120w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_240,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 240w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_320,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 320w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_640,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 640w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_960,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_120,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 120w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_240,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 240w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_320,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 320w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_640,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 640w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_960,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 960w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_1280,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta’s AI Workers Are Revolting, Peter Thiel’s Secret Society, and SBF’s Plea to Trump\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_1280%2Cc_limit/Uncanny-Valley-Meta%25E2%2580%2599s%2520Internal%2520Unit%2520Spiral-v1.jpg\" data-src=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_1280%2Cc_limit/Uncanny-Valley-Meta%25E2%2580%2599s%2520Internal%2520Unit%2520Spiral-v1.jpg\"/>BusinessMeta’s AI Workers Are Revolting, Peter Thiel’s Secret Society, and SBF’s Plea to TrumpBy Brian Barrett and Zoë Schiffer<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_120,c_limit/Business_AmazonWorkersUnder_v2.jpg 120w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_240,c_limit/Business_AmazonWorkersUnder_v2.jpg 240w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_320,c_limit/Business_AmazonWorkersUnder_v2.jpg 320w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_640,c_limit/Business_AmazonWorkersUnder_v2.jpg 640w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_960,c_limit/Business_AmazonWorkersUnder_v2.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_120,c_limit/Business_AmazonWorkersUnder_v2.jpg 120w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_240,c_limit/Business_AmazonWorkersUnder_v2.jpg 240w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_320,c_limit/Business_AmazonWorkersUnder_v2.jpg 320w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_640,c_limit/Business_AmazonWorkersUnder_v2.jpg 640w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_960,c_limit/Business_AmazonWorkersUnder_v2.jpg 960w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_1280,c_limit/Business_AmazonWorkersUnder_v2.jpg 1280w\" sizes=\"100vw\"/><img alt=\"3 Amazon Workers Say They’re Under Investigation for Speaking Out About Data Centers\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_1280%2Cc_limit/Business_AmazonWorkersUnder_v2.jpg\" data-src=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_1280%2Cc_limit/Business_AmazonWorkersUnder_v2.jpg\"/>Business3 Amazon Workers Say They’re Under Investigation for Speaking Out About Data CentersBy Paresh Dave<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_120,c_limit/GettyImages-2151441286.jpg 120w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_240,c_limit/GettyImages-2151441286.jpg 240w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_320,c_limit/GettyImages-2151441286.jpg 320w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_640,c_limit/GettyImages-2151441286.jpg 640w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_960,c_limit/GettyImages-2151441286.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_120,c_limit/GettyImages-2151441286.jpg 120w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_240,c_limit/GettyImages-2151441286.jpg 240w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_320,c_limit/GettyImages-2151441286.jpg 320w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_640,c_limit/GettyImages-2151441286.jpg 640w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_960,c_limit/GettyImages-2151441286.jpg 960w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_1280,c_limit/GettyImages-2151441286.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The UK Will Scan Asylum-Seekers’ Faces for Age Checks—Despite Knowing the Tech Is Flawed\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_1280%2Cc_limit/GettyImages-2151441286.jpg\" data-src=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_1280%2Cc_limit/GettyImages-2151441286.jpg\"/>SecurityThe UK Will Scan Asylum-Seekers’ Faces for Age Checks—Despite Knowing the Tech Is FlawedBy Matt Burgess, Maddy Varner, May Bulman, and Gabriel Geiger<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_120,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 120w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_240,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 240w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_320,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 320w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_640,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 640w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_960,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_120,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 120w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_240,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 240w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_320,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 320w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_640,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 640w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_960,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 960w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_1280,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Operating a Humanoid With Your Body Is a Hot Job in China’s Hardware Capital\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_1280%2Cc_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg\" data-src=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_1280%2Cc_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg\"/>BusinessOperating a Humanoid With Your Body Is a Hot Job in China’s Hardware CapitalBy Will Knight<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_120,c_limit/politics_white_house_anthropic.jpg 120w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_240,c_limit/politics_white_house_anthropic.jpg 240w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_320,c_limit/politics_white_house_anthropic.jpg 320w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_640,c_limit/politics_white_house_anthropic.jpg 640w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_960,c_limit/politics_white_house_anthropic.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_120,c_limit/politics_white_house_anthropic.jpg 120w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_240,c_limit/politics_white_house_anthropic.jpg 240w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_320,c_limit/politics_white_house_anthropic.jpg 320w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_640,c_limit/politics_white_house_anthropic.jpg 640w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_960,c_limit/politics_white_house_anthropic.jpg 960w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_1280,c_limit/politics_white_house_anthropic.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The White House Wants Anthropic to Block All Jailbreaks. That May Not Be Possible\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_1280%2Cc_limit/politics_white_house_anthropic.jpg\" data-src=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_1280%2Cc_limit/politics_white_house_anthropic.jpg\"/>PoliticsThe White House Wants Anthropic to Block All Jailbreaks. That May Not Be PossibleBy Hugo Lowell<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_120,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 120w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_240,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 240w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_320,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 320w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_640,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 640w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_960,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_120,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 120w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_240,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 240w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_320,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 320w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_640,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 640w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_960,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 960w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_1280,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The Gemini-Powered Google Home Speaker Is Finally Here\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_1280%2Cc_limit/Google%2520Home%2520Speaker%2520-%2520Porcelain%2520copy.jpg\" data-src=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_1280%2Cc_limit/Google%2520Home%2520Speaker%2520-%2520Porcelain%2520copy.jpg\"/>GearThe Gemini-Powered Google Home Speaker Is Finally HereBy Julian Chokkattu<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_120,c_limit/GettyImages-2280291188.jpg 120w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_240,c_limit/GettyImages-2280291188.jpg 240w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_320,c_limit/GettyImages-2280291188.jpg 320w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_640,c_limit/GettyImages-2280291188.jpg 640w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_960,c_limit/GettyImages-2280291188.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_120,c_limit/GettyImages-2280291188.jpg 120w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_240,c_limit/GettyImages-2280291188.jpg 240w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_320,c_limit/GettyImages-2280291188.jpg 320w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_640,c_limit/GettyImages-2280291188.jpg 640w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_960,c_limit/GettyImages-2280291188.jpg 960w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_1280,c_limit/GettyImages-2280291188.jpg 1280w\" sizes=\"100vw\"/><img alt=\"‘Dangerous’ AI Models Are Coming No Matter What\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_1280%2Cc_limit/GettyImages-2280291188.jpg\" data-src=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_1280%2Cc_limit/GettyImages-2280291188.jpg\"/>Security‘Dangerous’ AI Models Are Coming No Matter WhatBy Lily Hay Newman<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_120,c_limit/Sensi_housePillar.jpg 120w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_240,c_limit/Sensi_housePillar.jpg 240w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_320,c_limit/Sensi_housePillar.jpg 320w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_640,c_limit/Sensi_housePillar.jpg 640w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_960,c_limit/Sensi_housePillar.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_120,c_limit/Sensi_housePillar.jpg 120w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_240,c_limit/Sensi_housePillar.jpg 240w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_320,c_limit/Sensi_housePillar.jpg 320w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_640,c_limit/Sensi_housePillar.jpg 640w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_960,c_limit/Sensi_housePillar.jpg 960w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_1280,c_limit/Sensi_housePillar.jpg 1280w\" sizes=\"100vw\"/><img alt=\"My Father Wants to Age in Place. AI Will Be Watching\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_1280%2Cc_limit/Sensi_housePillar.jpg\" data-src=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_1280%2Cc_limit/Sensi_housePillar.jpg\"/>The Big StoryMy Father Wants to Age in Place. AI Will Be WatchingBy Steven Blum<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_120,c_limit/editors-letter-final-websize.jpg 120w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_240,c_limit/editors-letter-final-websize.jpg 240w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_320,c_limit/editors-letter-final-websize.jpg 320w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_640,c_limit/editors-letter-final-websize.jpg 640w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_960,c_limit/editors-letter-final-websize.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_120,c_limit/editors-letter-final-websize.jpg 120w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_240,c_limit/editors-letter-final-websize.jpg 240w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_320,c_limit/editors-letter-final-websize.jpg 320w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_640,c_limit/editors-letter-final-websize.jpg 640w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_960,c_limit/editors-letter-final-websize.jpg 960w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_1280,c_limit/editors-letter-final-websize.jpg 1280w\" sizes=\"100vw\"/><img alt=\"What Do We Need From Our Homes Right Now?\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_1280%2Cc_limit/editors-letter-final-websize.jpg\" data-src=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_1280%2Cc_limit/editors-letter-final-websize.jpg\"/>The Big StoryWhat Do We Need From Our Homes Right Now?By Katie Drummond and Amy Astley<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_120,c_limit/GettyImages-2217198328.jpg 120w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_240,c_limit/GettyImages-2217198328.jpg 240w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_320,c_limit/GettyImages-2217198328.jpg 320w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_640,c_limit/GettyImages-2217198328.jpg 640w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_960,c_limit/GettyImages-2217198328.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_120,c_limit/GettyImages-2217198328.jpg 120w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_240,c_limit/GettyImages-2217198328.jpg 240w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_320,c_limit/GettyImages-2217198328.jpg 320w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_640,c_limit/GettyImages-2217198328.jpg 640w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_960,c_limit/GettyImages-2217198328.jpg 960w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_1280,c_limit/GettyImages-2217198328.jpg 1280w\" sizes=\"100vw\"/><img alt=\"DOJ Lawyers Argue xAI Is ‘Vital’ for National Security in NAACP Lawsuit\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_1280%2Cc_limit/GettyImages-2217198328.jpg\" data-src=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_1280%2Cc_limit/GettyImages-2217198328.jpg\"/>ScienceDOJ Lawyers Argue xAI Is ‘Vital’ for National Security in NAACP LawsuitBy Molly Taft<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_120,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 120w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_240,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 240w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_320,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 320w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_640,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 640w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_960,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_120,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 120w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_240,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 240w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_320,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 320w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_640,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 640w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_960,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 960w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_1280,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Anthropic Is Still at Odds With the White House Over Claude Fable 5\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_1280%2Cc_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg\" data-src=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_1280%2Cc_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg\"/>BusinessAnthropic Is Still at Odds With the White House Over Claude Fable 5By Hugo Lowell, Lily Hay Newman, and Maxwell Zeff<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_120,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 120w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_240,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 240w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_320,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 320w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_640,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 640w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_960,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_120,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 120w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_240,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 240w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_320,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 320w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_640,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 640w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_960,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 960w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_1280,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta CTO Andrew Bosworth Admits the Company’s AI Reorg Was ‘Atrocious’\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_1280%2Cc_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg\" data-src=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_1280%2Cc_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg\"/>BusinessMeta CTO Andrew Bosworth Admits the Company’s AI Reorg Was ‘Atrocious’By Lauren Goode and Paresh Dave<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_120,c_limit/security_meta_glasses_pentagon.jpg 120w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_240,c_limit/security_meta_glasses_pentagon.jpg 240w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_320,c_limit/security_meta_glasses_pentagon.jpg 320w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_640,c_limit/security_meta_glasses_pentagon.jpg 640w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_960,c_limit/security_meta_glasses_pentagon.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_120,c_limit/security_meta_glasses_pentagon.jpg 120w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_240,c_limit/security_meta_glasses_pentagon.jpg 240w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_320,c_limit/security_meta_glasses_pentagon.jpg 320w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_640,c_limit/security_meta_glasses_pentagon.jpg 640w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_960,c_limit/security_meta_glasses_pentagon.jpg 960w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_1280,c_limit/security_meta_glasses_pentagon.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta Tapped a Pentagon Supplier to Prototype Face Recognition for Its Glasses\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_1280%2Cc_limit/security_meta_glasses_pentagon.jpg\" data-src=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_1280%2Cc_limit/security_meta_glasses_pentagon.jpg\"/>SecurityMeta Tapped a Pentagon Supplier to Prototype Face Recognition for Its GlassesBy Dell Cameron and Dhruv Mehrotra<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/16:9/w_120,c_limit/googleAI.jpg 120w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/16:9/w_240,c_limit/googleAI.jpg 240w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/16:9/w_320,c_limit/googleAI.jpg 320w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/16:9/w_640,c_limit/googleAI.jpg 640w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/16:9/w_960,c_limit/googleAI.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_120,c_limit/googleAI.jpg 120w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_240,c_limit/googleAI.jpg 240w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_320,c_limit/googleAI.jpg 320w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_640,c_limit/googleAI.jpg 640w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_960,c_limit/googleAI.jpg 960w, https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_1280,c_limit/googleAI.jpg 1280w\" sizes=\"100vw\"/><img alt=\"A Court Has Ruled That Google Is Liable for False Statements Generated by AI Overviews\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_1280%2Cc_limit/googleAI.jpg\" data-src=\"https://media.wired.com/photos/6a2c41ce14f8a13c2f9c4aac/3:2/w_1280%2Cc_limit/googleAI.jpg\"/>BusinessA Court Has Ruled That Google Is Liable for False Statements Generated by AI OverviewsBy Fernanda González<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2cb2e540437fd74449a752/16:9/w_120,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 120w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/16:9/w_240,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 240w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/16:9/w_320,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 320w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/16:9/w_640,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 640w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/16:9/w_960,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_120,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 120w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_240,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 240w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_320,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 320w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_640,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 640w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_960,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 960w, https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_1280,c_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Anthropic Says It’s Taking Claude Fable 5 Offline to Comply With US Government Order\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_1280%2Cc_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg\" data-src=\"https://media.wired.com/photos/6a2cb2e540437fd74449a752/3:2/w_1280%2Cc_limit/Anthropic-Says-US-Gov-Ordered-it-to-Shut-Down-Mythos-Models-Business-2280583841.jpg\"/>BusinessAnthropic Says It’s Taking Claude Fable 5 Offline to Comply With US Government OrderBy Maxwell Zeff<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/16:9/w_120,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 120w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/16:9/w_240,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 240w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/16:9/w_320,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 320w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/16:9/w_640,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 640w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/16:9/w_960,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_120,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 120w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_240,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 240w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_320,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 320w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_640,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 640w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_960,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 960w, https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_1280,c_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta Employees Absolutely Hate Mark Zuckerberg’s Plan for a Companywide AI Hackathon\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_1280%2Cc_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg\" data-src=\"https://media.wired.com/photos/6a29a9c94fc22a32725fb4b6/3:2/w_1280%2Cc_limit/Meta-Employee-Interrupts-AI-Business-AP-26085781053500.jpg\"/>BusinessMeta Employees Absolutely Hate Mark Zuckerberg’s Plan for a Companywide AI HackathonBy Paresh Dave and Maxwell Zeff<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2c555e0473de232b255ae6/16:9/w_120,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 120w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/16:9/w_240,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 240w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/16:9/w_320,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 320w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/16:9/w_640,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 640w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/16:9/w_960,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_120,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 120w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_240,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 240w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_320,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 320w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_640,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 640w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_960,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 960w, https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_1280,c_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg 1280w\" sizes=\"100vw\"/><img alt=\"‘Tell Him He’s a Piece of Shit’: Meta’s New AI Unit Is a Total Mess\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_1280%2Cc_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg\" data-src=\"https://media.wired.com/photos/6a2c555e0473de232b255ae6/3:2/w_1280%2Cc_limit/Meta-Employee-Interrupts-AI-Training-Business-2261841192.jpg\"/>Business‘Tell Him He’s a Piece of Shit’: Meta’s New AI Unit Is a Total MessBy Paresh Dave and Zoë SchifferMore StoriesMost Popular<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3502b78a383050471b86b4/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3502b78a383050471b86b4/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"These Are the 12 Ikea Products the Company&#x27;s Design Chief Personally Owns\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3502b78a383050471b86b4/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a3502b78a383050471b86b4/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>GearThese Are the 12 Ikea Products the Company's Design Chief Personally OwnsJeremy White<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a38fc82a494fdbb4985fa73/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a38fc82a494fdbb4985fa73/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"The UK Just Lost Its Sixth Prime Minister of the Decade\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a38fc82a494fdbb4985fa73/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a38fc82a494fdbb4985fa73/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>PoliticsThe UK Just Lost Its Sixth Prime Minister of the DecadeIsabella Ward<video aria-label=\"World Cup Scams Are Getting Harder to Spot\" autoplay=\"\" class=\"responsive-clip__video\" loop=\"\" muted=\"\" src=\"https://media.wired.com/clips/6a33f50cfdecea08d2cf6a9a/master/pass/undefined.mp4\"></video>Cyberattacks and HacksWorld Cup Scams Are Getting Harder to SpotJumana Naim<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"Some Electricians Think Building Data Centers Is for Sellouts\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>Artificial IntelligenceSome Electricians Think Building Data Centers Is for SelloutsCaroline Haskins",
+          "summary": "PRIME DAY",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-24T17:49:00.000Z",
+          "publishedAtRelative": "6分钟前"
+        },
+        {
+          "id": "openai-002",
+          "title": "Prime Day",
+          "url": "https://www.wired.com/story/amazon-prime-day-absolute-best-deals/",
+          "thumbnail": "",
+          "summary": "Prime Day",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-24T17:49:00.000Z",
+          "publishedAtRelative": "6分钟前"
+        },
+        {
+          "id": "openai-003",
+          "title": "artificial intelligence",
+          "url": "https://www.wired.com/story/the-trump-white-house-is-over-anthropics-dario-amodei/",
+          "thumbnail": "",
+          "summary": "<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/16:9/w_120,c_limit/politics_white_house_anthropic_dario_amodei.jpg 120w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/16:9/w_240,c_limit/politics_white_house_anthropic_dario_amodei.jpg 240w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/16:9/w_320,c_limit/politics_white_house_anthropic_dario_amodei.jpg 320w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/16:9/w_640,c_limit/politics_white_house_anthropic_dario_amodei.jpg 640w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/16:9/w_960,c_limit/politics_white_house_anthropic_dario_amodei.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_120,c_limit/politics_white_house_anthropic_dario_amodei.jpg 120w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_240,c_limit/politics_white_house_anthropic_dario_amodei.jpg 240w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_320,c_limit/politics_white_house_anthropic_dario_amodei.jpg 320w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_640,c_limit/politics_white_house_anthropic_dario_amodei.jpg 640w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_960,c_limit/politics_white_house_anthropic_dario_amodei.jpg 960w, https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_1280,c_limit/politics_white_house_anthropic_dario_amodei.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The Trump White House Is Over Anthropic CEO Dario Amodei\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_1280%2Cc_limit/politics_white_house_anthropic_dario_amodei.jpg\" data-src=\"https://media.wired.com/photos/6a3b1efdfb31b3da3e9adc12/3:2/w_1280%2Cc_limit/politics_white_house_anthropic_dario_amodei.jpg\"/>PoliticsThe Trump White House Is Over Anthropic CEO Dario AmodeiBy Hugo Lowell<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/16:9/w_120,c_limit/GettyImages-2204326766.jpg 120w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/16:9/w_240,c_limit/GettyImages-2204326766.jpg 240w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/16:9/w_320,c_limit/GettyImages-2204326766.jpg 320w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/16:9/w_640,c_limit/GettyImages-2204326766.jpg 640w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/16:9/w_960,c_limit/GettyImages-2204326766.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_120,c_limit/GettyImages-2204326766.jpg 120w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_240,c_limit/GettyImages-2204326766.jpg 240w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_320,c_limit/GettyImages-2204326766.jpg 320w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_640,c_limit/GettyImages-2204326766.jpg 640w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_960,c_limit/GettyImages-2204326766.jpg 960w, https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_1280,c_limit/GettyImages-2204326766.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Qualcomm Buys Buzzy Chip Startup Modular for Nearly $4 Billion\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_1280%2Cc_limit/GettyImages-2204326766.jpg\" data-src=\"https://media.wired.com/photos/6a3bc8bcb0d9ff58f6121983/3:2/w_1280%2Cc_limit/GettyImages-2204326766.jpg\"/>BusinessQualcomm Buys Buzzy Chip Startup Modular for Nearly $4 BillionBy Lauren Goode<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/16:9/w_120,c_limit/2281617231 120w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/16:9/w_240,c_limit/2281617231 240w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/16:9/w_320,c_limit/2281617231 320w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/16:9/w_640,c_limit/2281617231 640w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/16:9/w_960,c_limit/2281617231 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_120,c_limit/2281617231 120w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_240,c_limit/2281617231 240w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_320,c_limit/2281617231 320w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_640,c_limit/2281617231 640w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_960,c_limit/2281617231 960w, https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_1280,c_limit/2281617231 1280w\" sizes=\"100vw\"/><img alt=\"Meta Pauses Employee-Tracking Program Following Internal Data Leak\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_1280%2Cc_limit/2281617231\" data-src=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/3:2/w_1280%2Cc_limit/2281617231\"/>BusinessMeta Pauses Employee-Tracking Program Following Internal Data LeakBy Paresh Dave<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a39919203c4ca2994a792a9/16:9/w_120,c_limit/GettyImages-1297676683.jpg 120w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/16:9/w_240,c_limit/GettyImages-1297676683.jpg 240w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/16:9/w_320,c_limit/GettyImages-1297676683.jpg 320w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/16:9/w_640,c_limit/GettyImages-1297676683.jpg 640w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/16:9/w_960,c_limit/GettyImages-1297676683.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_120,c_limit/GettyImages-1297676683.jpg 120w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_240,c_limit/GettyImages-1297676683.jpg 240w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_320,c_limit/GettyImages-1297676683.jpg 320w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_640,c_limit/GettyImages-1297676683.jpg 640w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_960,c_limit/GettyImages-1297676683.jpg 960w, https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_1280,c_limit/GettyImages-1297676683.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta Exposed Data Internally From Its Controversial Employee-Tracking Program\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_1280%2Cc_limit/GettyImages-1297676683.jpg\" data-src=\"https://media.wired.com/photos/6a39919203c4ca2994a792a9/3:2/w_1280%2Cc_limit/GettyImages-1297676683.jpg\"/>BusinessMeta Exposed Data Internally From Its Controversial Employee-Tracking ProgramBy Paresh Dave and Lauren Goode<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_120,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 120w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_240,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 240w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_320,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 320w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_640,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 640w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/16:9/w_960,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_120,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 120w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_240,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 240w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_320,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 320w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_640,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 640w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_960,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 960w, https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_1280,c_limit/061526_OpenAI%20Hires%20an%20Army%20to%20Patch%20Open%20Source%20Bugs%20as%20It%20Battles%20Mythos%20for%20Cyber%20AI%20Supremacy.jpg 1280w\" sizes=\"100vw\"/><img alt=\"OpenAI Launches Full-Scale Effort to Patch Open-Source Bugs as It Takes on Anthropic’s Mythos\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_1280%2Cc_limit/061526_OpenAI%2520Hires%2520an%2520Army%2520to%2520Patch%2520Open%2520Source%2520Bugs%2520as%2520It%2520Battles%2520Mythos%2520for%2520Cyber%2520AI%2520Supremacy.jpg\" data-src=\"https://media.wired.com/photos/6a2fc599a8e3255f0ac3665f/3:2/w_1280%2Cc_limit/061526_OpenAI%2520Hires%2520an%2520Army%2520to%2520Patch%2520Open%2520Source%2520Bugs%2520as%2520It%2520Battles%2520Mythos%2520for%2520Cyber%2520AI%2520Supremacy.jpg\"/>SecurityOpenAI Launches Full-Scale Effort to Patch Open-Source Bugs as It Takes on Anthropic’s MythosBy Lily Hay Newman<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_120,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 120w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_240,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 240w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_320,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 320w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_640,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 640w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/16:9/w_960,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_120,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 120w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_240,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 240w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_320,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 320w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_640,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 640w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_960,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 960w, https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_1280,c_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Some Electricians Think Building Data Centers Is for Sellouts\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_1280%2Cc_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg\" data-src=\"https://media.wired.com/photos/6a317f4a898b4be9664d5a85/3:2/w_1280%2Cc_limit/Business_ElectriciansHaveaLotofComplicatedFeelingsAboutBuildingDataCenters-v1.jpg\"/>BusinessSome Electricians Think Building Data Centers Is for SelloutsBy Caroline Haskins<video aria-label=\"World Cup Scams Are Getting Harder to Spot\" autoplay=\"\" class=\"responsive-clip__video\" loop=\"\" muted=\"\"></video>SecurityWorld Cup Scams Are Getting Harder to SpotBy Jumana Naim<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_120,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 120w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_240,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 240w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_320,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 320w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_640,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 640w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/16:9/w_960,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_120,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 120w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_240,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 240w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_320,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 320w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_640,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 640w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_960,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 960w, https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_1280,c_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg 1280w\" sizes=\"100vw\"/><img alt=\"28 Tips to Take Your ChatGPT Prompts to the Next Level\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_1280%2Cc_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg\" data-src=\"https://media.wired.com/photos/641df3ef11b9b75446f8f278/3:2/w_1280%2Cc_limit/11-Creative-ChatGPT-Prompts-Gear-GettyImages-1433912783.jpg\"/>How To and Advice28 Tips to Take Your ChatGPT Prompts to the Next LevelBy David Nield<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_120,c_limit/Gear_TestingSiriAI-v1.jpg 120w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_240,c_limit/Gear_TestingSiriAI-v1.jpg 240w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_320,c_limit/Gear_TestingSiriAI-v1.jpg 320w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_640,c_limit/Gear_TestingSiriAI-v1.jpg 640w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/16:9/w_960,c_limit/Gear_TestingSiriAI-v1.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_120,c_limit/Gear_TestingSiriAI-v1.jpg 120w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_240,c_limit/Gear_TestingSiriAI-v1.jpg 240w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_320,c_limit/Gear_TestingSiriAI-v1.jpg 320w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_640,c_limit/Gear_TestingSiriAI-v1.jpg 640w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_960,c_limit/Gear_TestingSiriAI-v1.jpg 960w, https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_1280,c_limit/Gear_TestingSiriAI-v1.jpg 1280w\" sizes=\"100vw\"/><img alt=\"I Let Siri AI Show Me Around San Francisco\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_1280%2Cc_limit/Gear_TestingSiriAI-v1.jpg\" data-src=\"https://media.wired.com/photos/6a33443c27f7de3a00911dff/3:2/w_1280%2Cc_limit/Gear_TestingSiriAI-v1.jpg\"/>GearI Let Siri AI Show Me Around San FranciscoBy Reece Rogers<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_120,c_limit/061726-peter-thiel-secret-society-ranked.jpg 120w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_240,c_limit/061726-peter-thiel-secret-society-ranked.jpg 240w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_320,c_limit/061726-peter-thiel-secret-society-ranked.jpg 320w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_640,c_limit/061726-peter-thiel-secret-society-ranked.jpg 640w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/16:9/w_960,c_limit/061726-peter-thiel-secret-society-ranked.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_120,c_limit/061726-peter-thiel-secret-society-ranked.jpg 120w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_240,c_limit/061726-peter-thiel-secret-society-ranked.jpg 240w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_320,c_limit/061726-peter-thiel-secret-society-ranked.jpg 320w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_640,c_limit/061726-peter-thiel-secret-society-ranked.jpg 640w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_960,c_limit/061726-peter-thiel-secret-society-ranked.jpg 960w, https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_1280,c_limit/061726-peter-thiel-secret-society-ranked.jpg 1280w\" sizes=\"100vw\"/><img alt=\"How the Peter Thiel-Linked Dialog Club Secretly Ranks Its Members\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_1280%2Cc_limit/061726-peter-thiel-secret-society-ranked.jpg\" data-src=\"https://media.wired.com/photos/6a33038a1f4e7aecefeb3113/3:2/w_1280%2Cc_limit/061726-peter-thiel-secret-society-ranked.jpg\"/>SecurityHow the Peter Thiel-Linked Dialog Club Secretly Ranks Its MembersBy Dell Cameron, Dhruv Mehrotra, and Yulia Almazova<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_120,c_limit/Model-Behavior-SB.jpg 120w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_240,c_limit/Model-Behavior-SB.jpg 240w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_320,c_limit/Model-Behavior-SB.jpg 320w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_640,c_limit/Model-Behavior-SB.jpg 640w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/16:9/w_960,c_limit/Model-Behavior-SB.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_120,c_limit/Model-Behavior-SB.jpg 120w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_240,c_limit/Model-Behavior-SB.jpg 240w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_320,c_limit/Model-Behavior-SB.jpg 320w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_640,c_limit/Model-Behavior-SB.jpg 640w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_960,c_limit/Model-Behavior-SB.jpg 960w, https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_1280,c_limit/Model-Behavior-SB.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The White House Is Making Up Its Rules for AI in Real Time\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_1280%2Cc_limit/Model-Behavior-SB.jpg\" data-src=\"https://media.wired.com/photos/6a342bff039398b1addb3ba2/3:2/w_1280%2Cc_limit/Model-Behavior-SB.jpg\"/>BusinessThe White House Is Making Up Its Rules for AI in Real TimeBy Maxwell Zeff<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_120,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 120w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_240,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 240w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_320,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 320w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_640,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 640w, https://media.wired.com/photos/6a3308960b213b93014c14d7/16:9/w_960,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_120,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 120w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_240,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 240w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_320,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 320w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_640,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 640w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_960,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 960w, https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_1280,c_limit/Uncanny-Valley-Meta%E2%80%99s%20Internal%20Unit%20Spiral-v1.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta’s AI Workers Are Revolting, Peter Thiel’s Secret Society, and SBF’s Plea to Trump\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_1280%2Cc_limit/Uncanny-Valley-Meta%25E2%2580%2599s%2520Internal%2520Unit%2520Spiral-v1.jpg\" data-src=\"https://media.wired.com/photos/6a3308960b213b93014c14d7/3:2/w_1280%2Cc_limit/Uncanny-Valley-Meta%25E2%2580%2599s%2520Internal%2520Unit%2520Spiral-v1.jpg\"/>BusinessMeta’s AI Workers Are Revolting, Peter Thiel’s Secret Society, and SBF’s Plea to TrumpBy Brian Barrett and Zoë Schiffer<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_120,c_limit/Business_AmazonWorkersUnder_v2.jpg 120w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_240,c_limit/Business_AmazonWorkersUnder_v2.jpg 240w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_320,c_limit/Business_AmazonWorkersUnder_v2.jpg 320w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_640,c_limit/Business_AmazonWorkersUnder_v2.jpg 640w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/16:9/w_960,c_limit/Business_AmazonWorkersUnder_v2.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_120,c_limit/Business_AmazonWorkersUnder_v2.jpg 120w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_240,c_limit/Business_AmazonWorkersUnder_v2.jpg 240w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_320,c_limit/Business_AmazonWorkersUnder_v2.jpg 320w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_640,c_limit/Business_AmazonWorkersUnder_v2.jpg 640w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_960,c_limit/Business_AmazonWorkersUnder_v2.jpg 960w, https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_1280,c_limit/Business_AmazonWorkersUnder_v2.jpg 1280w\" sizes=\"100vw\"/><img alt=\"3 Amazon Workers Say They’re Under Investigation for Speaking Out About Data Centers\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_1280%2Cc_limit/Business_AmazonWorkersUnder_v2.jpg\" data-src=\"https://media.wired.com/photos/6a33fb3a3fe23d3ce2a1cf59/3:2/w_1280%2Cc_limit/Business_AmazonWorkersUnder_v2.jpg\"/>Business3 Amazon Workers Say They’re Under Investigation for Speaking Out About Data CentersBy Paresh Dave<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_120,c_limit/GettyImages-2151441286.jpg 120w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_240,c_limit/GettyImages-2151441286.jpg 240w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_320,c_limit/GettyImages-2151441286.jpg 320w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_640,c_limit/GettyImages-2151441286.jpg 640w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/16:9/w_960,c_limit/GettyImages-2151441286.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_120,c_limit/GettyImages-2151441286.jpg 120w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_240,c_limit/GettyImages-2151441286.jpg 240w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_320,c_limit/GettyImages-2151441286.jpg 320w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_640,c_limit/GettyImages-2151441286.jpg 640w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_960,c_limit/GettyImages-2151441286.jpg 960w, https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_1280,c_limit/GettyImages-2151441286.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The UK Will Scan Asylum-Seekers’ Faces for Age Checks—Despite Knowing the Tech Is Flawed\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_1280%2Cc_limit/GettyImages-2151441286.jpg\" data-src=\"https://media.wired.com/photos/6a32f1cdd9e60209eb61b7f3/3:2/w_1280%2Cc_limit/GettyImages-2151441286.jpg\"/>SecurityThe UK Will Scan Asylum-Seekers’ Faces for Age Checks—Despite Knowing the Tech Is FlawedBy Matt Burgess, Maddy Varner, May Bulman, and Gabriel Geiger<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_120,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 120w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_240,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 240w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_320,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 320w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_640,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 640w, https://media.wired.com/photos/6a31de8a8b1536f155402681/16:9/w_960,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_120,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 120w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_240,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 240w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_320,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 320w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_640,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 640w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_960,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 960w, https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_1280,c_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Operating a Humanoid With Your Body Is a Hot Job in China’s Hardware Capital\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_1280%2Cc_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg\" data-src=\"https://media.wired.com/photos/6a31de8a8b1536f155402681/3:2/w_1280%2Cc_limit/AI-Lab-Operating-Humanoid-With-Your-Body-is-Hot-Job-in-China-Hardware-Capital-Business.jpg\"/>BusinessOperating a Humanoid With Your Body Is a Hot Job in China’s Hardware CapitalBy Will Knight<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_120,c_limit/politics_white_house_anthropic.jpg 120w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_240,c_limit/politics_white_house_anthropic.jpg 240w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_320,c_limit/politics_white_house_anthropic.jpg 320w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_640,c_limit/politics_white_house_anthropic.jpg 640w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/16:9/w_960,c_limit/politics_white_house_anthropic.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_120,c_limit/politics_white_house_anthropic.jpg 120w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_240,c_limit/politics_white_house_anthropic.jpg 240w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_320,c_limit/politics_white_house_anthropic.jpg 320w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_640,c_limit/politics_white_house_anthropic.jpg 640w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_960,c_limit/politics_white_house_anthropic.jpg 960w, https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_1280,c_limit/politics_white_house_anthropic.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The White House Wants Anthropic to Block All Jailbreaks. That May Not Be Possible\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_1280%2Cc_limit/politics_white_house_anthropic.jpg\" data-src=\"https://media.wired.com/photos/6a31d49a95ac419546b42eb7/3:2/w_1280%2Cc_limit/politics_white_house_anthropic.jpg\"/>PoliticsThe White House Wants Anthropic to Block All Jailbreaks. That May Not Be PossibleBy Hugo Lowell<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_120,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 120w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_240,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 240w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_320,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 320w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_640,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 640w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/16:9/w_960,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_120,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 120w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_240,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 240w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_320,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 320w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_640,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 640w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_960,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 960w, https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_1280,c_limit/Google%20Home%20Speaker%20-%20Porcelain%20copy.jpg 1280w\" sizes=\"100vw\"/><img alt=\"The Gemini-Powered Google Home Speaker Is Finally Here\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_1280%2Cc_limit/Google%2520Home%2520Speaker%2520-%2520Porcelain%2520copy.jpg\" data-src=\"https://media.wired.com/photos/6a2c15a23c737ad4c6d98c56/3:2/w_1280%2Cc_limit/Google%2520Home%2520Speaker%2520-%2520Porcelain%2520copy.jpg\"/>GearThe Gemini-Powered Google Home Speaker Is Finally HereBy Julian Chokkattu<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_120,c_limit/GettyImages-2280291188.jpg 120w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_240,c_limit/GettyImages-2280291188.jpg 240w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_320,c_limit/GettyImages-2280291188.jpg 320w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_640,c_limit/GettyImages-2280291188.jpg 640w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/16:9/w_960,c_limit/GettyImages-2280291188.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_120,c_limit/GettyImages-2280291188.jpg 120w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_240,c_limit/GettyImages-2280291188.jpg 240w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_320,c_limit/GettyImages-2280291188.jpg 320w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_640,c_limit/GettyImages-2280291188.jpg 640w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_960,c_limit/GettyImages-2280291188.jpg 960w, https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_1280,c_limit/GettyImages-2280291188.jpg 1280w\" sizes=\"100vw\"/><img alt=\"‘Dangerous’ AI Models Are Coming No Matter What\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_1280%2Cc_limit/GettyImages-2280291188.jpg\" data-src=\"https://media.wired.com/photos/6a30202e9402edb0adc1701d/3:2/w_1280%2Cc_limit/GettyImages-2280291188.jpg\"/>Security‘Dangerous’ AI Models Are Coming No Matter WhatBy Lily Hay Newman<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_120,c_limit/Sensi_housePillar.jpg 120w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_240,c_limit/Sensi_housePillar.jpg 240w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_320,c_limit/Sensi_housePillar.jpg 320w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_640,c_limit/Sensi_housePillar.jpg 640w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/16:9/w_960,c_limit/Sensi_housePillar.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_120,c_limit/Sensi_housePillar.jpg 120w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_240,c_limit/Sensi_housePillar.jpg 240w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_320,c_limit/Sensi_housePillar.jpg 320w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_640,c_limit/Sensi_housePillar.jpg 640w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_960,c_limit/Sensi_housePillar.jpg 960w, https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_1280,c_limit/Sensi_housePillar.jpg 1280w\" sizes=\"100vw\"/><img alt=\"My Father Wants to Age in Place. AI Will Be Watching\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_1280%2Cc_limit/Sensi_housePillar.jpg\" data-src=\"https://media.wired.com/photos/6a20764c9e9ae62de4e328fc/3:2/w_1280%2Cc_limit/Sensi_housePillar.jpg\"/>The Big StoryMy Father Wants to Age in Place. AI Will Be WatchingBy Steven Blum<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_120,c_limit/editors-letter-final-websize.jpg 120w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_240,c_limit/editors-letter-final-websize.jpg 240w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_320,c_limit/editors-letter-final-websize.jpg 320w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_640,c_limit/editors-letter-final-websize.jpg 640w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/16:9/w_960,c_limit/editors-letter-final-websize.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_120,c_limit/editors-letter-final-websize.jpg 120w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_240,c_limit/editors-letter-final-websize.jpg 240w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_320,c_limit/editors-letter-final-websize.jpg 320w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_640,c_limit/editors-letter-final-websize.jpg 640w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_960,c_limit/editors-letter-final-websize.jpg 960w, https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_1280,c_limit/editors-letter-final-websize.jpg 1280w\" sizes=\"100vw\"/><img alt=\"What Do We Need From Our Homes Right Now?\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_1280%2Cc_limit/editors-letter-final-websize.jpg\" data-src=\"https://media.wired.com/photos/6a2b2e1f9afae66b5925a399/3:2/w_1280%2Cc_limit/editors-letter-final-websize.jpg\"/>The Big StoryWhat Do We Need From Our Homes Right Now?By Katie Drummond and Amy Astley<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_120,c_limit/GettyImages-2217198328.jpg 120w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_240,c_limit/GettyImages-2217198328.jpg 240w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_320,c_limit/GettyImages-2217198328.jpg 320w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_640,c_limit/GettyImages-2217198328.jpg 640w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/16:9/w_960,c_limit/GettyImages-2217198328.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_120,c_limit/GettyImages-2217198328.jpg 120w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_240,c_limit/GettyImages-2217198328.jpg 240w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_320,c_limit/GettyImages-2217198328.jpg 320w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_640,c_limit/GettyImages-2217198328.jpg 640w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_960,c_limit/GettyImages-2217198328.jpg 960w, https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_1280,c_limit/GettyImages-2217198328.jpg 1280w\" sizes=\"100vw\"/><img alt=\"DOJ Lawyers Argue xAI Is ‘Vital’ for National Security in NAACP Lawsuit\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_1280%2Cc_limit/GettyImages-2217198328.jpg\" data-src=\"https://media.wired.com/photos/6a30b0678f3c861b578bab3f/3:2/w_1280%2Cc_limit/GettyImages-2217198328.jpg\"/>ScienceDOJ Lawyers Argue xAI Is ‘Vital’ for National Security in NAACP LawsuitBy Molly Taft<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_120,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 120w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_240,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 240w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_320,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 320w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_640,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 640w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/16:9/w_960,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_120,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 120w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_240,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 240w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_320,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 320w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_640,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 640w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_960,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 960w, https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_1280,c_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Anthropic Is Still at Odds With the White House Over Claude Fable 5\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_1280%2Cc_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg\" data-src=\"https://media.wired.com/photos/6a3068b96de136e1eb346f80/3:2/w_1280%2Cc_limit/Anthropic-Latest-Clash-With-White-House-Business-2280291383.jpg\"/>BusinessAnthropic Is Still at Odds With the White House Over Claude Fable 5By Hugo Lowell, Lily Hay Newman, and Maxwell Zeff<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_120,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 120w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_240,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 240w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_320,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 320w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_640,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 640w, https://media.wired.com/photos/6a3066677da677701d8b62cd/16:9/w_960,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_120,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 120w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_240,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 240w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_320,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 320w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_640,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 640w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_960,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 960w, https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_1280,c_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta CTO Andrew Bosworth Admits the Company’s AI Reorg Was ‘Atrocious’\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_1280%2Cc_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg\" data-src=\"https://media.wired.com/photos/6a3066677da677701d8b62cd/3:2/w_1280%2Cc_limit/Andrew-Bosworth-Urges-Employees-Business-2235573265.jpg\"/>BusinessMeta CTO Andrew Bosworth Admits the Company’s AI Reorg Was ‘Atrocious’By Lauren Goode and Paresh Dave<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_120,c_limit/security_meta_glasses_pentagon.jpg 120w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_240,c_limit/security_meta_glasses_pentagon.jpg 240w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_320,c_limit/security_meta_glasses_pentagon.jpg 320w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_640,c_limit/security_meta_glasses_pentagon.jpg 640w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/16:9/w_960,c_limit/security_meta_glasses_pentagon.jpg 960w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_120,c_limit/security_meta_glasses_pentagon.jpg 120w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_240,c_limit/security_meta_glasses_pentagon.jpg 240w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_320,c_limit/security_meta_glasses_pentagon.jpg 320w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_640,c_limit/security_meta_glasses_pentagon.jpg 640w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_960,c_limit/security_meta_glasses_pentagon.jpg 960w, https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_1280,c_limit/security_meta_glasses_pentagon.jpg 1280w\" sizes=\"100vw\"/><img alt=\"Meta Tapped a Pentagon Supplier to Prototype Face Recognition for Its Glasses\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_1280%2Cc_limit/security_meta_glasses_pentagon.jpg\" data-src=\"https://media.wired.com/photos/6a2a0a5069d7cd90279b88e1/3:2/w_1280%2Cc_limit/security_meta_glasses_pentagon.jpg\"/>SecurityMeta Tapped a Pentagon Supplier to Prototype Face Recognition for Its GlassesBy Dell Cameron and Dhruv MehrotraMore StoriesMost Popular<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"Meta Pauses Employee-Tracking Program Following Internal Data Leak\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a39a2a46c59c72c499e05ba/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>BusinessMeta Pauses Employee-Tracking Program Following Internal Data LeakParesh Dave<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a3958bcdf5a1d50d09fc7ed/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a3958bcdf5a1d50d09fc7ed/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"A Source of Mysterious Repeating Radio Signals From Space Has Been Identified\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a3958bcdf5a1d50d09fc7ed/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a3958bcdf5a1d50d09fc7ed/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>SpaceA Source of Mysterious Repeating Radio Signals From Space Has Been IdentifiedRitsuko Kawai<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a396b1e518be327f36b3895/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a396b1e518be327f36b3895/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"The 129 Absolute Best Prime Day Deals\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a396b1e518be327f36b3895/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a396b1e518be327f36b3895/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>DealsThe 129 Absolute Best Prime Day DealsLouryn Strampe<source media=\"(max-width: 767px)\" srcSet=\"https://media.wired.com/photos/6a26f6c3e96c13600389aa9a/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><source media=\"(min-width: 768px)\" srcSet=\"https://media.wired.com/photos/6a26f6c3e96c13600389aa9a/1:1/w_120,h_120,c_limit/undefined 120w\" sizes=\"100vw\"/><img alt=\"The New Odyssey Movie Is Sparking a Right-Wing Backlash. This Female Scholar Knows It Well\" class=\"ResponsiveImageContainer-dkeESL cQPiWi responsive-image__image\" src=\"https://media.wired.com/photos/6a26f6c3e96c13600389aa9a/1:1/w_120%2Ch_120%2Cc_limit/undefined\" data-src=\"https://media.wired.com/photos/6a26f6c3e96c13600389aa9a/1:1/w_120%2Ch_120%2Cc_limit/undefined\"/>CultureThe New Odyssey Movie Is Sparking a Right-Wing Backlash. This Female Scholar Knows It WellJohn Semley",
           "tags": [
             "AI",
             "Gemini",
             "Claude",
             "ChatGPT"
           ],
-          "publishedAt": "2026-06-22T17:00:00.000Z",
+          "publishedAt": "2026-06-24T15:15:00.000Z",
           "publishedAtRelative": "2小时前"
         },
         {
-          "id": "openai-002",
+          "id": "openai-004",
+          "title": "Qualcomm Buys Buzzy Chip Startup Modular for Nearly $4 Billion",
+          "url": "https://www.wired.com/story/qualcomm-buys-buzzy-chip-startup-modular-for-nearly-dollar4-billion/",
+          "thumbnail": "",
+          "summary": "Business",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-24T12:36:07.303Z",
+          "publishedAtRelative": "5小时前"
+        },
+        {
+          "id": "openai-005",
+          "title": "Meta Pauses Employee-Tracking Program Following Internal Data Leak",
+          "url": "https://www.wired.com/story/meta-pauses-employee-tracking-program-following-internal-security-breach/",
+          "thumbnail": "",
+          "summary": "Business",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-22T21:08:09.915Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "openai-006",
+          "title": "Meta Exposed Data Internally From Its Controversial Employee-Tracking Program",
+          "url": "https://www.wired.com/story/meta-accidentally-let-employees-access-each-others-keystroke-data/",
+          "thumbnail": "",
+          "summary": "Business",
+          "tags": [
+            "设计",
+            "AI"
+          ],
+          "publishedAt": "2026-06-22T20:28:53.236Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "openai-007",
+          "title": "OpenAI Launches Full-Scale Effort to Patch Open-Source Bugs as It Takes on Anthropic’s Mythos",
+          "url": "https://www.wired.com/story/openai-launches-full-scale-effort-to-patch-open-source-bugs-as-it-takes-on-anthropics-mythos/",
+          "thumbnail": "",
+          "summary": "Security",
+          "tags": [
+            "AI",
+            "Claude",
+            "ChatGPT"
+          ],
+          "publishedAt": "2026-06-22T17:00:00.000Z",
+          "publishedAtRelative": "2天前"
+        },
+        {
+          "id": "openai-008",
           "title": "Some Electricians Think Building Data Centers Is for Sellouts",
           "url": "https://www.wired.com/story/data-center-buildout-electricians-selling-out/",
           "thumbnail": "",
@@ -471,10 +548,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-22T09:30:00.000Z",
-          "publishedAtRelative": "10小时前"
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "openai-003",
+          "id": "openai-009",
           "title": "World Cup Scams Are Getting Harder to Spot",
           "url": "https://www.wired.com/story/world-cup-scams-are-getting-harder-to-spot/",
           "thumbnail": "",
@@ -484,82 +561,7 @@
             "AI"
           ],
           "publishedAt": "2026-06-22T09:30:00.000Z",
-          "publishedAtRelative": "10小时前"
-        },
-        {
-          "id": "openai-004",
-          "title": "I Let Siri AI Show Me Around San Francisco",
-          "url": "https://www.wired.com/story/siri-ai-hands-on-iphone/",
-          "thumbnail": "",
-          "summary": "Gear",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-06-20T10:00:00.000Z",
           "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "openai-005",
-          "title": "How the Peter Thiel-Linked Dialog Club Secretly Ranks Its Members",
-          "url": "https://www.wired.com/story/how-peter-thiels-private-dialog-club-secretly-ranks-its-members/",
-          "thumbnail": "",
-          "summary": "Security",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-06-18T22:12:45.152Z",
-          "publishedAtRelative": "3天前"
-        },
-        {
-          "id": "openai-006",
-          "title": "The White House Is Making Up Its Rules for AI in Real Time",
-          "url": "https://www.wired.com/story/anthropic-mythos-export-controls-ai-regulations/",
-          "thumbnail": "",
-          "summary": "Business",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-06-18T21:03:43.494Z",
-          "publishedAtRelative": "3天前"
-        },
-        {
-          "id": "openai-007",
-          "title": "Meta’s AI Workers Are Revolting, Peter Thiel’s Secret Society, and SBF’s Plea to Trump",
-          "url": "https://www.wired.com/story/uncanny-valley-podcast-meta-ai-workers-revolting-peter-thiel-secret-society-sbf-plea-to-trump/",
-          "thumbnail": "",
-          "summary": "Business",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-06-18T19:29:51.374Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "openai-008",
-          "title": "3 Amazon Workers Say They’re Under Investigation for Speaking Out About Data Centers",
-          "url": "https://www.wired.com/story/amazon-workers-under-internal-investigation-after-speaking-out-about-data-centers/",
-          "thumbnail": "",
-          "summary": "Business",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-06-18T16:03:27.562Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "openai-009",
-          "title": "PRIME DAY",
-          "url": "https://www.wired.com/story/early-prime-day-deals-june-2026-3/",
-          "thumbnail": "",
-          "summary": "PRIME DAY",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-06-17T12:22:45.428Z",
-          "publishedAtRelative": "5天前"
         },
         {
           "id": "openai-010",
@@ -579,7 +581,7 @@
       "source": "googleai",
       "sourceName": "Google AI",
       "sourceUrl": "https://ai.google/products/",
-      "updatedAt": "2026-06-22T19:30:59.376Z",
+      "updatedAt": "2026-06-24T17:55:41.082Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -717,11 +719,48 @@
       "source": "aws",
       "sourceName": "AWS",
       "sourceUrl": "https://aws.amazon.com/cn/machine-learning/",
-      "updatedAt": "2026-06-22T19:31:01.638Z",
+      "updatedAt": "2026-06-24T17:55:43.315Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "aws-001",
+          "title": "How Loka Built a Natural, Low-Latency Voice Agent with Amazon Nova 2 Sonic",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-loka-built-a-natural-low-latency-voice-agent-with-amazon-nova-2-sonic/",
+          "thumbnail": "",
+          "summary": "In this post, we demonstrate the architecture and approach Loka used to solve a common frustration: robotic, slow voice assistants that cause customers to hang up, damaging brand reputation and driving up support costs.",
+          "tags": [
+            "Copilot"
+          ],
+          "publishedAt": "2026-06-24T16:56:24.000Z",
+          "publishedAtRelative": "59分钟前"
+        },
+        {
+          "id": "aws-002",
+          "title": "Build a protein research copilot with Amazon Bedrock AgentCore",
+          "url": "https://aws.amazon.com/blogs/machine-learning/build-a-protein-research-copilot-with-amazon-bedrock-agentcore/",
+          "thumbnail": "",
+          "summary": "This post shows you how to build a conversational protein research assistant that combines three capabilities: Natural language query parsing to extract structured search parameters, vector similarity search over protein embeddings using a specialized language model and ai-generated scientific summaries of search results.",
+          "tags": [
+            "AI",
+            "Copilot"
+          ],
+          "publishedAt": "2026-06-23T16:39:34.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "aws-003",
+          "title": "Shared infrastructure, isolated tenants: Pool model multi-tenancy with Amazon Bedrock AgentCore",
+          "url": "https://aws.amazon.com/blogs/machine-learning/shared-infrastructure-isolated-tenants-pool-model-multi-tenancy-with-amazon-bedrock-agentcore/",
+          "thumbnail": "",
+          "summary": "In this post, you will learn patterns for implementing production-ready multi-tenant systems using Amazon Bedrock AgentCore. You will see these patterns demonstrated through healthcare AI agents that serve multiple clinics and hospitals.",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T15:43:59.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "aws-004",
           "title": "Building pay-per-intelligence for AI agents: How Ampersend uses Amazon Bedrock AgentCore Payments",
           "url": "https://aws.amazon.com/blogs/machine-learning/building-pay-per-intelligence-for-ai-agents-how-ampersend-uses-amazon-bedrock-agentcore-payments/",
           "thumbnail": "",
@@ -730,10 +769,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-22T17:53:40.000Z",
-          "publishedAtRelative": "1小时前"
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "aws-002",
+          "id": "aws-005",
           "title": "Embed the world: Multimodal AI for searchable aerial imagery at scale",
           "url": "https://aws.amazon.com/blogs/machine-learning/embed-the-world-multimodal-ai-for-searchable-aerial-imagery-at-scale/",
           "thumbnail": "",
@@ -742,10 +781,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-22T16:32:15.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "aws-003",
+          "id": "aws-006",
           "title": "Running ComfyUI workflows on Amazon SageMaker AI processing jobs",
           "url": "https://aws.amazon.com/blogs/machine-learning/running-comfyui-workflows-on-amazon-sagemaker-ai-processing-jobs/",
           "thumbnail": "",
@@ -754,10 +793,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-22T16:28:46.000Z",
-          "publishedAtRelative": "3小时前"
+          "publishedAtRelative": "2天前"
         },
         {
-          "id": "aws-004",
+          "id": "aws-007",
           "title": "Introducing Web Search on Amazon Bedrock AgentCore",
           "url": "https://aws.amazon.com/blogs/machine-learning/introducing-web-search-on-amazon-bedrock-agentcore/",
           "thumbnail": "",
@@ -766,10 +805,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-19T14:15:24.000Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "5天前"
         },
         {
-          "id": "aws-005",
+          "id": "aws-008",
           "title": "Accelerate campaign workflow with insights from Adobe Marketing Agent for Amazon Quick",
           "url": "https://aws.amazon.com/blogs/machine-learning/accelerate-campaign-workflow-with-insights-from-adobe-marketing-agent-for-amazon-quick/",
           "thumbnail": "",
@@ -778,10 +817,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-19T14:05:04.000Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "5天前"
         },
         {
-          "id": "aws-006",
+          "id": "aws-009",
           "title": "Monitor and debug generative AI inference with SageMaker detailed metrics and Insights dashboard on CloudWatch",
           "url": "https://aws.amazon.com/blogs/machine-learning/monitor-and-debug-generative-ai-inference-with-sagemaker-detailed-metrics-and-insights-dashboard-on-cloudwatch/",
           "thumbnail": "",
@@ -792,10 +831,10 @@
             "生成式"
           ],
           "publishedAt": "2026-06-18T23:31:58.000Z",
-          "publishedAtRelative": "3天前"
+          "publishedAtRelative": "5天前"
         },
         {
-          "id": "aws-007",
+          "id": "aws-010",
           "title": "Amazon Bedrock AgentCore harness is now generally available: Go from idea to production-grade agent in minutes",
           "url": "https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-harness-is-now-generally-available-go-from-idea-to-production-grade-agent-in-minutes/",
           "thumbnail": "",
@@ -806,44 +845,7 @@
             "生成式"
           ],
           "publishedAt": "2026-06-18T17:32:22.000Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "aws-008",
-          "title": "Amazon SageMaker AI Async Inference now supports inline request payloads",
-          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-async-inference-now-supports-inline-request-payloads/",
-          "thumbnail": "",
-          "summary": "Today, we’re announcing inline payload support for Amazon SageMaker AI Async Inference. Customers can now send inference payloads directly in the request body of the InvokeEndpointAsync API, removing the need to upload input data to Amazon Simple Storage Service (Amazon S3) before each invocation.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-06-17T20:56:36.000Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "aws-009",
-          "title": "Get back hours every day with autonomous agents in Amazon Quick",
-          "url": "https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/",
-          "thumbnail": "",
-          "summary": "Today, Quick gets even more powerful: new autonomous agents that work continuously on your behalf, an activity feed that helps you prioritize your most important work, and the ability to find insights across every data source your business runs on from a single question.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-06-17T20:35:39.000Z",
-          "publishedAtRelative": "4天前"
-        },
-        {
-          "id": "aws-010",
-          "title": "Context intelligence for your data and AI agents at scale",
-          "url": "https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale/",
-          "thumbnail": "",
-          "summary": "Agents are only as intelligent as the context they can reason over. Today, that context is scattered across data lakes, data warehouses, lakehouses, databases, and streams, and in institutional knowledge that has never been written down. You want to trust the decisions made by your AI agents, but that can���t happen until agents have context. Imagine what becomes possible when we give agents a safe way to access the context they need to deliver trusted decisions. This is why at the AWS Summit New York City, we’re announcing a series of innovations that deliver intelligence for your data and AI agents at scale.",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-06-17T17:17:37.000Z",
-          "publishedAtRelative": "5天前"
+          "publishedAtRelative": "6天前"
         }
       ]
     },
@@ -851,15 +853,15 @@
       "source": "aibase",
       "sourceName": "AIBase",
       "sourceUrl": "https://www.aibase.com/zh/news",
-      "updatedAt": "2026-06-22T19:31:19.869Z",
+      "updatedAt": "2026-06-24T17:56:22.821Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "aibase-001",
-          "title": "前商汤科技高管创立的流形空间融资近 10 亿元，跃升为世界模型独角兽！",
-          "url": "https://www.aibase.com/news/29065",
+          "title": "豪掷 6 亿港元激励全员：MiniMax 以“真金白银”提振团队信心",
+          "url": "https://www.aibase.com/news/29135",
           "thumbnail": "",
-          "summary": "前商汤科技高管创立的流形空间融资近 10 亿元，跃升为世界模型独角兽！",
+          "summary": "豪掷 6 亿港元激励全员：MiniMax 以“真金白银”提振团队信心",
           "tags": [
             "设计",
             "AI"
@@ -869,34 +871,10 @@
         },
         {
           "id": "aibase-002",
-          "title": "联动全屋五大场景!英特尔携手国内科技巨头，让“AI大脑”住进千家万户",
-          "url": "https://www.aibase.com/news/29064",
+          "title": "即梦AI Seedance2.0VIP上线原生4K，视频生成分辨率实现源头突破",
+          "url": "https://www.aibase.com/news/29133",
           "thumbnail": "",
-          "summary": "联动全屋五大场景!英特尔携手国内科技巨头，让“AI大脑”住进千家万户",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "aibase-003",
-          "title": "拒绝“一问一答”：京东开源实时视频交互模型 JoyAI-VL-Interaction",
-          "url": "https://www.aibase.com/news/29063",
-          "thumbnail": "",
-          "summary": "拒绝“一问一答”：京东开源实时视频交互模型 JoyAI-VL-Interaction",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "aibase-004",
-          "title": "美团破解百万商家的视觉难题 AI 海报生成的“技术闭环”",
-          "url": "https://www.aibase.com/news/29062",
-          "thumbnail": "",
-          "summary": "美团破解百万商家的视觉难题 AI 海报生成的“技术闭环”",
+          "summary": "即梦AI Seedance2.0VIP上线原生4K，视频生成分辨率实现源头突破",
           "tags": [
             "AI",
             "生成式"
@@ -905,24 +883,48 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "aibase-005",
-          "title": "OpenAI拿下史上最大企业订单！三星 12 万员工全面接入ChatGPT",
-          "url": "https://www.aibase.com/news/29061",
+          "id": "aibase-003",
+          "title": "特斯拉车机迎来“智慧大脑”：豆包大模型全面接入，交互体验升级",
+          "url": "https://www.aibase.com/news/29132",
           "thumbnail": "",
-          "summary": "OpenAI拿下史上最大企业订单！三星 12 万员工全面接入ChatGPT",
+          "summary": "特斯拉车机迎来“智慧大脑”：豆包大模型全面接入，交互体验升级",
           "tags": [
-            "AI",
-            "ChatGPT"
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "aibase-004",
+          "title": "Meta监控员工练AI两个月就翻车：4. 5 万张隐私数据表泄露， 1600 人联名喊停",
+          "url": "https://www.aibase.com/news/29131",
+          "thumbnail": "",
+          "summary": "Meta监控员工练AI两个月就翻车：4. 5 万张隐私数据表泄露， 1600 人联名喊停",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "aibase-005",
+          "title": "马斯克官宣\"Starmind\"： 100 万颗卫星上太空，AI算力直接从天上来",
+          "url": "https://www.aibase.com/news/29130",
+          "thumbnail": "",
+          "summary": "马斯克官宣\"Starmind\"： 100 万颗卫星上太空，AI算力直接从天上来",
+          "tags": [
+            "AI"
           ],
           "publishedAt": null,
           "publishedAtRelative": ""
         },
         {
           "id": "aibase-006",
-          "title": "日本豪掷 10 万亿日元押注物理AI， 17 大战略领域圈定未来产业版图",
-          "url": "https://www.aibase.com/news/29059",
+          "title": "马斯克官宣SpaceX太空AI算力项目Starmind 规划100万颗卫星入轨",
+          "url": "https://www.aibase.com/news/29129",
           "thumbnail": "",
-          "summary": "日本豪掷 10 万亿日元押注物理AI， 17 大战略领域圈定未来产业版图",
+          "summary": "马斯克官宣SpaceX太空AI算力项目Starmind 规划100万颗卫星入轨",
           "tags": [
             "AI"
           ],
@@ -931,12 +933,11 @@
         },
         {
           "id": "aibase-007",
-          "title": "资本市场新宠：智谱市值突破万亿，国产大模型迎来高光时刻",
-          "url": "https://www.aibase.com/news/29058",
+          "title": "西湖畔的数字碰撞：全国首个“AI+文旅”城市叙事空间正式亮相",
+          "url": "https://www.aibase.com/news/29128",
           "thumbnail": "",
-          "summary": "资本市场新宠：智谱市值突破万亿，国产大模型迎来高光时刻",
+          "summary": "西湖畔的数字碰撞：全国首个“AI+文旅”城市叙事空间正式亮相",
           "tags": [
-            "设计",
             "AI"
           ],
           "publishedAt": null,
@@ -944,36 +945,35 @@
         },
         {
           "id": "aibase-008",
-          "title": "四台Mac Studio干翻云端集群！苹果联手LM Studio本地跑起万亿参数大模型",
-          "url": "https://www.aibase.com/news/29057",
+          "title": "告别“你问我答”：ChatGPT 语音功能重磅升级，双向实时对话时代开启",
+          "url": "https://www.aibase.com/news/29127",
           "thumbnail": "",
-          "summary": "四台Mac Studio干翻云端集群！苹果联手LM Studio本地跑起万亿参数大模型",
+          "summary": "告别“你问我答”：ChatGPT 语音功能重磅升级，双向实时对话时代开启",
           "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "aibase-009",
-          "title": "OpenAI拿下史上最大订单：三星 12 万员工全面开启AI办公时代",
-          "url": "https://www.aibase.com/news/29056",
-          "thumbnail": "",
-          "summary": "OpenAI拿下史上最大订单：三星 12 万员工全面开启AI办公时代",
-          "tags": [
-            "AI",
             "ChatGPT"
           ],
           "publishedAt": null,
           "publishedAtRelative": ""
         },
         {
-          "id": "aibase-010",
-          "title": "字节豆包灰测网约车服务，AI Agent加速重构服务入口",
-          "url": "https://www.aibase.com/news/29055",
+          "id": "aibase-009",
+          "title": "Anthropic AI模型数小时\"攻破\"美国机密系统，政府反手就把它\"关了禁闭\"",
+          "url": "https://www.aibase.com/news/29126",
           "thumbnail": "",
-          "summary": "字节豆包灰测网约车服务，AI Agent加速重构服务入口",
+          "summary": "Anthropic AI模型数小时\"攻破\"美国机密系统，政府反手就把它\"关了禁闭\"",
+          "tags": [
+            "AI",
+            "Claude"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "aibase-010",
+          "title": "企业微信内测AI Agent“大圆”:打通企微生态，主打办公与客户经营提效",
+          "url": "https://www.aibase.com/news/29125",
+          "thumbnail": "",
+          "summary": "企业微信内测AI Agent“大圆”:打通企微生态，主打办公与客户经营提效",
           "tags": [
             "AI"
           ],
@@ -986,7 +986,7 @@
       "source": "jiqizhixin",
       "sourceName": "机器之心",
       "sourceUrl": "https://www.jiqizhixin.com/",
-      "updatedAt": "2026-06-22T19:31:23.610Z",
+      "updatedAt": "2026-06-24T17:56:26.574Z",
       "updatedAtRelative": "刚刚",
       "items": []
     },
@@ -994,7 +994,7 @@
       "source": "qbitai",
       "sourceName": "量子位",
       "sourceUrl": "https://www.qbitai.com/",
-      "updatedAt": "2026-06-22T19:31:28.249Z",
+      "updatedAt": "2026-06-24T17:56:30.928Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
@@ -1011,35 +1011,10 @@
         },
         {
           "id": "qbitai-002",
-          "title": "阿里发布视频生成模型HappyHorse 1.1：五大维度全面升级",
-          "url": "https://www.qbitai.com/2026/06/437317.html",
+          "title": "百度智能云发布百度千帆Token Plan企业版，提供GLM-5.2等模型",
+          "url": "https://www.qbitai.com/2026/06/438174.html",
           "thumbnail": "",
-          "summary": "量子位",
-          "tags": [
-            "生成式"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "qbitai-003",
-          "title": "AI硬件席卷618，钉钉A1包揽天猫、抖音、京东销量冠军",
-          "url": "https://www.qbitai.com/2026/06/437308.html",
-          "thumbnail": "",
-          "summary": "同时拿下天猫、抖音、京东三大平台 AI 录音设备销量第一\n\n                    \n                    \t\n                         梦晨",
-          "tags": [
-            "AI",
-            "工具"
-          ],
-          "publishedAt": null,
-          "publishedAtRelative": ""
-        },
-        {
-          "id": "qbitai-004",
-          "title": "DeepSeek缺Agent人才缺疯了！负责人各种贴广告",
-          "url": "https://www.qbitai.com/2026/06/437249.html",
-          "thumbnail": "",
-          "summary": "DeepSeek正在全力押注\n\n                    \n                    \t\n                         Jay",
+          "summary": "已率先完成智谱GLM-5.2适配\n\n                    \n                    \t\n                         量子位",
           "tags": [
             "设计",
             "AI"
@@ -1048,23 +1023,48 @@
           "publishedAtRelative": ""
         },
         {
-          "id": "qbitai-005",
-          "title": "入选ECCV 2026！清华开源空间模型打败Gemini：真正的空间智能是在世界变化中持续学习",
-          "url": "https://www.qbitai.com/2026/06/437235.html",
+          "id": "qbitai-003",
+          "title": "1小时真机RL微调成功率破95%！HIL-ResRL：即插即用的VLA“外挂”神器",
+          "url": "https://www.qbitai.com/2026/06/438166.html",
           "thumbnail": "",
-          "summary": "120分钟长视频一边看一边记\n\n                    \n                    \t\n                         邓思邈",
+          "summary": "量子位",
           "tags": [
-            "Gemini"
+            "设计",
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "qbitai-004",
+          "title": "Future Tech谁会成为下一个AI巨头？这175个早期项目站上WAIC2026",
+          "url": "https://www.qbitai.com/2026/06/438157.html",
+          "thumbnail": "",
+          "summary": "报名通道已开启。\n\n                    \n                    \t\n                         量子位",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": null,
+          "publishedAtRelative": ""
+        },
+        {
+          "id": "qbitai-005",
+          "title": "物理AI第一块万亿市场，在公路货运先跑通闭环了",
+          "url": "https://www.qbitai.com/2026/06/437853.html",
+          "thumbnail": "",
+          "summary": "申通安能用真金白银下单\n\n                    \n                    \t\n                         杰西卡",
+          "tags": [
+            "AI"
           ],
           "publishedAt": null,
           "publishedAtRelative": ""
         },
         {
           "id": "qbitai-006",
-          "title": "2026年，1800个DeepSeek跟我一起守护艾泽拉斯",
-          "url": "https://www.qbitai.com/2026/06/437141.html",
+          "title": "华为天才少年一作，港大MaRS Lab拿下IEEE TRO傅京孙纪念最佳论文奖",
+          "url": "https://www.qbitai.com/2026/06/437833.html",
           "thumbnail": "",
-          "summary": "一个月只要340块\n\n                    \n                    \t\n                         henry",
+          "summary": "开源项目GitHub狂揽4.2k Star\n\n                    \n                    \t\n                         邓思邈",
           "tags": [
             "设计",
             "AI"
@@ -1074,10 +1074,10 @@
         },
         {
           "id": "qbitai-007",
-          "title": "英伟达开始搞机器人自己研究机器人那套了…",
-          "url": "https://www.qbitai.com/2026/06/437041.html",
+          "title": "阿里QoderWork推“峰谷Token”，夜间使用Qwen3.7低至2折",
+          "url": "https://www.qbitai.com/2026/06/437834.html",
           "thumbnail": "",
-          "summary": "为了让你烧token，英伟达已经卷到机器人身上了\n\n                    \n                    \t\n                         henry",
+          "summary": "涵盖QoderWork、Qoder Desktop等\n\n                    \n                    \t\n                         量子位",
           "tags": [
             "设计",
             "AI"
@@ -1087,23 +1087,24 @@
         },
         {
           "id": "qbitai-008",
-          "title": "Meta员工士气跌至20年谷底！内部直播当众开骂，CTO承认AI重组糟糕透顶",
-          "url": "https://www.qbitai.com/2026/06/436966.html",
+          "title": "刚刚，Claude Code大升级！卡帕西：LLM第三次变革",
+          "url": "https://www.qbitai.com/2026/06/437734.html",
           "thumbnail": "",
-          "summary": "抢人最猛的Meta，似乎先从内部裂开了\n\n                    \n                    \t\n                         听雨",
+          "summary": "目前A社约65%的产品代码已经由Claude Tag参与完成\n\n                    \n                    \t\n                         henry",
           "tags": [
-            "AI"
+            "Claude"
           ],
           "publishedAt": null,
           "publishedAtRelative": ""
         },
         {
           "id": "qbitai-009",
-          "title": "我把昨晚的梦输入AI，它居然直接把我拉进去玩儿了一把？！",
-          "url": "https://www.qbitai.com/2026/06/436864.html",
+          "title": "周鸿祎ISC宣布打造中国版Mythos，360联手信创巨头发起“磐石之盾”安全协作计划",
+          "url": "https://www.qbitai.com/2026/06/437838.html",
           "thumbnail": "",
-          "summary": "创作者的终极玩具来了\n\n                    \n                    \t\n                         闻乐",
+          "summary": "不能坐等风险爆发\n\n                    \n                    \t\n                         量子位",
           "tags": [
+            "设计",
             "AI"
           ],
           "publishedAt": null,
@@ -1111,13 +1112,12 @@
         },
         {
           "id": "qbitai-010",
-          "title": "GPT发AI原创新成果了",
-          "url": "https://www.qbitai.com/2026/06/436842.html",
+          "title": "2026世界人工智能大会SAIL奖TOP30及青年优秀论文奖TOP20发布",
+          "url": "https://www.qbitai.com/2026/06/437698.html",
           "thumbnail": "",
-          "summary": "AI实现药物全自动研发，还远吗？\n\n                    \n                    \t\n                         衡宇",
+          "summary": "卓越人工智能引领者奖颁布\n\n                    \n                    \t\n                         量子位",
           "tags": [
-            "AI",
-            "ChatGPT"
+            "AI"
           ],
           "publishedAt": null,
           "publishedAtRelative": ""
@@ -1128,131 +1128,132 @@
       "source": "techcrunch",
       "sourceName": "TechCrunch AI",
       "sourceUrl": "https://techcrunch.com/category/artificial-intelligence/",
-      "updatedAt": "2026-06-22T19:31:31.291Z",
+      "updatedAt": "2026-06-24T17:56:36.817Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "techcrunch-001",
-          "title": "Google DeepMind bets $75M on AI’s future in Hollywood with A24 deal",
-          "url": "https://techcrunch.com/2026/06/22/google-deepmind-bets-75m-on-ais-future-in-hollywood-with-a24-deal/",
+          "title": "Facebook rolls out an AI companion app for creators",
+          "url": "https://techcrunch.com/2026/06/24/facebook-rolls-out-an-ai-companion-app-for-creators/",
           "thumbnail": "",
-          "summary": "Google DeepMind bets $75M on AI’s future in Hollywood with A24 deal",
+          "summary": "Facebook rolls out an AI companion app for creators",
           "tags": [
             "AI"
           ],
-          "publishedAt": "2026-06-22T18:49:44.000Z",
-          "publishedAtRelative": "41分钟前"
+          "publishedAt": "2026-06-24T17:16:24.000Z",
+          "publishedAtRelative": "40分钟前"
         },
         {
           "id": "techcrunch-002",
-          "title": "Amazon is testing Alexa+ in India with Hindi support",
-          "url": "https://techcrunch.com/2026/06/22/amazon-is-testing-alexa-in-india-with-hindi-support/",
+          "title": "Agility Robotics plans to go public via SPAC in a $2.5B deal",
+          "url": "https://techcrunch.com/2026/06/24/agility-robotics-plans-to-go-public-via-spac-in-a-2-5b-deal/",
           "thumbnail": "",
-          "summary": "Amazon is testing Alexa+ in India with Hindi support",
+          "summary": "Agility Robotics plans to go public via SPAC in a $2.5B deal",
           "tags": [
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-06-22T17:31:29.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAt": "2026-06-24T16:48:43.000Z",
+          "publishedAtRelative": "1小时前"
         },
         {
           "id": "techcrunch-003",
-          "title": "SpaceX inks compute deal with Reflection AI, an open source AI lab",
-          "url": "https://techcrunch.com/2026/06/22/spacex-inks-compute-deal-with-reflection-ai-an-open-source-ai-lab/",
+          "title": "Figma adds code layers, support for animations, more AI features in new update",
+          "url": "https://techcrunch.com/2026/06/24/figma-adds-code-layers-support-for-animations-more-ai-features-in-new-update/",
           "thumbnail": "",
-          "summary": "SpaceX inks compute deal with Reflection AI, an open source AI lab",
+          "summary": "Figma adds code layers, support for animations, more AI features in new update",
           "tags": [
             "AI"
           ],
-          "publishedAt": "2026-06-22T16:51:29.000Z",
-          "publishedAtRelative": "2小时前"
+          "publishedAt": "2026-06-24T16:15:00.000Z",
+          "publishedAtRelative": "1小时前"
         },
         {
           "id": "techcrunch-004",
-          "title": "The founder conference built for growth: TechCrunch Founder Summit pass rates increase June 26",
-          "url": "https://techcrunch.com/2026/06/22/the-founder-conference-built-for-growth-techcrunch-founder-summit-pass-rates-increase-june-26/",
+          "title": "OpenAI unveils its first custom chip, built by Broadcom",
+          "url": "https://techcrunch.com/2026/06/24/openai-unveils-its-first-custom-chip-built-by-broadcom/",
           "thumbnail": "",
-          "summary": "The founder conference built for growth: TechCrunch Founder Summit pass rates increase June 26",
+          "summary": "OpenAI unveils its first custom chip, built by Broadcom",
+          "tags": [
+            "AI",
+            "ChatGPT"
+          ],
+          "publishedAt": "2026-06-24T14:54:46.000Z",
+          "publishedAtRelative": "3小时前"
+        },
+        {
+          "id": "techcrunch-005",
+          "title": "3 days left to save up to $190 on your TechCrunch Founder Summit 2026 pass",
+          "url": "https://techcrunch.com/2026/06/24/3-days-left-to-save-up-to-190-on-techcrunch-founder-summit-2026/",
+          "thumbnail": "",
+          "summary": "3 days left to save up to $190 on your TechCrunch Founder Summit 2026 pass",
           "tags": [
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-06-22T14:00:00.000Z",
-          "publishedAtRelative": "5小时前"
-        },
-        {
-          "id": "techcrunch-005",
-          "title": "When the Trump administration cracks down on Anthropic, who benefits?",
-          "url": "https://techcrunch.com/2026/06/21/when-the-trump-administration-cracks-down-on-anthropic-who-benefits/",
-          "thumbnail": "",
-          "summary": "When the Trump administration cracks down on Anthropic, who benefits?",
-          "tags": [
-            "Claude"
-          ],
-          "publishedAt": "2026-06-21T15:28:17.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAt": "2026-06-24T14:00:00.000Z",
+          "publishedAtRelative": "3小时前"
         },
         {
           "id": "techcrunch-006",
-          "title": "Beyond Siri: Here are the practical AI features coming to your iPhone in iOS 27",
-          "url": "https://techcrunch.com/2026/06/21/beyond-siri-here-are-the-practical-ai-features-coming-to-your-iphone-in-ios-27/",
+          "title": "India’s MoEngage bets that the future of marketing is millions of AI agents",
+          "url": "https://techcrunch.com/2026/06/23/indias-moengage-bets-marketings-future-on-millions-of-ai-agents/",
           "thumbnail": "",
-          "summary": "Beyond Siri: Here are the practical AI features coming to your iPhone in iOS 27",
+          "summary": "India’s MoEngage bets that the future of marketing is millions of AI agents",
           "tags": [
             "AI"
           ],
-          "publishedAt": "2026-06-21T14:40:28.000Z",
-          "publishedAtRelative": "1天前"
+          "publishedAt": "2026-06-23T23:30:00.000Z",
+          "publishedAtRelative": "18小时前"
         },
         {
           "id": "techcrunch-007",
-          "title": "Signal’s Meredith Whittaker wants you to remember that AI chatbots ‘are not your friends’",
-          "url": "https://techcrunch.com/2026/06/20/signals-meredith-whittaker-wants-you-to-remember-that-ai-chatbots-are-not-your-friends/",
+          "title": "Anthropic’s Claude Tag is learning your company, one Slack message at a time",
+          "url": "https://techcrunch.com/2026/06/23/anthropics-claude-tag-is-learning-your-company-one-slack-message-at-a-time/",
           "thumbnail": "",
-          "summary": "Signal’s Meredith Whittaker wants you to remember that AI chatbots ‘are not your friends’",
+          "summary": "Anthropic’s Claude Tag is learning your company, one Slack message at a time",
           "tags": [
-            "AI"
+            "Claude"
           ],
-          "publishedAt": "2026-06-20T20:32:29.000Z",
+          "publishedAt": "2026-06-23T17:00:00.000Z",
           "publishedAtRelative": "1天前"
         },
         {
           "id": "techcrunch-008",
-          "title": "In the Weights is your new AI-centric vanity search",
-          "url": "https://techcrunch.com/2026/06/20/in-the-weights-is-your-new-ai-centric-vanity-search/",
+          "title": "4 days left to save up to $190 on TechCrunch Founder Summit 2026",
+          "url": "https://techcrunch.com/2026/06/23/4-days-left-to-save-up-to-190-on-techcrunch-founder-summit-2026/",
           "thumbnail": "",
-          "summary": "In the Weights is your new AI-centric vanity search",
-          "tags": [
-            "AI"
-          ],
-          "publishedAt": "2026-06-20T19:41:11.000Z",
-          "publishedAtRelative": "1天前"
-        },
-        {
-          "id": "techcrunch-009",
-          "title": "Nobel laureate John Jumper is leaving DeepMind for rival Anthropic",
-          "url": "https://techcrunch.com/2026/06/20/nobel-laureate-john-jumper-is-leaving-deepmind-for-rival-anthropic/",
-          "thumbnail": "",
-          "summary": "Nobel laureate John Jumper is leaving DeepMind for rival Anthropic",
-          "tags": [
-            "Claude"
-          ],
-          "publishedAt": "2026-06-20T16:39:57.000Z",
-          "publishedAtRelative": "2天前"
-        },
-        {
-          "id": "techcrunch-010",
-          "title": "From PGP to Mythos: a brief history of export controls that didn’t stop anyone",
-          "url": "https://techcrunch.com/2026/06/19/encryption-spyware-and-now-mythos-history-shows-why-cyber-export-control-doesnt-work/",
-          "thumbnail": "",
-          "summary": "From PGP to Mythos: a brief history of export controls that didn’t stop anyone",
+          "summary": "4 days left to save up to $190 on TechCrunch Founder Summit 2026",
           "tags": [
             "设计",
             "AI"
           ],
-          "publishedAt": "2026-06-19T22:40:14.000Z",
-          "publishedAtRelative": "2天前"
+          "publishedAt": "2026-06-23T14:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "techcrunch-009",
+          "title": "Fika Jobs raises $4M to build a video-first hiring platform where AI agents interview candidates",
+          "url": "https://techcrunch.com/2026/06/23/fika-jobs-raises-4m-to-build-a-video-first-hiring-platform-where-ai-agents-interview-candidates/",
+          "thumbnail": "",
+          "summary": "Fika Jobs raises $4M to build a video-first hiring platform where AI agents interview candidates",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T13:00:00.000Z",
+          "publishedAtRelative": "1天前"
+        },
+        {
+          "id": "techcrunch-010",
+          "title": "Kiwibit’s AI-powered bird feeder is my new backyard buddy",
+          "url": "https://techcrunch.com/2026/06/23/kiwibits-ai-powered-bird-feeder-is-my-new-backyard-buddy/",
+          "thumbnail": "",
+          "summary": "Kiwibit’s AI-powered bird feeder is my new backyard buddy",
+          "tags": [
+            "AI"
+          ],
+          "publishedAt": "2026-06-23T12:30:00.000Z",
+          "publishedAtRelative": "1天前"
         }
       ]
     },
@@ -1260,11 +1261,23 @@
       "source": "googledeepmind",
       "sourceName": "Google DeepMind",
       "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/",
-      "updatedAt": "2026-06-22T19:31:33.830Z",
+      "updatedAt": "2026-06-24T17:56:39.323Z",
       "updatedAtRelative": "刚刚",
       "items": [
         {
           "id": "googledeepmind-001",
+          "title": "Introducing computer use in Gemini 3.5 Flash",
+          "url": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
+          "thumbnail": "",
+          "summary": "Introducing computer use in Gemini 3.5 Flash",
+          "tags": [
+            "Gemini"
+          ],
+          "publishedAt": "2026-06-24T16:30:01.000Z",
+          "publishedAtRelative": "1小时前"
+        },
+        {
+          "id": "googledeepmind-002",
           "title": "Unlocking UK house-building with AI-accelerated planning",
           "url": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
           "thumbnail": "",
@@ -1273,10 +1286,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-16T21:29:50.000Z",
-          "publishedAtRelative": "5天前"
+          "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-002",
+          "id": "googledeepmind-003",
           "title": "Securing the future of AI agents",
           "url": "https://deepmind.google/blog/securing-the-future-of-ai-agents/",
           "thumbnail": "",
@@ -1285,10 +1298,10 @@
             "AI"
           ],
           "publishedAt": "2026-06-16T15:46:31.000Z",
-          "publishedAtRelative": "6天前"
+          "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-003",
+          "id": "googledeepmind-004",
           "title": "DiffusionGemma: 4x faster text generation",
           "url": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation/",
           "thumbnail": "",
@@ -1301,7 +1314,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-004",
+          "id": "googledeepmind-005",
           "title": "Investing in multi-agent AI safety research",
           "url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/",
           "thumbnail": "",
@@ -1313,7 +1326,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-005",
+          "id": "googledeepmind-006",
           "title": "Fluid, natural voice translation with Gemini 3.5 Live Translate",
           "url": "https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/",
           "thumbnail": "",
@@ -1326,7 +1339,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-006",
+          "id": "googledeepmind-007",
           "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
           "url": "https://deepmind.google/blog/introducing-gemma-4-12b-a-unified-encoder-free-multimodal-model/",
           "thumbnail": "",
@@ -1339,7 +1352,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-007",
+          "id": "googledeepmind-008",
           "title": "Powering the future of robotics in Europe",
           "url": "https://deepmind.google/blog/powering-the-future-of-robotics-in-europe/",
           "thumbnail": "",
@@ -1352,7 +1365,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-008",
+          "id": "googledeepmind-009",
           "title": "Measuring the impact of learning with AI in Sierra Leone and beyond",
           "url": "https://deepmind.google/blog/measuring-the-impact-of-learning-with-ai-in-sierra-leone-and-beyond/",
           "thumbnail": "",
@@ -1365,7 +1378,7 @@
           "publishedAtRelative": "0个月前"
         },
         {
-          "id": "googledeepmind-009",
+          "id": "googledeepmind-010",
           "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
           "url": "https://deepmind.google/blog/were-launching-the-google-deepmind-accelerator-program-in-asia-pacific-to-tackle-environmental-risks/",
           "thumbnail": "",
@@ -1375,19 +1388,6 @@
             "AI"
           ],
           "publishedAt": "2026-05-21T19:46:42.000Z",
-          "publishedAtRelative": "1个月前"
-        },
-        {
-          "id": "googledeepmind-010",
-          "title": "Fast-tracking genetic leads to reverse cellular aging",
-          "url": "https://deepmind.google/blog/fast-tracking-genetic-leads-to-reverse-cellular-aging/",
-          "thumbnail": "",
-          "summary": "Biologists use Co-Scientist to find novel factors that successfully rejuvenate human cells.",
-          "tags": [
-            "设计",
-            "AI"
-          ],
-          "publishedAt": "2026-05-18T18:21:39.000Z",
           "publishedAtRelative": "1个月前"
         }
       ]
